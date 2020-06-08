@@ -14,10 +14,17 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { Link } from "react-router-dom";
-import Copyright from "../../../../components/Copyright";
 import "./styles.scss";
 
 function RegisterPage(props) {
+    function handleSubmit(e) {
+        e.preventDefault();
+        console.log("data");
+        // todo: get data
+        // todo: call api
+        // todo: notification
+    }
+
     return (
         <Container component="main" maxWidth="xs" className="register">
             <CssBaseline />
@@ -28,7 +35,7 @@ function RegisterPage(props) {
                 <Typography component="h1" variant="h5">
                     Đăng ký tài khoản
                 </Typography>
-                <form className="form" noValidate>
+                <form className="form" noValidate onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
