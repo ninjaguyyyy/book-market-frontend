@@ -26,7 +26,7 @@ function RegisterPage(props) {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign up
+                    Đăng ký tài khoản
                 </Typography>
                 <form className="form" noValidate>
                     <Grid container spacing={2}>
