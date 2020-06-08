@@ -9,11 +9,11 @@ import {
     TextField,
     FormControlLabel,
     Checkbox,
-    Link,
     Grid,
     Box,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { Link } from "react-router-dom";
 
 import Copyright from "../../../../components/Copyright";
 import "./styles.scss";
@@ -72,7 +72,7 @@ function LoginPage(props) {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link to="/user/register" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

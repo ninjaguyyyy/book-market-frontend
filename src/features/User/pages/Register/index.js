@@ -9,12 +9,11 @@ import {
     TextField,
     FormControlLabel,
     Checkbox,
-    Link,
     Grid,
     Box,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-
+import { Link } from "react-router-dom";
 import Copyright from "../../../../components/Copyright";
 import "./styles.scss";
 
@@ -89,7 +88,7 @@ function RegisterPage(props) {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link to="/user/login" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
