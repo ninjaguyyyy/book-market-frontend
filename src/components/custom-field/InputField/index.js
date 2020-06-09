@@ -14,25 +14,36 @@ export default class InputField extends Component {
         label: PropTypes.string,
         placeholder: PropTypes.string,
         disable: PropTypes.bool,
+        category: PropTypes.string,
     };
 
     static defaultProps = {
-        type: "text_sign",
+        category: "text_sign",
+        type: "text",
         label: "",
         placeholder: "",
         disable: false,
     };
 
     render() {
-        const { field, form, type, label, placeholder, disable } = this.props;
+        const {
+            field,
+            form,
+            type,
+            label,
+            placeholder,
+            disable,
+            category,
+        } = this.props;
         const { name, value, onChange, onBlur } = field;
         return (
             <div>
-                {type === "text_sign" && (
+                {category === "text_sign" && (
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
+                        type={type}
                         fullWidth
                         id={name}
                         label={label}

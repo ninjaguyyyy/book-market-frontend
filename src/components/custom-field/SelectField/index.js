@@ -12,7 +12,7 @@ export default class SelectField extends Component {
         field: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired,
 
-        type: PropTypes.string,
+        category: PropTypes.string,
         label: PropTypes.string,
         placeholder: PropTypes.string,
         disabled: PropTypes.bool,
@@ -20,7 +20,7 @@ export default class SelectField extends Component {
     };
 
     static defaultProps = {
-        type: "sign",
+        category: "sign",
         label: "",
         placeholder: "",
         disabled: false,
@@ -31,7 +31,7 @@ export default class SelectField extends Component {
         const {
             field,
             form,
-            type,
+            category,
             label,
             placeholder,
             disable,
@@ -40,11 +40,13 @@ export default class SelectField extends Component {
         const { name, value, onChange, onBlur } = field;
         return (
             <div>
-                {type === "sign" && (
+                {category === "sign" && (
                     <FormControl className="select-field">
-                        <InputLabel id="demo-simple-select-label">
-                            Age
-                        </InputLabel>
+                        {label && (
+                            <InputLabel id="demo-simple-select-label">
+                                {label}
+                            </InputLabel>
+                        )}
                         <Select
                             labelId="demo-simple-select-label"
                             id={name}
