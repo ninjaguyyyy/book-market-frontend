@@ -12,6 +12,7 @@ import {
     Box,
 } from "@material-ui/core";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import * as Yup from "yup";
 
 import InputField from "../../../../components/custom-field/InputField";
 
@@ -23,13 +24,27 @@ class RegisterForm extends React.Component {
             fname: "",
             lname: "",
             type: "",
+            email: "",
+            password: "",
         };
+        this.validationSchema = Yup.object().shape({
+            fname: Yup.string().required("Vui lòng không để trống."),
+            lname: Yup.string().required("Vui lòng không để trống."),
+            email: Yup.string()
+                .email("Không đúng định dạng của email.")
+                .required("Vui lòng không để trống."),
+            password: Yup.string().required("Vui lòng không để trống."),
+        });
     }
     render() {
         const { handleSubmit } = this.props;
 
         return (
-            <Formik initialValues={this.initialValues}>
+            <Formik
+                initialValues={this.initialValues}
+                validationSchema={this.validationSchema}
+                onSubmit={() => console.log("submit")}
+            >
                 {(formikProps) => {
                     // do something
                     const { values, errors, touched } = formikProps;

@@ -36,21 +36,24 @@ export default class InputField extends Component {
             category,
         } = this.props;
         const { name, value, onChange, onBlur } = field;
+        const { errors, touched } = form;
+        const showError = errors[name] && touched[name];
+        console.log(errors[name]);
         return (
             <div>
                 {category === "text_sign" && (
                     <TextField
                         variant="outlined"
                         margin="normal"
-                        required
                         type={type}
                         fullWidth
                         id={name}
                         label={label}
                         autoComplete="email"
-                        autoFocus
                         disabled={disable}
                         {...field}
+                        error={showError}
+                        helperText={showError ? errors[name] : ""}
                     />
                 )}
             </div>
