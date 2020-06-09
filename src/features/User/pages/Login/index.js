@@ -13,7 +13,6 @@ class LoginPage extends React.Component {
     }
     handleSubmit(e) {
         e.preventDefault();
-        console.log("data");
         // todo: get data
         // todo: call api
         // todo: notification

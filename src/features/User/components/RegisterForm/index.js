@@ -15,6 +15,9 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import * as Yup from "yup";
 
 import InputField from "../../../../components/custom-field/InputField";
+import SelectField from "../../../../components/custom-field/SelectField";
+import { TYPE_SIGN } from "../../../../constants/options";
+import "./RegisterForm.scss";
 
 class RegisterForm extends React.Component {
     constructor(props) {
@@ -34,6 +37,7 @@ class RegisterForm extends React.Component {
                 .email("Không đúng định dạng của email.")
                 .required("Vui lòng không để trống."),
             password: Yup.string().required("Vui lòng không để trống."),
+            type: Yup.number().required("Vui lòng không để trống"),
         });
     }
     render() {
@@ -48,11 +52,15 @@ class RegisterForm extends React.Component {
                 {(formikProps) => {
                     // do something
                     const { values, errors, touched } = formikProps;
-                    console.log(values);
                     return (
-                        <Form className="form">
+                        <Form className="form register-form">
                             <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    className="form-control"
+                                >
                                     <FastField
                                         category="text_sign"
                                         name="fname"
@@ -61,7 +69,12 @@ class RegisterForm extends React.Component {
                                         type="text"
                                     />
                                 </Grid>
-                                <Grid item xs={12} sm={6}>
+                                <Grid
+                                    item
+                                    xs={12}
+                                    sm={6}
+                                    className="form-control"
+                                >
                                     <FastField
                                         category="text_sign"
                                         name="lname"
@@ -70,7 +83,7 @@ class RegisterForm extends React.Component {
                                         type="text"
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} className="form-control">
                                     <FastField
                                         category="text_sign"
                                         name="email"
@@ -79,7 +92,7 @@ class RegisterForm extends React.Component {
                                         type="email"
                                     />
                                 </Grid>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} className="form-control">
                                     <FastField
                                         category="text_sign"
                                         name="password"
@@ -89,15 +102,28 @@ class RegisterForm extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className="submit"
-                            >
-                                Xác nhận
-                            </Button>
+                            <Grid container className="wrapper-submit">
+                                <Grid item xs>
+                                    <FastField
+                                        name="type"
+                                        component={SelectField}
+                                        label="Phân hệ"
+                                        category="sign"
+                                        options={TYPE_SIGN}
+                                    />
+                                </Grid>
+                                <Grid item xs>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        color="primary"
+                                        className="submit"
+                                    >
+                                        Xác nhận
+                                    </Button>
+                                </Grid>
+                            </Grid>
                             <Grid container justify="flex-end">
                                 <Grid item>
                                     <Link

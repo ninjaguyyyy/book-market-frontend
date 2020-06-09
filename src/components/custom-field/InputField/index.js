@@ -38,7 +38,6 @@ export default class InputField extends Component {
         const { name, value, onChange, onBlur } = field;
         const { errors, touched } = form;
         const showError = errors[name] && touched[name];
-        console.log(errors[name]);
         return (
             <div>
                 {category === "text_sign" && (

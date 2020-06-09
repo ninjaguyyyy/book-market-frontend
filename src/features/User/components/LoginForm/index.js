@@ -31,7 +31,6 @@ export default class LoginForm extends Component {
                 {(formikProps) => {
                     // do something
                     const { values, errors, touched } = formikProps;
-                    console.log(values);
                     return (
                         <Form className="form login-form">
                             <FastField
@@ -54,7 +53,6 @@ export default class LoginForm extends Component {
                                         name="type"
                                         component={SelectField}
                                         label="Phân hệ"
-                                        placeholder="Email"
                                         category="sign"
                                         options={TYPE_SIGN}
                                     />

@@ -6,7 +6,6 @@ import RegisterPage from './pages/Register'
 
 function User(props) {
     const match = useRouteMatch();
-    console.log(match)
     return (
         <Switch>
             <Route exact path={`${match.url}/login`} component={LoginPage} />
