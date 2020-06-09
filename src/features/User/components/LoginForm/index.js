@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import { Button, TextField, Grid } from "@material-ui/core";
 import { Formik, Form, FastField } from "formik";
 
-import InputFieldSign from "../../../../components/custom-field/Sign/InputField";
+import InputField from "../../../../components/custom-field/InputField";
+import SelectField from "../../../../components/custom-field/SelectField";
+import { TYPE_SIGN } from "../../../../constants/options";
 
 export default class LoginForm extends Component {
     static propTypes = {
@@ -15,6 +17,7 @@ export default class LoginForm extends Component {
         super(props);
         this.initialValues = {
             email: "",
+            type: "",
         };
     }
 
@@ -29,9 +32,18 @@ export default class LoginForm extends Component {
                         <Form className="form">
                             <FastField
                                 name="email"
-                                component={InputFieldSign}
+                                component={InputField}
                                 label="Địa chỉ email"
                                 placeholder="Email"
+                                type="text_sign"
+                            />
+                            <FastField
+                                name="type"
+                                component={SelectField}
+                                label="Phân hệ"
+                                placeholder="Email"
+                                type="sign"
+                                options={TYPE_SIGN}
                             />
                             <TextField
                                 variant="outlined"

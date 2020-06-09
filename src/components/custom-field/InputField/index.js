@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, TextField, Grid } from "@material-ui/core";
 
-export default class InputFieldSign extends Component {
+export default class InputField extends Component {
     constructor(props) {
         super(props);
     }
@@ -17,7 +17,7 @@ export default class InputFieldSign extends Component {
     };
 
     static defaultProps = {
-        type: "text",
+        type: "text_sign",
         label: "",
         placeholder: "",
         disable: false,
@@ -28,7 +28,7 @@ export default class InputFieldSign extends Component {
         const { name, value, onChange, onBlur } = field;
         return (
             <div>
-                {type === "text" && (
+                {type === "text_sign" && (
                     <TextField
                         variant="outlined"
                         margin="normal"
