@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import { Button, TextField, Grid } from "@material-ui/core";
 import { Formik, Form, FastField } from "formik";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
@@ -23,11 +24,22 @@ export default class LoginForm extends Component {
             password: "",
             type: "",
         };
+        this.validationSchema = Yup.object().shape({
+            email: Yup.string()
+                .email("Không đúng định dạng của email.")
+                .required("Vui lòng không để trống."),
+            password: Yup.string().required("Vui lòng không để trống."),
+            type: Yup.number().required("Vui lòng không để trống"),
+        });
     }
 
     render() {
         return (
-            <Formik initialValues={this.initialValues}>
+            <Formik
+                initialValues={this.initialValues}
+                validationSchema={this.validationSchema}
+                onSubmit={() => console.log("data")}
+            >
                 {(formikProps) => {
                     // do something
                     const { values, errors, touched } = formikProps;
