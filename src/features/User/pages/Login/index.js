@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Avatar, Container, CssBaseline, Typography } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 import LoginForm from "../../components/LoginForm";
+import { loginUser } from "../../../../actions/login_register";
 import "./styles.scss";
 
 class LoginPage extends React.Component {
@@ -11,11 +13,9 @@ class LoginPage extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleSubmit(e) {
-        e.preventDefault();
-        // todo: get data
-        // todo: call api
-        // todo: notification
+    async handleSubmit(values) {
+        const action = await loginUser(values);
+        this.props.dispatch(action);
     }
     render() {
         return (
@@ -28,7 +28,7 @@ class LoginPage extends React.Component {
                     <Typography component="h1" variant="h5">
                         Đăng nhập
                     </Typography>
-                    <LoginForm />
+                    <LoginForm handleSubmit={this.handleSubmit} />
                 </div>
             </Container>
         );
@@ -37,4 +37,4 @@ class LoginPage extends React.Component {
 
 LoginPage.propTypes = {};
 
-export default LoginPage;
+export default connect(null, null)(LoginPage);
