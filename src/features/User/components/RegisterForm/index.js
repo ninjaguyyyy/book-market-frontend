@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { render } from "@testing-library/react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Formik, Form, FastField } from "formik";
+import ErrorIcon from "@material-ui/icons/Error";
 import {
     Button,
     TextField,
@@ -24,30 +25,32 @@ class RegisterForm extends React.Component {
         super(props);
         this.state = {};
         this.initialValues = {
-            fname: "",
-            lname: "",
-            type: "",
-            email: "",
+            username: "",
             password: "",
+            email: "",
+            address: "",
+            phone: "",
+            type: 1,
         };
         this.validationSchema = Yup.object().shape({
-            fname: Yup.string().required("Vui lòng không để trống."),
-            lname: Yup.string().required("Vui lòng không để trống."),
+            username: Yup.string().required("Vui lòng không để trống."),
+            password: Yup.string().required("Vui lòng không để trống."),
             email: Yup.string()
                 .email("Không đúng định dạng của email.")
                 .required("Vui lòng không để trống."),
-            password: Yup.string().required("Vui lòng không để trống."),
+            address: Yup.string().required("Vui lòng không để trống."),
+            phone: Yup.number().required("Vui lòng không để trống."),
             type: Yup.number().required("Vui lòng không để trống"),
         });
     }
     render() {
         const { handleSubmit } = this.props;
-
+        console.log(this.props);
         return (
             <Formik
                 initialValues={this.initialValues}
                 validationSchema={this.validationSchema}
-                onSubmit={() => console.log("submit")}
+                onSubmit={handleSubmit}
             >
                 {(formikProps) => {
                     // do something
@@ -63,9 +66,9 @@ class RegisterForm extends React.Component {
                                 >
                                     <FastField
                                         category="text_sign"
-                                        name="fname"
+                                        name="username"
                                         component={InputField}
-                                        label="Họ"
+                                        label="Tên đăng nhập"
                                         type="text"
                                     />
                                 </Grid>
@@ -77,10 +80,10 @@ class RegisterForm extends React.Component {
                                 >
                                     <FastField
                                         category="text_sign"
-                                        name="lname"
+                                        name="password"
                                         component={InputField}
-                                        label="Tên"
-                                        type="text"
+                                        label="Mật khẩu"
+                                        type="password"
                                     />
                                 </Grid>
                                 <Grid item xs={12} className="form-control">
@@ -95,10 +98,19 @@ class RegisterForm extends React.Component {
                                 <Grid item xs={12} className="form-control">
                                     <FastField
                                         category="text_sign"
-                                        name="password"
+                                        name="address"
                                         component={InputField}
-                                        label="Mật khẩu"
-                                        type="password"
+                                        label="Địa chỉ"
+                                        type="text"
+                                    />
+                                </Grid>
+                                <Grid item xs={12} className="form-control">
+                                    <FastField
+                                        category="text_sign"
+                                        name="phone"
+                                        component={InputField}
+                                        label="Số điện thoại"
+                                        type="number"
                                     />
                                 </Grid>
                             </Grid>
@@ -124,7 +136,22 @@ class RegisterForm extends React.Component {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid container justify="flex-end">
+                            <Grid
+                                container
+                                justify={
+                                    this.props.success === false
+                                        ? "space-between"
+                                        : "flex-end"
+                                }
+                            >
+                                {this.props.success === false && (
+                                    <Grid item className="err-wrapper">
+                                        <ErrorIcon />{" "}
+                                        <span className="err-msg">
+                                            {this.props.msg}
+                                        </span>
+                                    </Grid>
+                                )}
                                 <Grid item>
                                     <Link
                                         to="/user/login"
@@ -146,5 +173,9 @@ class RegisterForm extends React.Component {
 RegisterForm.propTypes = {
     handleSubmit: PropTypes.func,
 };
-
-export default RegisterForm;
+const mapStateToProps = (state) => {
+    return {
+        ...state.login_register.register,
+    };
+};
+export default connect(mapStateToProps)(RegisterForm);
