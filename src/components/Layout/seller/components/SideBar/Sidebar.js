@@ -14,7 +14,6 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 
 import Profile from "./components/Profile/Profile";
 import SidebarNav from "./components/SidebarNav/SidebarNav";
-import 
 
 const useStyles = makeStyles((theme) => ({
     drawer: {
@@ -90,12 +89,12 @@ const Sidebar = (props) => {
     return (
         <Drawer
             anchor="left"
-            classes="drawer"
+            classes={{ paper: classes.drawer }}
             onClose={onClose}
             open={open}
             variant={variant}
         >
-            <div {...rest} className={clsx("root", className)}>
+            <div {...rest} className={clsx(classes.root, className)}>
                 <Profile />
                 <Divider className={classes.divider} />
                 <SidebarNav className={classes.nav} pages={pages} />

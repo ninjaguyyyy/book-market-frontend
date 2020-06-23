@@ -7,20 +7,33 @@ import { AppBar, Toolbar, Badge, Hidden, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
-import "./Topbar.scss";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        boxShadow: "none",
+    },
+    flexGrow: {
+        flexGrow: 1,
+    },
+    signOutButton: {
+        marginLeft: theme.spacing(1),
+    },
+}));
 
 const Topbar = (props) => {
     const { className, onSidebarOpen, ...rest } = props;
 
+    const classes = useStyles();
+
     const [notifications] = useState([]);
 
     return (
-        <AppBar {...rest} className={clsx("roor", className)}>
+        <AppBar {...rest} className={clsx(classes.root, className)}>
             <Toolbar>
                 <RouterLink to="/">
                     <img alt="Logo" src="/images/logos/logo--white.svg" />
                 </RouterLink>
-                <div className="flexGrow" />
+                <div className={classes.flexGrow} />
                 <Hidden mdDown>
                     <IconButton color="inherit">
                         <Badge
@@ -31,7 +44,10 @@ const Topbar = (props) => {
                             <NotificationsIcon />
                         </Badge>
                     </IconButton>
-                    <IconButton className="signOutButton" color="inherit">
+                    <IconButton
+                        className={classes.signOutButton}
+                        color="inherit"
+                    >
                         <InputIcon />
                     </IconButton>
                 </Hidden>
