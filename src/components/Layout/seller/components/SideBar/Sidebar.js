@@ -11,6 +11,8 @@ import ImageIcon from "@material-ui/icons/Image";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import SettingsIcon from "@material-ui/icons/Settings";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 import Profile from "./components/Profile/Profile";
 import SidebarNav from "./components/SidebarNav/SidebarNav";
@@ -45,43 +47,23 @@ const Sidebar = (props) => {
 
     const pages = [
         {
-            title: "Dashboard",
-            href: "/dashboard",
-            icon: <DashboardIcon />,
-        },
-        {
-            title: "Orders",
-            href: "/seller/orders",
-            icon: <PeopleIcon />,
-        },
-        {
-            title: "Products",
-            href: "/products",
-            icon: <ShoppingBasketIcon />,
-        },
-        {
-            title: "Authentication",
-            href: "/sign-in",
-            icon: <LockOpenIcon />,
-        },
-        {
-            title: "Typography",
-            href: "/typography",
-            icon: <TextFieldsIcon />,
-        },
-        {
-            title: "Icons",
-            href: "/icons",
-            icon: <ImageIcon />,
-        },
-        {
-            title: "Account",
+            title: "Tài khoản",
             href: "/seller/account",
             icon: <AccountBoxIcon />,
         },
         {
-            title: "Settings",
-            href: "/settings",
+            title: "Đơn hàng",
+            href: "/seller/orders",
+            icon: <ShoppingCartIcon />,
+        },
+        {
+            title: "Sách của tôi",
+            href: "/seller/books",
+            icon: <MenuBookIcon />,
+        },
+        {
+            title: "Cài đặt",
+            href: "/seller/setting",
             icon: <SettingsIcon />,
         },
     ];
