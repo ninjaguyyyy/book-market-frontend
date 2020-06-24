@@ -14,6 +14,7 @@ import {
     TextField,
 } from "@material-ui/core";
 
+import DraggableUploader from "../../../../../../components/imageUploader/DraggableUploader";
 import "./BooksToolbar.scss";
 // import { SearchInput } from "components";
 
@@ -170,6 +171,28 @@ const ProductsToolbar = (props) => {
                                     value={values.country}
                                     variant="outlined"
                                 />
+                            </Grid>
+                            <Grid
+                                item
+                                md={12}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <DraggableUploader title="Chọn ảnh bìa" />
+                            </Grid>
+                            <Grid
+                                item
+                                md={12}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <DraggableUploader title="Chọn ảnh chụp sách" />
                             </Grid>
                         </Grid>
                     </CardContent>
