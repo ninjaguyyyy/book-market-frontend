@@ -15,6 +15,7 @@ export default class InputField extends Component {
         placeholder: PropTypes.string,
         disable: PropTypes.bool,
         category: PropTypes.string,
+        row: PropTypes.number,
     };
 
     static defaultProps = {
@@ -34,6 +35,7 @@ export default class InputField extends Component {
             placeholder,
             disable,
             category,
+            row,
         } = this.props;
         const { name, value, onChange, onBlur } = field;
         const { errors, touched } = form;
@@ -48,8 +50,35 @@ export default class InputField extends Component {
                         fullWidth
                         id={name}
                         label={label}
-                        autoComplete="email"
                         disabled={disable}
+                        {...field}
+                        error={showError}
+                        helperText={showError ? errors[name] : ""}
+                    />
+                )}
+                {category === "text_thin" && (
+                    <TextField
+                        id={name}
+                        type={type}
+                        fullWidth
+                        label={label}
+                        margin="dense"
+                        disabled={disable}
+                        variant="outlined"
+                        {...field}
+                        error={showError}
+                        helperText={showError ? errors[name] : ""}
+                    />
+                )}
+                {category === "multiple" && (
+                    <TextField
+                        id="outlined-multiline-static"
+                        label={label}
+                        multiline
+                        rows={row}
+                        fullWidth
+                        id={name}
+                        variant="outlined"
                         {...field}
                         error={showError}
                         helperText={showError ? errors[name] : ""}
