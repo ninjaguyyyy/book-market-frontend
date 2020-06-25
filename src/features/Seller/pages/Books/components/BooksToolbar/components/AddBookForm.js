@@ -7,6 +7,7 @@ import { Grid, TextField } from "@material-ui/core";
 import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
 import InputField from "../../../../../../../components/custom-field/InputField";
 import SelectField from "../../../../../../../components/custom-field/SelectField";
+import { TYPE_BOOK } from "../../../../../../../constants/options";
 
 export default class AddBookForm extends Component {
     static propTypes = {
@@ -60,46 +61,31 @@ export default class AddBookForm extends Component {
                                 </Grid>
                                 <Grid item md={6}>
                                     <Grid item md={12} xs={12}>
-                                        <TextField
-                                            fullWidth
-                                            label="Email Address"
-                                            margin="dense"
-                                            name="email"
-                                            required
-                                            variant="outlined"
-                                        />
-                                    </Grid>
-                                    <Grid item md={12} xs={12}>
-                                        <TextField
-                                            fullWidth
-                                            label="Phone Number"
-                                            margin="dense"
-                                            name="phone"
+                                        <FastField
+                                            category="text_thin"
+                                            name="quantity"
+                                            component={InputField}
+                                            label="Số lượng bán *"
                                             type="number"
-                                            variant="outlined"
                                         />
                                     </Grid>
                                     <Grid item md={12} xs={12}>
-                                        <TextField
-                                            fullWidth
-                                            label="Select State"
-                                            margin="dense"
-                                            name="state"
-                                            required
-                                            select
-                                            // eslint-disable-next-line react/jsx-sort-props
-                                            SelectProps={{ native: true }}
-                                            variant="outlined"
-                                        >
-                                            {/* {this.states.map((option) => (
-                                            <option
-                                                key={option.value}
-                                                value={option.value}
-                                            >
-                                                {option.label}
-                                            </option>
-                                        ))} */}
-                                        </TextField>
+                                        <FastField
+                                            category="text_thin"
+                                            name="price"
+                                            component={InputField}
+                                            label="Giá bán *"
+                                            type="number"
+                                        />
+                                    </Grid>
+                                    <Grid item md={12} xs={12}>
+                                        <FastField
+                                            category="category_book"
+                                            name="category"
+                                            component={SelectField}
+                                            label="Loại sách"
+                                            options={TYPE_BOOK}
+                                        />
                                     </Grid>
                                 </Grid>
                                 <Grid item md={6} style={{ marginTop: "8px" }}>
