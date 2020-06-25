@@ -6,6 +6,7 @@ import {
     Select,
     MenuItem,
     FormHelperText,
+    TextField,
 } from "@material-ui/core";
 
 import "./SelectField.scss";
@@ -68,6 +69,24 @@ export default class SelectField extends Component {
                         </Select>
                         <FormHelperText>{errors[name]}</FormHelperText>
                     </FormControl>
+                )}
+                {category === "category_book" && (
+                    <TextField
+                        fullWidth
+                        label={label}
+                        margin="dense"
+                        id={name}
+                        select
+                        // eslint-disable-next-line react/jsx-sort-props
+                        SelectProps={{ native: true }}
+                        variant="outlined"
+                    >
+                        {options.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.name}
+                            </option>
+                        ))}
+                    </TextField>
                 )}
             </div>
         );
