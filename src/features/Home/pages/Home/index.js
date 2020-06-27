@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Container, Row, Col } from "reactstrap";
-import { Grid } from "@material-ui/core";
 
 import BookCard from "../../../../components/BookCard/BookCard.js";
 
