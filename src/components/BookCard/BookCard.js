@@ -39,10 +39,12 @@ export default class BookCard extends Component {
 
                 <CardContent className="content">
                     <div className="author">
-                        <Link>Nguyễn Nhật Ánh</Link>
+                        <Link to="/shop">Nguyễn Nhật Ánh</Link>
                     </div>
                     <div className="title">
-                        <Link>Tôi thấy hoa vàng trên cỏ xanh</Link>
+                        <Link to="/shop/detail">
+                            Tôi thấy hoa vàng trên cỏ xanh
+                        </Link>
                     </div>
                     <div className="price">
                         <img
