@@ -4,6 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 
 import Slider from "./components/Slider/Slider";
 import PayCard from "./components/PayCard/PayCard";
+import MainInfo from "./components/MainInfo/MainInfo";
 
 export default class ShopDetail extends Component {
     // static propTypes = {
@@ -19,7 +20,9 @@ export default class ShopDetail extends Component {
                             <Col xs={6}>
                                 <Slider />
                             </Col>
-                            <Col xs={6}>thong tin</Col>
+                            <Col xs={6}>
+                                <MainInfo />
+                            </Col>
                         </Row>
                     </Col>
                     <Col xs={4}>
