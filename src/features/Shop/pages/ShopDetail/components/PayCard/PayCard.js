@@ -12,11 +12,40 @@ import { Button } from "reactstrap";
 import "./PayCard.scss";
 
 export default class PayCard extends Component {
-    // static propTypes = {
-    //     prop: PropTypes,
-    // };
+    static propTypes = {
+        availableQuantity: PropTypes.number,
+        price: PropTypes.number,
+    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            quantity: 1,
+        };
+        this.handleAdd = this.handleAdd.bind(this);
+        this.handleSub = this.handleSub.bind(this);
+        this.handleAddToCart = this.handleAddToCart.bind(this);
+    }
+
+    handleSub() {
+        this.setState((state, props) => ({
+            quantity: state.quantity - 1 < 1 ? 1 : state.quantity - 1,
+        }));
+    }
+    handleAdd() {
+        this.setState((state, props) => ({
+            quantity:
+                state.quantity + 1 > props.availableQuantity
+                    ? props.availableQuantity
+                    : state.quantity + 1,
+        }));
+    }
+    handleAddToCart() {
+        console.log(this.state.quantity);
+    }
 
     render() {
+        const { quantity } = this.state;
+        const { availableQuantity, price } = this.props;
         return (
             <Card className="PayCard">
                 <CardContent className="content">
@@ -25,19 +54,25 @@ export default class PayCard extends Component {
                         color="textSecondary"
                         gutterBottom
                     >
-                        Số lượng còn lại: 10
+                        Số lượng còn lại: {availableQuantity}
                     </Typography>
                     <Divider />
                     <div className="action">
-                        <h5 className="priceLabel">Giá bán: 100.000 vnđ</h5>
+                        <h5 className="priceLabel">Giá bán: {price}.000 vnđ</h5>
                         <div className="wrapper">
                             <p>Số lượng mua: </p>
                             <div className="actionQuantity">
-                                <div className="btn_cal">
+                                <div
+                                    className="btn_cal"
+                                    onClick={this.handleSub}
+                                >
                                     <RemoveCircleIcon />
                                 </div>
-                                <div className="quantity">2</div>
-                                <div className="btn_cal">
+                                <div className="quantity">{quantity}</div>
+                                <div
+                                    className="btn_cal"
+                                    onClick={this.handleAdd}
+                                >
                                     <AddCircleIcon />
                                 </div>
                             </div>
@@ -46,7 +81,11 @@ export default class PayCard extends Component {
 
                     <Divider />
                     <div className="cart">
-                        <Button outline color="primary">
+                        <Button
+                            outline
+                            color="primary"
+                            onClick={this.handleAddToCart}
+                        >
                             Thêm vào giỏ hàng
                         </Button>
                     </div>

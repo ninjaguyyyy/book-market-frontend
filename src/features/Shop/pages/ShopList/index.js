@@ -14,7 +14,7 @@ export default class ShopList extends Component {
 
     render() {
         return (
-            <Container className="container-fluid ShopList">
+            <Container className=" ShopList" fluid={true}>
                 <Row>
                     <Col xs={9}>
                         <Row>

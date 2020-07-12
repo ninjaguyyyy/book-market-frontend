@@ -20,7 +20,6 @@ class LoginPage extends React.Component {
     render() {
         return (
             <Container component="main" maxWidth="xs" className="login">
-                <CssBaseline />
                 <div className="paper">
                     <Avatar className="avatar">
                         <LockOutlinedIcon />

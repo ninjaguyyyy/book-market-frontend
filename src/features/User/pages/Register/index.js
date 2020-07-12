@@ -19,7 +19,6 @@ class RegisterPage extends React.Component {
     render() {
         return (
             <Container component="main" maxWidth="xs" className="register">
-                <CssBaseline />
                 <div className="paper">
                     <Avatar className="avatar">
                         <LockOutlinedIcon />

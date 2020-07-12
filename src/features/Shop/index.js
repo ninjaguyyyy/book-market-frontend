@@ -4,6 +4,7 @@ import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import ShopList from "./pages/ShopList";
 import ShopDetail from "./pages/ShopDetail";
 import GuestLayout from "../../components/Layout/guest/GuestLayout.js";
+import "./index.scss";
 
 function Shop(props) {
     const match = useRouteMatch();

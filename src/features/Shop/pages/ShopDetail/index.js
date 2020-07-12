@@ -5,6 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import Slider from "./components/Slider/Slider";
 import PayCard from "./components/PayCard/PayCard";
 import MainInfo from "./components/MainInfo/MainInfo";
+import "./index.scss";
 
 export default class ShopDetail extends Component {
     // static propTypes = {
@@ -13,7 +14,7 @@ export default class ShopDetail extends Component {
 
     render() {
         return (
-            <Container className="container-fluid ShopList">
+            <Container className="container-fluid ShopDetail">
                 <Row>
                     <Col xs={8}>
                         <Row>
@@ -26,7 +27,7 @@ export default class ShopDetail extends Component {
                         </Row>
                     </Col>
                     <Col xs={4}>
-                        <PayCard />
+                        <PayCard availableQuantity={12} price={101} />
                     </Col>
                 </Row>
             </Container>

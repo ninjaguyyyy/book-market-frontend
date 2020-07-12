@@ -16,6 +16,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Link, Redirect } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import LogoImg from "../../../../../assets/images/bookstor_compact.webp";
 
 import "./Header.scss";
 
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        // marginRight: theme.spacing(2),
     },
     title: {
         display: "none",
@@ -194,7 +195,9 @@ export default function PrimarySearchAppBar() {
                             variant="h6"
                             noWrap
                         >
-                            Material-UI
+                            <Link to="/" className="item">
+                                <img src={LogoImg} width={100} alt="logo" />
+                            </Link>
                         </Typography>
                         <div className="nav-list">
                             <Link to="/" className="item">
