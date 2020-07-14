@@ -3,6 +3,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../../../../actions/login_register";
+import userApi from "../../../../api/userApi";
 import LoginForm from "../../components/LoginForm";
 import "./styles.scss";
 
@@ -11,9 +12,16 @@ class LoginPage extends React.Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    async handleSubmit(values) {
-        const action = await loginUser(values);
-        this.props.dispatch(action);
+    handleSubmit(values) {
+        (async () => {
+            try {
+                const response = await userApi.login(values);
+                let action = await loginUser(response);
+                this.props.dispatch(action);
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
     }
     render() {
         return (
