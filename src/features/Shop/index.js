@@ -1,10 +1,9 @@
 import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
-
-import ShopList from "./pages/ShopList";
-import ShopDetail from "./pages/ShopDetail";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
 import GuestLayout from "../../components/Layout/guest/GuestLayout.js";
 import "./index.scss";
+import ShopDetail from "./pages/ShopDetail";
+import ShopList from "./pages/ShopList";
 
 function Shop(props) {
     const match = useRouteMatch();

@@ -1,23 +1,19 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import { withStyles } from "@material-ui/styles";
 import {
     Button,
-    Modal,
     Card,
-    CardHeader,
-    CardContent,
     CardActions,
+    CardContent,
+    CardHeader,
     Divider,
-    Grid,
-    TextField,
+    Modal,
 } from "@material-ui/core";
-
-import DraggableUploader from "../../../../../../components/imageUploader/DraggableUploader";
-import AddBookForm from "./components/AddBookForm";
+import { withStyles } from "@material-ui/styles";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import React from "react";
 import "./BooksToolbar.scss";
-import { extend } from "lodash";
+import AddBookForm from "./components/AddBookForm";
+
 // import { SearchInput } from "components";
 
 const useStyles = (theme) => ({

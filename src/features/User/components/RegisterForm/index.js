@@ -1,21 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { Formik, Form, FastField } from "formik";
+import { Button, Grid } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
-import {
-    Button,
-    TextField,
-    FormControlLabel,
-    Checkbox,
-    Grid,
-    Box,
-} from "@material-ui/core";
-import { Container, Row, Col } from "reactstrap";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { FastField, Form, Formik } from "formik";
+import PropTypes from "prop-types";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
 import * as Yup from "yup";
-
 import InputField from "../../../../components/custom-field/InputField";
 import SelectField from "../../../../components/custom-field/SelectField";
 import { TYPE_SIGN } from "../../../../constants/options";
@@ -31,7 +23,7 @@ class RegisterForm extends React.Component {
             email: "",
             address: "",
             phone: "",
-            type: 1,
+            role: 1,
         };
         this.validationSchema = Yup.object().shape({
             username: Yup.string().required("Vui lòng không để trống."),
@@ -41,12 +33,11 @@ class RegisterForm extends React.Component {
                 .required("Vui lòng không để trống."),
             address: Yup.string().required("Vui lòng không để trống."),
             phone: Yup.number().required("Vui lòng không để trống."),
-            type: Yup.number().required("Vui lòng không để trống"),
+            role: Yup.number().required("Vui lòng không để trống"),
         });
     }
     render() {
         const { handleSubmit } = this.props;
-        console.log(this.props);
         return (
             <Formik
                 initialValues={this.initialValues}
@@ -55,7 +46,6 @@ class RegisterForm extends React.Component {
             >
                 {(formikProps) => {
                     // do something
-                    const { values, errors, touched } = formikProps;
                     return (
                         <Form className="form register-form">
                             <Container>
@@ -115,7 +105,7 @@ class RegisterForm extends React.Component {
                                 <Row>
                                     <Col xs={6}>
                                         <FastField
-                                            name="type"
+                                            name="role"
                                             component={SelectField}
                                             label="Phân hệ"
                                             category="sign"

@@ -1,10 +1,9 @@
-import React, { Suspense } from "react";
-import logo from "../logo.svg";
-import "./App.scss";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
-
+import React, { Suspense } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import theme from "../theme";
+import "./App.scss";
+
 const User = React.lazy(() => import("../features/User"));
 const Seller = React.lazy(() => import("../features/Seller"));
 const Shop = React.lazy(() => import("../features/Shop"));

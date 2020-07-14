@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Container, Row, Col } from "reactstrap";
-
-import Slider from "./components/Slider/Slider";
-import PayCard from "./components/PayCard/PayCard";
+import { Col, Container, Row } from "reactstrap";
 import MainInfo from "./components/MainInfo/MainInfo";
+import PayCard from "./components/PayCard/PayCard";
+import Slider from "./components/Slider/Slider";
 import "./index.scss";
 
 export default class ShopDetail extends Component {

@@ -1,22 +1,15 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormControl from "@material-ui/core/FormControl";
-
+import Typography from "@material-ui/core/Typography";
+import React, { Component } from "react";
 import "./CardFilterCategory.scss";
 
 export default class CardFilterCategory extends Component {
-    static propTypes = {
-        prop: PropTypes,
-    };
-
     constructor(props) {
         super(props);
         this.state = {

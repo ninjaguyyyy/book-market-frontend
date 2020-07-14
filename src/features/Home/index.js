@@ -1,7 +1,5 @@
 import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
-
-import HomePage from "./pages/Home";
+import { Redirect, Switch, useRouteMatch } from "react-router-dom";
 import GuestLayout from "../../components/Layout/guest/GuestLayout.js";
 
 function Home(props) {

@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import * as Yup from "yup";
-import { connect } from "react-redux";
-import { Button, TextField, Grid } from "@material-ui/core";
-import { Formik, Form, FastField } from "formik";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { Button, Grid } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { FastField, Form, Formik } from "formik";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import InputField from "../../../../components/custom-field/InputField";
 import SelectField from "../../../../components/custom-field/SelectField";
 import { TYPE_SIGN } from "../../../../constants/options";
@@ -41,8 +40,6 @@ class LoginForm extends Component {
                 onSubmit={this.props.handleSubmit}
             >
                 {(formikProps) => {
-                    // do something
-                    const { values, errors, touched } = formikProps;
                     return (
                         <Form className="form login-form">
                             <FastField

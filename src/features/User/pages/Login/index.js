@@ -1,11 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Avatar, Container, CssBaseline, Typography } from "@material-ui/core";
+import { Avatar, Container, Typography } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-
-import LoginForm from "../../components/LoginForm";
+import React from "react";
+import { connect } from "react-redux";
 import { loginUser } from "../../../../actions/login_register";
+import LoginForm from "../../components/LoginForm";
 import "./styles.scss";
 
 class LoginPage extends React.Component {

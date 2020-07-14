@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { AnchorButton, Intent, ProgressBar } from "@blueprintjs/core";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import _ from "lodash";
-
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import "./DraggableUploader.scss";
 
 class DraggableUploader extends Component {
@@ -53,7 +52,7 @@ class DraggableUploader extends Component {
         this.setState((prevState) => {
             let loadedFiles = prevState.loadedFiles;
             let newLoadedFiles = _.filter(loadedFiles, (ldFile) => {
-                return ldFile != file;
+                return ldFile !== file;
             });
             return { loadedFiles: newLoadedFiles };
         });
@@ -63,7 +62,7 @@ class DraggableUploader extends Component {
         this.setState((prevState) => {
             const loadedFiles = [...prevState.loadedFiles];
             _.find(loadedFiles, (file, idx) => {
-                if (file == oldFile) loadedFiles[idx] = newFile;
+                if (file === oldFile) loadedFiles[idx] = newFile;
             });
 
             return { loadedFiles };
@@ -76,7 +75,7 @@ class DraggableUploader extends Component {
         const { loadedFiles } = this.state;
         console.log(loadedFiles);
 
-        loadedFiles.map((file, idx) => {
+        loadedFiles.forEach((file, idx) => {
             console.log("Updating...");
             //Update file (Change it's state to uploading)
             let newFile = this.updateLoadedFile(file, {
@@ -121,7 +120,7 @@ class DraggableUploader extends Component {
                         {loadedFiles.map((file, idx) => {
                             return (
                                 <div className="file" key={idx}>
-                                    <img src={file.data} />
+                                    <img src={file.data} alt="img" />
                                     <div className="container">
                                         <span className="progress-bar">
                                             {file.isUploading && (

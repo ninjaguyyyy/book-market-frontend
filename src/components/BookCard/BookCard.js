@@ -1,32 +1,26 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
-import Typography from "@material-ui/core/Typography";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./BookCard.scss";
 
 export default class BookCard extends Component {
-    static propTypes = {
-        prop: PropTypes,
-    };
-
     render() {
         return (
             <Card className="BookCard">
                 <div className="hover">
                     <div className="layout">
-                        <Link className="icon">
+                        <Link className="icon" to="/">
                             <FavoriteIcon fontSize="large" />
                         </Link>
-                        <Link className="icon">
+                        <Link className="icon" to="/">
                             <ShoppingBasketIcon fontSize="large" />
                         </Link>
-                        <Link className="icon">
+                        <Link className="icon" to="/">
                             <FindInPageIcon fontSize="large" />
                         </Link>
                     </div>

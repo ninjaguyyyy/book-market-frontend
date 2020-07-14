@@ -1,12 +1,11 @@
-import React, { Component } from "react";
+import { Grid } from "@material-ui/core";
+import { FastField, Form, Formik } from "formik";
 import PropTypes from "prop-types";
-import { Formik, Form, FastField } from "formik";
+import React, { Component } from "react";
 import * as Yup from "yup";
-import { Grid, TextField } from "@material-ui/core";
-
-import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
 import InputField from "../../../../../../../components/custom-field/InputField";
 import SelectField from "../../../../../../../components/custom-field/SelectField";
+import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
 import { TYPE_BOOK } from "../../../../../../../constants/options";
 
 export default class AddBookForm extends Component {
@@ -37,7 +36,6 @@ export default class AddBookForm extends Component {
         return (
             <Formik initialValues={this.initialValues}>
                 {(formikProps) => {
-                    const { values, errors, touched } = formikProps;
                     return (
                         <Form>
                             <Grid container spacing={3}>

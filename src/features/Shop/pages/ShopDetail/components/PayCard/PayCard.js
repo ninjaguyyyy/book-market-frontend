@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import Typography from "@material-ui/core/Typography";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import { Button } from "reactstrap";
-
 import "./PayCard.scss";
 
 export default class PayCard extends Component {
