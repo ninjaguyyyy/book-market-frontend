@@ -4,6 +4,7 @@ import MainInfo from "./components/MainInfo/MainInfo";
 import PayCard from "./components/PayCard/PayCard";
 import Slider from "./components/Slider/Slider";
 import InfoTab from "./components/InfoTab";
+import SimilarProducts from "./components/SimilarProducts";
 import "./index.scss";
 
 export default class ShopDetail extends Component {
@@ -33,6 +34,10 @@ export default class ShopDetail extends Component {
                     <Col>
                         <InfoTab />
                     </Col>
+                </Row>
+
+                <Row>
+                    <SimilarProducts />
                 </Row>
             </Container>
         );
