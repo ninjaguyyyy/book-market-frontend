@@ -4,6 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import TabPanel from "./components/TabPanel";
+import SliderTab from "./components/SliderTab";
 import "./index.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,7 @@ export default function InfoTab() {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                Item One 1
+                <SliderTab />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 Item Two 2
