@@ -4,6 +4,7 @@ import GuestLayout from "../../components/Layout/guest/GuestLayout.js";
 import "./index.scss";
 import ShopDetail from "./pages/ShopDetail";
 import ShopList from "./pages/ShopList";
+import ShopStore from "./pages/ShopStore";
 
 function Shop(props) {
     const match = useRouteMatch();
@@ -15,6 +16,11 @@ function Shop(props) {
                     exact
                     path={`${match.url}/detail`}
                     component={ShopDetail}
+                />
+                <Route
+                    exact
+                    path={`${match.url}/store`}
+                    component={ShopStore}
                 />
             </Switch>
         </GuestLayout>

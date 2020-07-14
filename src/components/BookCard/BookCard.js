@@ -10,6 +10,7 @@ import "./BookCard.scss";
 
 export default class BookCard extends Component {
     render() {
+        const { size } = this.props;
         return (
             <Card className="BookCard">
                 <div className="hover">
@@ -31,7 +32,9 @@ export default class BookCard extends Component {
                     />
                 </div>
 
-                <CardContent className="content">
+                <CardContent
+                    className={`content ${size === "small" ? "small" : ""}`}
+                >
                     <div className="author">
                         <Link to="/shop">Nguyễn Nhật Ánh</Link>
                     </div>

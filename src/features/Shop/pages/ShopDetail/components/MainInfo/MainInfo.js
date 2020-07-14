@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import StoreIcon from "@material-ui/icons/Store";
 
@@ -23,7 +24,9 @@ export default class MainInfo extends Component {
                     </div>
                     <div className="seller">
                         <StoreIcon />
-                        <p>nguyen huu chi</p>
+                        <Link to="/shop/store" className="store">
+                            <p>nguyen huu chi</p>
+                        </Link>
                     </div>
                 </div>
             </div>

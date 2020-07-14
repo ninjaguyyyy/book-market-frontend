@@ -41,15 +41,16 @@
     .content {
         font-family: "Poppins", sans-serif;
         .author a {
-            letter-spacing: 0.1rem;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #999;
+            font-size: inherit / 0.1;
         }
         .author a:hover {
             text-decoration: none;
             color: blue;
         }
-        .price a {
+        .price {
+            margin-top: 5px;
             letter-spacing: 0.1rem;
             font-size: 0.9rem;
             color: #999;
@@ -61,5 +62,8 @@
             text-decoration: none;
             color: #9100ff;
         }
+    }
+    .small {
+        font-size: 15px;
     }
 }
