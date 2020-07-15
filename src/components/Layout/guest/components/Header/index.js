@@ -210,14 +210,17 @@ export default function PrimarySearchAppBar() {
 
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
-                            <IconButton
-                                aria-label="show 4 new mails"
-                                color="inherit"
-                            >
-                                <Badge badgeContent={4} color="secondary">
-                                    <ShoppingCartIcon />
-                                </Badge>
-                            </IconButton>
+                            <Link to="/shop/cart" style={{ color: "#fff" }}>
+                                <IconButton
+                                    aria-label="show 4 new mails"
+                                    color="inherit"
+                                >
+                                    <Badge badgeContent={4} color="secondary">
+                                        <ShoppingCartIcon />
+                                    </Badge>
+                                </IconButton>
+                            </Link>
+
                             <IconButton
                                 edge="end"
                                 aria-label="account of current user"

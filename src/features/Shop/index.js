@@ -5,6 +5,7 @@ import "./index.scss";
 import ShopDetail from "./pages/ShopDetail";
 import ShopList from "./pages/ShopList";
 import ShopStore from "./pages/ShopStore";
+import Cart from "./pages/Cart";
 
 function Shop(props) {
     const match = useRouteMatch();
@@ -22,6 +23,7 @@ function Shop(props) {
                     path={`${match.url}/store`}
                     component={ShopStore}
                 />
+                <Route exact path={`${match.url}/cart`} component={Cart} />
             </Switch>
         </GuestLayout>
     );
