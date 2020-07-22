@@ -18,7 +18,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import clsx from "clsx";
 import React from "react";
 import Copyright from "../../Layout/guest/components/Footer/components/Copyright";
-import { mainListItems, secondaryListItems } from "./components/listItems";
+import { mainListItems } from "./components/listItems";
 
 const drawerWidth = 240;
 
@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -139,7 +139,7 @@ export default function Dashboard() {
                         noWrap
                         className={classes.title}
                     >
-                        Dashboard
+                        Admin
                     </Typography>
                     <IconButton color="inherit">
                         <Badge badgeContent={4} color="secondary">
@@ -165,32 +165,11 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <List>{mainListItems}</List>
-                <Divider />
-                <List>{secondaryListItems}</List>
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid container spacing={3}>
-                        {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
-                            <Paper className={fixedHeightPaper}>
-                                {/* <Chart /> */}
-                            </Paper>
-                        </Grid>
-                        {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
-                            <Paper className={fixedHeightPaper}>
-                                {/* <Deposits /> */}
-                            </Paper>
-                        </Grid>
-                        {/* Recent Orders */}
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper}>
-                                {/* <Orders /> */}
-                            </Paper>
-                        </Grid>
-                    </Grid>
+                    {props.children}
                     <Box pt={4}>
                         <Copyright />
                     </Box>

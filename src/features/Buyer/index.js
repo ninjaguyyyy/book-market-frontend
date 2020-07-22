@@ -1,6 +1,6 @@
-import React from "react";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import SettingsIcon from "@material-ui/icons/Settings";
+import React from "react";
 import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import SellerLayout from "../../components/Layout/seller/SellerLayout";
 import Account from "../Seller/pages/Account/Account";
