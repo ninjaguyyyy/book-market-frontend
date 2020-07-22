@@ -45,7 +45,7 @@ const SellerLayout = (props) => {
     };
 
     const shouldOpenSidebar = isDesktop ? true : openSidebar;
-    console.log(shouldOpenSidebar);
+
     return (
         <div
             className={clsx({

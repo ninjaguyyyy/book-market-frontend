@@ -8,6 +8,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
 
+import Logo from "../../../../../assets/images/bookstor_compact.webp";
+
 const useStyles = makeStyles((theme) => ({
     root: {
         boxShadow: "none",
@@ -31,7 +33,7 @@ const Topbar = (props) => {
         <AppBar {...rest} className={clsx(classes.root, className)}>
             <Toolbar>
                 <RouterLink to="/">
-                    <img alt="Logo" src="/images/logos/logo--white.svg" />
+                    <img alt="Logo" src={Logo} width={80} />
                 </RouterLink>
                 <div className={classes.flexGrow} />
                 <Hidden mdDown>
