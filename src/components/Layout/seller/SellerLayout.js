@@ -30,7 +30,7 @@ const SellerLayout = (props) => {
 
     const classes = useStyles();
     const theme = useTheme();
-    const isDesktop = useMediaQuery(theme.breakpoints.up("lg"), {
+    const isDesktop = useMediaQuery(theme.breakpoints.up("md"), {
         defaultMatches: true,
     });
 
@@ -45,7 +45,7 @@ const SellerLayout = (props) => {
     };
 
     const shouldOpenSidebar = isDesktop ? true : openSidebar;
-
+    console.log(shouldOpenSidebar);
     return (
         <div
             className={clsx({

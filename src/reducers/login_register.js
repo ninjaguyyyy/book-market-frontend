@@ -1,7 +1,13 @@
 import { LOGIN_USER, REGISTER_USER } from "../constants/typeRedux";
 
 const initialState = {
-    login: {},
+    login: {
+        user: {
+            name: "Nguyen Huu Chi",
+            avatar: "",
+            address: "Sa Huynh, Quang Ngai",
+        },
+    },
     register: {},
 };
 export default function (state = initialState, action) {
