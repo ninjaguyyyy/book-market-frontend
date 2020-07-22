@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SellerLayout = (props) => {
-    const { children } = props;
+    const { children, pages } = props;
 
     const classes = useStyles();
     const theme = useTheme();
@@ -55,6 +55,7 @@ const SellerLayout = (props) => {
         >
             <Topbar onSidebarOpen={handleSidebarOpen} />
             <Sidebar
+                pages={pages}
                 onClose={handleSidebarClose}
                 open={shouldOpenSidebar}
                 variant={isDesktop ? "persistent" : "temporary"}

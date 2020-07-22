@@ -1,8 +1,4 @@
 import { Divider, Drawer } from "@material-ui/core";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
-import SettingsIcon from "@material-ui/icons/Settings";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
@@ -34,32 +30,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Sidebar = (props) => {
-    const { open, variant, onClose, className, ...rest } = props;
+    const { open, variant, onClose, className, pages, ...rest } = props;
 
     const classes = useStyles();
-
-    const pages = [
-        {
-            title: "Tài khoản",
-            href: "/seller/account",
-            icon: <AccountBoxIcon />,
-        },
-        {
-            title: "Đơn hàng",
-            href: "/seller/orders",
-            icon: <ShoppingCartIcon />,
-        },
-        {
-            title: "Sách của tôi",
-            href: "/seller/books",
-            icon: <MenuBookIcon />,
-        },
-        {
-            title: "Cài đặt",
-            href: "/seller/setting",
-            icon: <SettingsIcon />,
-        },
-    ];
 
     return (
         <Drawer

@@ -6,6 +6,7 @@ import "./App.scss";
 
 const User = React.lazy(() => import("../features/User"));
 const Seller = React.lazy(() => import("../features/Seller"));
+const Buyer = React.lazy(() => import("../features/Buyer"));
 const Shop = React.lazy(() => import("../features/Shop"));
 const Admin = React.lazy(() => import("../features/Admin"));
 const NotFound = React.lazy(() => import("../components/NotFound"));
@@ -18,6 +19,7 @@ function App() {
                 <BrowserRouter>
                     <Switch>
                         <Route component={Seller} path="/seller" />
+                        <Route component={Buyer} path="/buyer" />
                         <Route component={Shop} path="/shop" />
                         <Route component={Admin} path="/admin" />
                         <Route component={User} path="/user" />
