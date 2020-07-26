@@ -1,15 +1,14 @@
-import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
-import SettingsIcon from "@material-ui/icons/Settings";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
+import SettingsIcon from "@material-ui/icons/Settings";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Account from "./pages/Account/Account";
-import Orders from "./pages/Orders/Orders";
-import Books from "./pages/Books/Books";
-import Setting from "./pages/Setting/Setting";
+import React from "react";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import SellerLayout from "../../components/Layout/seller/SellerLayout";
+import Account from "./pages/Account/Account";
+import Books from "./pages/Books/Books";
+import Orders from "./pages/Orders/Orders";
+import Setting from "./pages/Setting/Setting";
 
 const pages = [
     {

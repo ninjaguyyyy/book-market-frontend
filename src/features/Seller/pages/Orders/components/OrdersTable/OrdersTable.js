@@ -1,26 +1,7 @@
-import React, { useState } from "react";
-import clsx from "clsx";
-import PropTypes from "prop-types";
-import moment from "moment";
-import MaterialTable from "material-table";
-import PerfectScrollbar from "react-perfect-scrollbar";
 import { makeStyles } from "@material-ui/styles";
-import {
-    Card,
-    CardActions,
-    CardContent,
-    Avatar,
-    Checkbox,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
-    Typography,
-    TablePagination,
-} from "@material-ui/core";
-
-import getInitials from "../../../../../../utils/getInitials";
+import MaterialTable from "material-table";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -43,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const UsersTable = (props) => {
-    const { className, users, ...rest } = props;
+    const { className, users } = props;
 
     const classes = useStyles();
 

@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { makeStyles } from "@material-ui/styles";
-import { IconButton, Grid, Typography } from "@material-ui/core";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { Grid, IconButton, Typography } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-
-import BooksToolbar from "./components/BooksToolbar/BooksToolbar";
-import BooksCard from "./components/BooksCard/BooksCard";
-import mockData from "./data";
-
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
 import BookCard from "../../../../components/BookCard/BookCard";
+import BooksToolbar from "./components/BooksToolbar/BooksToolbar";
+import mockData from "./data";
 
 const useStyles = makeStyles((theme) => ({
     root: {
