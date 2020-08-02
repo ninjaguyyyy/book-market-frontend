@@ -148,7 +148,7 @@ class LoginForm extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        ...state.login_register.login,
+        ...state.user.login,
     };
 };
 export default connect(mapStateToProps)(LoginForm);

@@ -35,7 +35,7 @@ const Profile = (props) => {
     };
 
     return (
-        <div {...rest} className={clsx(classes.root, className)}>
+        <div className={clsx(classes.root, className)}>
             <Avatar
                 alt="Person"
                 className={classes.avatar}
@@ -56,7 +56,7 @@ Profile.propTypes = {
 };
 
 function mapStateToProps(state) {
-    return { ...state.login_register.login };
+    return { ...state.user.login };
 }
 
 export default connect(mapStateToProps)(Profile);

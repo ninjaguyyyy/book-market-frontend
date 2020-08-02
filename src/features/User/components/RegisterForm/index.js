@@ -170,7 +170,7 @@ RegisterForm.propTypes = {
 };
 const mapStateToProps = (state) => {
     return {
-        ...state.login_register.register,
+        ...state.user.register,
     };
 };
 export default connect(mapStateToProps)(RegisterForm);

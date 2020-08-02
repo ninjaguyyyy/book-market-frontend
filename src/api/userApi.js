@@ -9,6 +9,10 @@ const userApi = {
         const url = "users/login";
         return axiosClient.post(url, userData);
     },
+    update: (userData) => {
+        const url = "users/update";
+        return axiosClient.post(url, userData);
+    },
 };
 
 export default userApi;

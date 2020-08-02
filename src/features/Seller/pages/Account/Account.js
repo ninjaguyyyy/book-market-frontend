@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
-import { Grid } from "@material-ui/core";
+import { Grid, Snackbar } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
+import { useDispatch, useStore } from "react-redux";
 
 import AccountProfile from "./components/AccountProfile/AccountProfile";
 import AccountDetails from "./components/AccountDetails/AccountDetails";
+import userApi from "../../../../api/userApi";
+import { updateUser } from "../../../../actions/user";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,9 +17,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Account = (props) => {
-    const classes = useStyles();
-    const { user } = props;
+    const dispatch = useDispatch();
+    const store = useStore();
 
+    const classes = useStyles();
+    const [openAlert, setOpenAlert] = useState(false);
+    let user = { ...store.getState().user.login.user };
+
+    console.log(user);
     function handleUploadAvatar() {
         console.log("api upload avatar");
     }
@@ -24,8 +33,22 @@ const Account = (props) => {
         console.log("api remove avatar");
     }
 
-    function handleUpdate() {
-        console.log("api update");
+    function handleSubmit(values) {
+        (async () => {
+            try {
+                const response = await userApi.update(values);
+                let action = await updateUser(response);
+                let resDispatch = dispatch(action);
+                if (resDispatch.payload.success) {
+                    setOpenAlert(true);
+                    setTimeout(() => {
+                        user = { ...user };
+                    }, 3000);
+                }
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
     }
 
     return (
@@ -38,15 +61,20 @@ const Account = (props) => {
                     />
                 </Grid>
                 <Grid item lg={8} md={6} xl={8} xs={12}>
-                    <AccountDetails user={user} actions={{ handleUpdate }} />
+                    <AccountDetails user={user} handleSubmit={handleSubmit} />
                 </Grid>
             </Grid>
+            <Snackbar
+                open={openAlert}
+                autoHideDuration={6000}
+                onClose={() => setOpenAlert(false)}
+            >
+                <Alert onClose={() => setOpenAlert(false)} severity="success">
+                    Đã đăng nhập thành công. Chuyển sang Giỏ hàng sau vài giây.
+                </Alert>
+            </Snackbar>
         </div>
     );
 };
 
-function mapStateToProps(state) {
-    return { ...state.login_register.login };
-}
-
-export default connect(mapStateToProps)(Account);
+export default Account;

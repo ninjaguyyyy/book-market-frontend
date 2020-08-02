@@ -3,7 +3,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { connect } from "react-redux";
-import { loginUser } from "../../../../actions/login_register";
+import { loginUser } from "../../../../actions/user";
 import userApi from "../../../../api/userApi";
 import LoginForm from "../../components/LoginForm";
 import "./styles.scss";

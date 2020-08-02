@@ -19,68 +19,39 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AccountDetails = (props) => {
-    const { className, user, actions, ...rest } = props;
+    const { className, user, actions } = props;
 
     const [openAlertUpdated, setOpenAlertUpdated] = useState(false);
 
     const classes = useStyles();
 
-    const [values, setValues] = useState({
-        firstName: "Shen",
-        lastName: "Zhi",
-        email: "shen.zhi@devias.io",
-        phone: "",
-        state: "Alabama",
-        country: "USA",
-    });
+    // function handleSubmit(values) {
 
-    const handleChange = (event) => {
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value,
-        });
-    };
-
-    const states = [
-        {
-            value: "alabama",
-            label: "Alabama",
-        },
-        {
-            value: "new-york",
-            label: "New York",
-        },
-        {
-            value: "san-francisco",
-            label: "San Francisco",
-        },
-    ];
-
-    function handleUpdate() {
-        setOpenAlertUpdated(true);
-        actions.handleUpdate();
-    }
+    // }
 
     return (
-        <Card {...rest} className={clsx(classes.root, className)}>
+        <Card className={clsx(classes.root, className)}>
             <CardHeader
                 subheader="Người dùng có thể cập nhật thông tin của mình"
                 title="Thông tin cửa hàng"
             />
             <Divider />
             <CardContent>
-                <UpdateAccountForm user={user} />
+                <UpdateAccountForm
+                    handleSubmit={props.handleSubmit}
+                    user={user}
+                />
             </CardContent>
             <Divider />
-            <CardActions style={{ display: "flex", justifyContent: "center" }}>
+            {/* <CardActions style={{ display: "flex", justifyContent: "center" }}>
                 <Button
                     color="primary"
                     variant="contained"
-                    onClick={handleUpdate}
+                    onClick={() => setOpenAlertUpdated(true)}
                 >
                     Cập nhật
                 </Button>
-            </CardActions>
+            </CardActions> */}
             <Snackbar
                 open={openAlertUpdated}
                 autoHideDuration={6000}
