@@ -10,7 +10,7 @@ import "./BookCard.scss";
 
 export default class BookCard extends Component {
     render() {
-        const { size } = this.props;
+        const { size, book } = this.props;
         return (
             <Card className="BookCard">
                 <div className="hover">
@@ -27,7 +27,7 @@ export default class BookCard extends Component {
                     </div>
                     <CardMedia
                         className="media"
-                        image="https://www.nxbtre.com.vn/Images/Book/nxbtre_full_04152018_031555.jpg"
+                        image={book.images[0]}
                         title="Contemplative Reptile"
                     />
                 </div>
@@ -36,12 +36,10 @@ export default class BookCard extends Component {
                     className={`content ${size === "small" ? "small" : ""}`}
                 >
                     <div className="author">
-                        <Link to="/shop">Nguyễn Nhật Ánh</Link>
+                        <span>{book.author}</span>
                     </div>
                     <div className="title">
-                        <Link to="/shop/detail">
-                            Tôi thấy hoa vàng trên cỏ xanh
-                        </Link>
+                        <Link to="/shop/detail">{book.title}</Link>
                     </div>
                     <div className="price">
                         <img

@@ -39,16 +39,17 @@
         transition: 0.4s;
     }
     .content {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 30%;
         font-family: "Poppins", sans-serif;
-        .author a {
+        .author span {
             font-size: 0.8rem;
             color: #999;
             font-size: inherit / 0.1;
         }
-        .author a:hover {
-            text-decoration: none;
-            color: blue;
-        }
+
         .price {
             margin-top: 5px;
             letter-spacing: 0.1rem;
@@ -56,7 +57,7 @@
             color: #999;
         }
         .title a {
-            font-weight: bold;
+            font-weight: 400;
         }
         .title a:hover {
             text-decoration: none;

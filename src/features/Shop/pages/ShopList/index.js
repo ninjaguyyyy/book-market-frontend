@@ -11,10 +11,14 @@ import { getBooks } from "../../../../actions/books";
 import "./index.scss";
 
 class ShopList extends Component {
+    constructor(props) {
+        super(props);
+        this.onChangePagination = this.onChangePagination.bind(this);
+    }
     componentDidMount() {
         (async () => {
             try {
-                const response = await booksApi.get();
+                const response = await booksApi.get({ page: 1, perPage: 2 });
                 let action = await getBooks(response);
                 let resDispatch = this.props.dispatch(action);
                 console.log(resDispatch);
@@ -25,12 +29,20 @@ class ShopList extends Component {
     }
 
     onChangePagination(e, page) {
-        console.log(page);
+        (async () => {
+            try {
+                console.log(page);
+                const response = await booksApi.get({ page, perPage: 2 });
+                let action = await getBooks(response);
+                let resDispatch = this.props.dispatch(action);
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
     }
     render() {
-        let { docs } = this.props;
+        let { docs, pages } = this.props.booksShop;
         console.log(this.props.booksShop);
-        console.log(docs);
         return (
             <Container className=" ShopList" fluid={true}>
                 <Row>
@@ -38,15 +50,15 @@ class ShopList extends Component {
                         <Row>
                             {docs &&
                                 docs.map((book) => (
-                                    <Col xs={3}>
-                                        <BookCard />
+                                    <Col xs={3} key={book._id}>
+                                        <BookCard book={book} />
                                     </Col>
                                 ))}
                         </Row>
                         <Row className="mt-5">
                             <Col sm={{ size: 6, offset: 4 }}>
                                 <Pagination
-                                    count={10}
+                                    count={pages ? pages : 1}
                                     color="secondary"
                                     onChange={this.onChangePagination}
                                 />
