@@ -7,7 +7,8 @@ import CardFilterPrice from "./components/CardFilterPrice/CardFilterPrice";
 import Pagination from "@material-ui/lab/Pagination";
 
 import booksApi from "../../../../api/booksApi";
-import { getBooks } from "../../../../actions/books";
+import categoriesApi from "../../../../api/categoriesApi";
+import { getBooks, getCategories } from "../../../../actions/books";
 import "./index.scss";
 
 class ShopList extends Component {
@@ -20,6 +21,16 @@ class ShopList extends Component {
             try {
                 const response = await booksApi.get({ page: 1, perPage: 2 });
                 let action = await getBooks(response);
+                let resDispatch = this.props.dispatch(action);
+                console.log(resDispatch);
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
+        (async () => {
+            try {
+                const response = await categoriesApi.get();
+                let action = await getCategories(response);
                 let resDispatch = this.props.dispatch(action);
                 console.log(resDispatch);
             } catch (error) {
@@ -42,7 +53,9 @@ class ShopList extends Component {
     }
     render() {
         let { docs, pages } = this.props.booksShop;
-        console.log(this.props.booksShop);
+        let { categories } = this.props;
+
+        console.log(categories);
         return (
             <Container className=" ShopList" fluid={true}>
                 <Row>
@@ -66,7 +79,7 @@ class ShopList extends Component {
                         </Row>
                     </Col>
                     <Col>
-                        <CardFilterCategory />
+                        <CardFilterCategory categories={categories} />
                         <CardFilterPrice />
                     </Col>
                 </Row>
@@ -75,6 +88,9 @@ class ShopList extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({ booksShop: state.books.booksShop });
+const mapStateToProps = (state) => ({
+    booksShop: state.books.booksShop,
+    categories: state.books.categories,
+});
 
 export default connect(mapStateToProps, null)(ShopList);

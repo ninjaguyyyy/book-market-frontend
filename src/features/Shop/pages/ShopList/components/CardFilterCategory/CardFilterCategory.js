@@ -25,7 +25,7 @@ export default class CardFilterCategory extends Component {
     }
 
     render() {
-        const { category } = this.state;
+        const { categories } = this.props;
         return (
             <Card className="CardFilterCategory">
                 <CardContent>
@@ -41,27 +41,17 @@ export default class CardFilterCategory extends Component {
                         <RadioGroup
                             aria-label="gender"
                             name="gender1"
-                            value={category}
+                            value={this.state.category}
                             onChange={this.handleCategoryChange}
                         >
-                            <FormControlLabel
-                                value="female"
-                                control={<Radio />}
-                                label="Female"
-                                className="radio"
-                            />
-                            <FormControlLabel
-                                value="male"
-                                control={<Radio />}
-                                label="Male"
-                                className="radio"
-                            />
-                            <FormControlLabel
-                                value="other"
-                                control={<Radio />}
-                                label="Other"
-                                className="radio"
-                            />
+                            {categories.map((category) => (
+                                <FormControlLabel
+                                    value={category._id}
+                                    control={<Radio />}
+                                    label={category.name}
+                                    className="radio"
+                                />
+                            ))}
                         </RadioGroup>
                     </FormControl>
                 </CardContent>

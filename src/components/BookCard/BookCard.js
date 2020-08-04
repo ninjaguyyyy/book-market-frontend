@@ -47,7 +47,7 @@ export default class BookCard extends Component {
                             alt="money"
                             width={20}
                         />
-                        <span> 100.000 vnđ</span>
+                        <span> {book.price}.000 vnđ</span>
                     </div>
                 </CardContent>
             </Card>
