@@ -8,12 +8,15 @@ import {
     Divider,
     Modal,
 } from "@material-ui/core";
+import { compose } from "redux";
+import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import "./BooksToolbar.scss";
 import AddBookForm from "./components/AddBookForm";
-
+import categoriesApi from "../../../../../../api/categoriesApi";
+import { getCategories } from "../../../../../../actions/books";
 // import { SearchInput } from "components";
 
 const useStyles = (theme) => ({
@@ -51,6 +54,16 @@ class ProductsToolbar extends React.Component {
     }
 
     generateBodyModal() {
+        (async () => {
+            try {
+                const response = await categoriesApi.get();
+                let action = await getCategories(response);
+                let resDispatch = this.props.dispatch(action);
+                console.log(resDispatch);
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
         const bodyModal = (
             <div style={{}} className="body">
                 <Card className="">
@@ -70,9 +83,9 @@ class ProductsToolbar extends React.Component {
                             alignItems: "center",
                         }}
                     >
-                        <Button color="primary" variant="contained">
-                            Save details
-                        </Button>
+                        {/* <Button color="primary" variant="contained">
+                            Đăng bán
+                        </Button> */}
                     </CardActions>
                 </Card>
             </div>
@@ -132,4 +145,7 @@ ProductsToolbar.propTypes = {
     className: PropTypes.string,
 };
 
-export default withStyles(useStyles)(ProductsToolbar);
+export default compose(
+    withStyles(useStyles),
+    connect(null, null)
+)(ProductsToolbar);

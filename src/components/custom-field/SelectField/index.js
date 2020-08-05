@@ -59,22 +59,29 @@ export default class SelectField extends Component {
                     </FormControl>
                 )}
                 {category === "category_book" && (
-                    <TextField
-                        fullWidth
-                        label={label}
-                        margin="dense"
-                        id={name}
-                        select
-                        // eslint-disable-next-line react/jsx-sort-props
-                        SelectProps={{ native: true }}
-                        variant="outlined"
+                    <FormControl
+                        className="select-field"
+                        style={{ width: "100%" }}
+                        error={showError}
                     >
-                        {options.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.name}
-                            </option>
-                        ))}
-                    </TextField>
+                        {label && (
+                            <InputLabel id="demo-simple-select-label">
+                                {label}
+                            </InputLabel>
+                        )}
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id={name}
+                            {...field}
+                        >
+                            {options.map((item, i) => (
+                                <MenuItem key={i} value={item.value}>
+                                    {item.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText>{errors[name]}</FormHelperText>
+                    </FormControl>
                 )}
             </div>
         );

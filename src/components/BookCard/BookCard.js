@@ -39,7 +39,9 @@ export default class BookCard extends Component {
                         <span>{book.author}</span>
                     </div>
                     <div className="title">
-                        <Link to="/shop/detail">{book.title}</Link>
+                        <Link to={"/shop/detail/" + book._id}>
+                            {book.title}
+                        </Link>
                     </div>
                     <div className="price">
                         <img

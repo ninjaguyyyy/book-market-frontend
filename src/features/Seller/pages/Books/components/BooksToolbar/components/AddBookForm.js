@@ -1,24 +1,30 @@
 import { Grid } from "@material-ui/core";
 import { FastField, Form, Formik } from "formik";
 import PropTypes from "prop-types";
+import { Snackbar, Button } from "@material-ui/core";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import * as Yup from "yup";
+import Alert from "@material-ui/lab/Alert";
 import InputField from "../../../../../../../components/custom-field/InputField";
 import SelectField from "../../../../../../../components/custom-field/SelectField";
 import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
-import { TYPE_BOOK } from "../../../../../../../constants/options";
 
-export default class AddBookForm extends Component {
-    static propTypes = {
-        prop: PropTypes,
-    };
+class AddBookForm extends Component {
+    // static propTypes = {
+    //     prop: PropTypes,
+    // };
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            openAlert: false,
+            filesImg: [],
+            filesPrev: [],
+        };
         this.initialValues = {
             name: "",
             author: "",
-            category: "",
+            kind: "",
             price: "",
             description: "",
             quantity: 1,
@@ -26,15 +32,50 @@ export default class AddBookForm extends Component {
         this.validationSchema = Yup.object().shape({
             name: Yup.string().required("Vui lòng không để trống."),
             author: Yup.string().required("Vui lòng không để trống."),
-            category: Yup.string().required("Vui lòng không để trống"),
             price: Yup.number().required("Vui lòng không để trống"),
             quantity: Yup.number().required("Vui lòng không để trống"),
+        });
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.receiveFileImg = this.receiveFileImg.bind(this);
+        this.receiveFilePrev = this.receiveFilePrev.bind(this);
+    }
+
+    componentDidMount() {}
+
+    handleSubmit(values) {
+        console.log(values);
+        console.log("file img");
+        console.log(this.state.filesImg);
+        console.log("file prev");
+        console.log(this.state.filesPrev);
+        this.setState({ openAlert: true });
+    }
+
+    receiveFileImg(files) {
+        this.setState({
+            filesImg: [...files],
+        });
+    }
+    receiveFilePrev(files) {
+        this.setState({
+            filesPrev: [...files],
         });
     }
 
     render() {
+        let { categories } = this.props;
+        let categoriesRender = [];
+        categories.forEach((category) => {
+            categoriesRender.push({ value: category._id, name: category.name });
+        });
+
         return (
-            <Formik initialValues={this.initialValues}>
+            <Formik
+                initialValues={this.initialValues}
+                validationSchema={this.validationSchema}
+                onSubmit={this.handleSubmit}
+            >
                 {(formikProps) => {
                     return (
                         <Form>
@@ -79,10 +120,10 @@ export default class AddBookForm extends Component {
                                     <Grid item md={12} xs={12}>
                                         <FastField
                                             category="category_book"
-                                            name="category"
+                                            name="kind"
                                             component={SelectField}
                                             label="Loại sách"
-                                            options={TYPE_BOOK}
+                                            options={categoriesRender}
                                         />
                                     </Grid>
                                 </Grid>
@@ -107,7 +148,10 @@ export default class AddBookForm extends Component {
                                             alignItems: "center",
                                         }}
                                     >
-                                        <DraggableUploader title="Chọn ảnh bìa" />
+                                        <DraggableUploader
+                                            files={this.receiveFileImg}
+                                            title="Chọn ảnh bìa"
+                                        />
                                     </Grid>
                                 </Grid>
                                 <Grid
@@ -119,8 +163,45 @@ export default class AddBookForm extends Component {
                                         alignItems: "center",
                                     }}
                                 >
-                                    <DraggableUploader title="Chọn ảnh chụp sách" />
+                                    <DraggableUploader
+                                        files={this.receiveFilePrev}
+                                        title="Chọn ảnh chụp sách"
+                                    />
                                 </Grid>
+                                <Grid
+                                    item
+                                    md={12}
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "flex-end",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Button
+                                        color="primary"
+                                        type="submit"
+                                        variant="contained"
+                                    >
+                                        Đăng bán
+                                    </Button>
+                                </Grid>
+                                <Snackbar
+                                    open={this.state.openAlert}
+                                    autoHideDuration={6000}
+                                    onClose={() => {
+                                        this.setState({ openAlert: false });
+                                    }}
+                                >
+                                    <Alert
+                                        onClose={() => {
+                                            this.setState({ openAlert: false });
+                                        }}
+                                        severity="warning"
+                                    >
+                                        Đã đăng ký thành công. Chuyển sang Đăng
+                                        nhập sau vài giây.
+                                    </Alert>
+                                </Snackbar>
                             </Grid>
                         </Form>
                     );
@@ -129,3 +210,9 @@ export default class AddBookForm extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    categories: state.books.categories,
+});
+
+export default connect(mapStateToProps, null)(AddBookForm);

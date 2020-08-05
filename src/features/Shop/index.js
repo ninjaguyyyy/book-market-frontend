@@ -14,8 +14,7 @@ function Shop(props) {
             <Switch>
                 <Route exact path={`${match.url}/`} component={ShopList} />
                 <Route
-                    exact
-                    path={`${match.url}/detail`}
+                    path={`${match.url}/detail/:id_book`}
                     component={ShopDetail}
                 />
                 <Route

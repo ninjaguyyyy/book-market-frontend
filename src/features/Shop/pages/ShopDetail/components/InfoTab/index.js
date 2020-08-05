@@ -23,7 +23,7 @@ function a11yProps(index) {
     };
 }
 
-export default function InfoTab() {
+export default function InfoTab(props) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
@@ -39,19 +39,19 @@ export default function InfoTab() {
                     onChange={handleChange}
                     aria-label="simple tabs example"
                 >
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
+                    <Tab label="Xem trước" {...a11yProps(0)} />
+                    <Tab label="Mô tả" {...a11yProps(1)} />
+                    <Tab label="Đang phát triển" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
                 <SliderTab />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two 2
+                {props.des}
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Item Three 3
+                Đang phát triển
             </TabPanel>
         </div>
     );

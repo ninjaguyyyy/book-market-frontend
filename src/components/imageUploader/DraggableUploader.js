@@ -25,7 +25,7 @@ class DraggableUploader extends Component {
         let fileReader = new FileReader();
         //Register event listeners
         fileReader.onload = () => {
-            console.log("IMAGE LOADED: ", fileReader.result);
+            // console.log("IMAGE LOADED: ", fileReader.result);
             const file = {
                 data: fileReader.result,
                 isUploading: false,
@@ -76,7 +76,6 @@ class DraggableUploader extends Component {
         console.log(loadedFiles);
 
         loadedFiles.forEach((file, idx) => {
-            console.log("Updating...");
             //Update file (Change it's state to uploading)
             let newFile = this.updateLoadedFile(file, {
                 ...file,
@@ -92,6 +91,7 @@ class DraggableUploader extends Component {
                 });
             }, 3000);
         });
+        this.props.files(loadedFiles);
     }
 
     render() {

@@ -43,7 +43,7 @@ export default class PayCard extends Component {
 
     render() {
         const { quantity } = this.state;
-        const { availableQuantity, price } = this.props;
+        const { book } = this.props;
         return (
             <Card className="PayCard">
                 <CardContent className="content">
@@ -52,11 +52,13 @@ export default class PayCard extends Component {
                         color="textSecondary"
                         gutterBottom
                     >
-                        Số lượng còn lại: {availableQuantity}
+                        Số lượng còn lại: {book.quantity}
                     </Typography>
                     <Divider />
                     <div className="action">
-                        <h5 className="priceLabel">Giá bán: {price}.000 vnđ</h5>
+                        <h5 className="priceLabel">
+                            Giá bán: {book.price}.000 vnđ
+                        </h5>
                         <div className="wrapper">
                             <p>Số lượng mua: </p>
                             <div className="actionQuantity">

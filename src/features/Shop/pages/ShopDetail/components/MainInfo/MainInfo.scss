@@ -8,6 +8,9 @@
         display: flex;
         justify-content: space-between;
         padding-top: 10px;
+        .des {
+            width: 68%;
+        }
         .seller {
             display: flex;
             flex-direction: column;
