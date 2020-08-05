@@ -13,6 +13,10 @@ const userApi = {
         const url = "users/update";
         return axiosClient.post(url, userData);
     },
+    upload: (book) => {
+        const url = "api/seller/upload";
+        return axiosClient.post(url, book);
+    },
 };
 
 export default userApi;

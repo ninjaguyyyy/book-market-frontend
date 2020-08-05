@@ -10,6 +10,9 @@ import InputField from "../../../../../../../components/custom-field/InputField"
 import SelectField from "../../../../../../../components/custom-field/SelectField";
 import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
 
+import userApi from "../../../../../../../api/userApi";
+import { uploadBook } from "../../../../../../../actions/user";
+
 class AddBookForm extends Component {
     // static propTypes = {
     //     prop: PropTypes,
@@ -50,6 +53,19 @@ class AddBookForm extends Component {
         console.log("file prev");
         console.log(this.state.filesPrev);
         this.setState({ openAlert: true });
+
+        (async () => {
+            try {
+                const response = await userApi.upload(values);
+                let action = await uploadBook(response.Book);
+                let resDispatch = this.props.dispatch(action);
+                if (resDispatch.payload.success) {
+                    this.setState({ openAlert: true });
+                }
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
     }
 
     receiveFileImg(files) {
