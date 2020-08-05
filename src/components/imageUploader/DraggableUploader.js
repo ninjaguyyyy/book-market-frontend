@@ -10,6 +10,7 @@ class DraggableUploader extends Component {
         super(props);
         this.state = {
             loadedFiles: [],
+            files: [],
         };
     }
 
@@ -19,19 +20,27 @@ class DraggableUploader extends Component {
         }));
     }
 
+    addFiles(file) {
+        this.setState((prevState) => ({
+            files: [...prevState.files, file],
+        }));
+    }
+
     onFileLoad(e) {
         const file = e.currentTarget.files[0];
-        //Create instance
+        // Create instance
         let fileReader = new FileReader();
         //Register event listeners
         fileReader.onload = () => {
             // console.log("IMAGE LOADED: ", fileReader.result);
-            const file = {
+            console.log(file);
+            const fileData = {
                 data: fileReader.result,
                 isUploading: false,
             };
             //Add file
-            this.addLoadedFile(file);
+            this.addLoadedFile(fileData);
+            this.addFiles(file);
         };
         //Operation Aborted
         fileReader.onabort = () => {
@@ -47,14 +56,18 @@ class DraggableUploader extends Component {
         }
     }
 
-    removeLoadedFile(file) {
+    removeLoadedFile(file, idx) {
         //Remove file from the State
         this.setState((prevState) => {
             let loadedFiles = prevState.loadedFiles;
             let newLoadedFiles = _.filter(loadedFiles, (ldFile) => {
                 return ldFile !== file;
             });
-            return { loadedFiles: newLoadedFiles };
+            let files = [...prevState.files];
+
+            let newFiles = files.splice(idx, 1);
+
+            return { loadedFiles: newLoadedFiles, files };
         });
     }
 
@@ -64,6 +77,10 @@ class DraggableUploader extends Component {
             _.find(loadedFiles, (file, idx) => {
                 if (file === oldFile) loadedFiles[idx] = newFile;
             });
+            // const files = [...prevState.files];
+            // _.find(files, (file, idx) => {
+            //     if (file === oldFile) files[idx] = newFile;
+            // });
 
             return { loadedFiles };
         });
@@ -72,26 +89,28 @@ class DraggableUploader extends Component {
     }
 
     onUpload() {
-        const { loadedFiles } = this.state;
+        console.log(this.state.files);
+        const { loadedFiles, files } = this.state;
+
+        // loadedFiles.forEach((file, idx) => {
+        //     //Update file (Change it's state to uploading)
+        //     let newFile = this.updateLoadedFile(file, {
+        //         ...file,
+        //         isUploading: true,
+        //     });
+
+        //     //Simulate a REAL WEB SERVER DOING IMAGE UPLOADING
+        //     setTimeout(() => {
+        //         //Get it back to it's original State
+        //         this.updateLoadedFile(newFile, {
+        //             ...newFile,
+        //             isUploading: false,
+        //         });
+        //     }, 3000);
+        // });
+        console.log(files);
         console.log(loadedFiles);
-
-        loadedFiles.forEach((file, idx) => {
-            //Update file (Change it's state to uploading)
-            let newFile = this.updateLoadedFile(file, {
-                ...file,
-                isUploading: true,
-            });
-
-            //Simulate a REAL WEB SERVER DOING IMAGE UPLOADING
-            setTimeout(() => {
-                //Get it back to it's original State
-                this.updateLoadedFile(newFile, {
-                    ...newFile,
-                    isUploading: false,
-                });
-            }, 3000);
-        });
-        this.props.files(loadedFiles);
+        this.props.files(files);
     }
 
     render() {
@@ -129,9 +148,12 @@ class DraggableUploader extends Component {
                                         </span>
                                         <span
                                             className="remove-btn"
-                                            onClick={() =>
-                                                this.removeLoadedFile(file)
-                                            }
+                                            onClick={() => {
+                                                this.removeLoadedFile(
+                                                    file,
+                                                    idx
+                                                );
+                                            }}
                                         >
                                             <DeleteForeverIcon />
                                         </span>
@@ -153,7 +175,7 @@ class DraggableUploader extends Component {
                     </div>
                 </div>
                 <AnchorButton
-                    text="Upload"
+                    text="Xác nhận"
                     intent={Intent.SUCCESS}
                     onClick={this.onUpload.bind(this)}
                 />

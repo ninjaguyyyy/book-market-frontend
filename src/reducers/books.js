@@ -23,10 +23,12 @@ export default function (state = initialState, action) {
         case GET_BOOKS_SELLER:
             return { ...state, booksSeller: action.payload };
         case UPLOAD_BOOK:
-            return {
-                ...state,
-                booksSeller: [...state.booksSeller, action.payload],
-            };
+            state.booksSeller.push(action.payload);
+            break;
+        // return {
+        //     ...state,
+        //     booksSeller: state.booksSeller.push(action.payload),
+        // };
 
         default:
             return state;

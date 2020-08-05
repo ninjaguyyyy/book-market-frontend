@@ -27,7 +27,7 @@ class AddBookForm extends Component {
         this.initialValues = {
             name: "",
             author: "",
-            kind: "",
+            category: "",
             price: "",
             description: "",
             quantity: 1,
@@ -49,14 +49,18 @@ class AddBookForm extends Component {
     handleSubmit(values) {
         console.log(values);
         console.log("file img");
-        console.log(this.state.filesImg);
+        let filesImg = this.state.filesImg;
         console.log("file prev");
-        console.log(this.state.filesPrev);
+        let filesPrev = this.state.filesPrev;
         this.setState({ openAlert: true });
 
         (async () => {
             try {
-                const response = await userApi.upload(values);
+                const response = await userApi.upload({
+                    ...values,
+                    filesImg,
+                    filesPrev,
+                });
                 let action = await uploadBook(response.Book);
                 let resDispatch = this.props.dispatch(action);
                 if (resDispatch.payload.success) {
@@ -136,7 +140,7 @@ class AddBookForm extends Component {
                                     <Grid item md={12} xs={12}>
                                         <FastField
                                             category="category_book"
-                                            name="kind"
+                                            name="category"
                                             component={SelectField}
                                             label="Loại sách"
                                             options={categoriesRender}
