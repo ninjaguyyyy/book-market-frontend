@@ -61,10 +61,12 @@ class AddBookForm extends Component {
                     filesImg,
                     filesPrev,
                 });
-                let action = await uploadBook(response.Book);
-                let resDispatch = this.props.dispatch(action);
-                if (resDispatch.payload.success) {
+
+                if (response.success) {
                     this.setState({ openAlert: true });
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
                 }
             } catch (error) {
                 console.log(`failed post register as ${error}`);

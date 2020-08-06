@@ -10,7 +10,7 @@ const initialState = {
     booksShop: {},
     categories: [],
     bookDetail: {},
-    booksSeller: [],
+    booksSeller: {},
 };
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -22,8 +22,7 @@ export default function (state = initialState, action) {
             return { ...state, bookDetail: action.payload };
         case GET_BOOKS_SELLER:
             return { ...state, booksSeller: action.payload };
-        case UPLOAD_BOOK:
-            state.booksSeller.push(action.payload);
+
             break;
         // return {
         //     ...state,

@@ -59,7 +59,6 @@ class ProductsToolbar extends React.Component {
                 const response = await categoriesApi.get();
                 let action = await getCategories(response);
                 let resDispatch = this.props.dispatch(action);
-                console.log(resDispatch);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }
