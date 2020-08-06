@@ -50,8 +50,8 @@ const ShopList = (props) => {
                 console.log(`failed post register as ${error}`);
             }
         })();
-        return {
-            // before effect and unmount
+        return () => {
+            // before  unmount
         };
     }, []);
 

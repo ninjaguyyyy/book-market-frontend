@@ -19,14 +19,32 @@ class ShopDetail extends Component {
     // static propTypes = {
     //     prop: PropTypes(),
     // };
+    constructor(props) {
+        super(props);
+        this.state = {
+            booksByAuthor: [],
+        };
+    }
 
     componentDidMount() {
         (async () => {
             try {
                 let idBook = this.props.match.params.id_book;
                 const response = await booksApi.getDetail(idBook);
+
+                const paramForByAuthor = {
+                    page: 1,
+                    perPage: 4,
+                    author: response.author,
+                };
                 let action = await getBook(response);
                 let resDispatch = this.props.dispatch(action);
+                const resByAuthor = await booksApi.get(paramForByAuthor);
+                console.log(resByAuthor);
+                this.setState({
+                    booksByAuthor: [...resByAuthor.docs],
+                });
+
                 // console.log(resDispatch);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -45,6 +63,7 @@ class ShopDetail extends Component {
     }
 
     renderBook(book) {
+        console.log(this.state);
         return (
             <div>
                 <Row>
@@ -67,9 +86,11 @@ class ShopDetail extends Component {
                         <InfoTab des={book.description} />
                     </Col>
                 </Row>
-                {/* <Row>
-                    <SimilarProducts />
-                </Row> */}
+                {this.state.booksByAuthor.length && (
+                    <Row>
+                        <SimilarProducts books={this.state.booksByAuthor} />
+                    </Row>
+                )}
             </div>
         );
     }

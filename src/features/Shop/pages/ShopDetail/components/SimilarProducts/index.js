@@ -6,22 +6,16 @@ import "./index.scss";
 
 export default class SimilarProducts extends Component {
     render() {
+        const { books } = this.props;
         return (
             <div className="similar-products">
                 <h3>Sản phẩm tương tự</h3>
                 <Row>
-                    <Col>
-                        <BookCard />
-                    </Col>
-                    <Col>
-                        <BookCard />
-                    </Col>
-                    <Col>
-                        <BookCard />
-                    </Col>
-                    <Col>
-                        <BookCard />
-                    </Col>
+                    {books.map((book) => (
+                        <Col>
+                            <BookCard book={book} />
+                        </Col>
+                    ))}
                 </Row>
             </div>
         );
