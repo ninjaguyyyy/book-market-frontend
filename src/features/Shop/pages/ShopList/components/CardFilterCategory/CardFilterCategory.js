@@ -22,6 +22,7 @@ export default class CardFilterCategory extends Component {
         this.setState({
             category: event.target.value,
         });
+        this.props.onChangeCategory(event.target.value);
     }
 
     render() {
@@ -44,6 +45,12 @@ export default class CardFilterCategory extends Component {
                             value={this.state.category}
                             onChange={this.handleCategoryChange}
                         >
+                            <FormControlLabel
+                                value=""
+                                control={<Radio />}
+                                label="Tất cả"
+                                className="radio"
+                            />
                             {categories.map((category) => (
                                 <FormControlLabel
                                     value={category._id}
