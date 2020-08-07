@@ -12,6 +12,7 @@ import Slider from "./components/Slider/Slider";
 import InfoTab from "./components/InfoTab";
 import SimilarProducts from "./components/SimilarProducts";
 import booksApi from "../../../../api/booksApi";
+
 import { getBook } from "../../../../actions/books";
 import "./index.scss";
 

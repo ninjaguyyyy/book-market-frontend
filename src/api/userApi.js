@@ -17,6 +17,10 @@ const userApi = {
         const url = "api/seller/upload";
         return axiosClient.post(url, book);
     },
+    getById: (params) => {
+        const url = "users/user";
+        return axiosClient.get(url, { params });
+    },
 };
 
 export default userApi;

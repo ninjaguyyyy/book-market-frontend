@@ -19,7 +19,7 @@ function Shop(props) {
                 />
                 <Route
                     exact
-                    path={`${match.url}/store`}
+                    path={`${match.url}/store/:id_store`}
                     component={ShopStore}
                 />
                 <Route exact path={`${match.url}/cart`} component={Cart} />

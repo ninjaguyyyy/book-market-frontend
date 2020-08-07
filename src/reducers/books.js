@@ -4,6 +4,7 @@ import {
     GET_BOOK,
     GET_BOOKS_SELLER,
     UPLOAD_BOOK,
+    GET_BOOKS_STORE,
 } from "../constants/typeRedux";
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
     categories: [],
     bookDetail: {},
     booksSeller: {},
+    booksStore: {},
 };
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -22,8 +24,9 @@ export default function (state = initialState, action) {
             return { ...state, bookDetail: action.payload };
         case GET_BOOKS_SELLER:
             return { ...state, booksSeller: action.payload };
+        case GET_BOOKS_STORE:
+            return { ...state, booksStore: action.payload };
 
-            break;
         // return {
         //     ...state,
         //     booksSeller: state.booksSeller.push(action.payload),

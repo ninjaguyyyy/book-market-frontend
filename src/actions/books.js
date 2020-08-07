@@ -1,4 +1,9 @@
-import { GET_BOOKS, GET_CATEGORIES, GET_BOOK } from "../constants/typeRedux";
+import {
+    GET_BOOKS,
+    GET_CATEGORIES,
+    GET_BOOK,
+    GET_BOOKS_STORE,
+} from "../constants/typeRedux";
 
 export async function getBooks(books) {
     return {
@@ -18,5 +23,12 @@ export async function getBook(book) {
     return {
         type: GET_BOOK,
         payload: book,
+    };
+}
+
+export async function getBooksStore(books) {
+    return {
+        type: GET_BOOKS_STORE,
+        payload: books,
     };
 }

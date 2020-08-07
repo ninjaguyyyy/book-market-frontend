@@ -25,7 +25,10 @@ export default class MainInfo extends Component {
                     </div>
                     <div className="seller">
                         <StoreIcon />
-                        <Link to="/shop/store" className="store">
+                        <Link
+                            to={`/shop/store/${book.seller}`}
+                            className="store"
+                        >
                             <p>nguyen huu chi</p>
                         </Link>
                     </div>
