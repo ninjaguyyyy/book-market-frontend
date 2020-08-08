@@ -1,20 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
 import {
     FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
     FormHelperText,
+    InputLabel,
+    MenuItem,
+    Select,
     TextField,
 } from "@material-ui/core";
-
+import PropTypes from "prop-types";
+import React, { Component } from "react";
 import "./SelectField.scss";
 
 export default class SelectField extends Component {
-    constructor(props) {
-        super(props);
-    }
     static propTypes = {
         field: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired,
@@ -35,16 +31,8 @@ export default class SelectField extends Component {
     };
 
     render() {
-        const {
-            field,
-            form,
-            category,
-            label,
-            placeholder,
-            disable,
-            options,
-        } = this.props;
-        const { name, value, onChange, onBlur } = field;
+        const { field, form, category, label, options } = this.props;
+        const { name } = field;
         const { errors, touched } = form;
         const showError = errors[name] && touched[name];
         return (
@@ -71,22 +59,29 @@ export default class SelectField extends Component {
                     </FormControl>
                 )}
                 {category === "category_book" && (
-                    <TextField
-                        fullWidth
-                        label={label}
-                        margin="dense"
-                        id={name}
-                        select
-                        // eslint-disable-next-line react/jsx-sort-props
-                        SelectProps={{ native: true }}
-                        variant="outlined"
+                    <FormControl
+                        className="select-field"
+                        style={{ width: "100%" }}
+                        error={showError}
                     >
-                        {options.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.name}
-                            </option>
-                        ))}
-                    </TextField>
+                        {label && (
+                            <InputLabel id="demo-simple-select-label">
+                                {label}
+                            </InputLabel>
+                        )}
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id={name}
+                            {...field}
+                        >
+                            {options.map((item, i) => (
+                                <MenuItem key={i} value={item.value}>
+                                    {item.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                        <FormHelperText>{errors[name]}</FormHelperText>
+                    </FormControl>
                 )}
             </div>
         );

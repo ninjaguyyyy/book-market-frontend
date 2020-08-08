@@ -1,11 +1,8 @@
-import React, { Component } from "react";
+import { TextField } from "@material-ui/core";
 import PropTypes from "prop-types";
-import { Button, TextField, Grid } from "@material-ui/core";
+import React, { Component } from "react";
 
 export default class InputField extends Component {
-    constructor(props) {
-        super(props);
-    }
     static propTypes = {
         field: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired,
@@ -27,17 +24,8 @@ export default class InputField extends Component {
     };
 
     render() {
-        const {
-            field,
-            form,
-            type,
-            label,
-            placeholder,
-            disable,
-            category,
-            row,
-        } = this.props;
-        const { name, value, onChange, onBlur } = field;
+        const { field, form, type, label, disable, category, row } = this.props;
+        const { name } = field;
         const { errors, touched } = form;
         const showError = errors[name] && touched[name];
         return (
@@ -72,7 +60,6 @@ export default class InputField extends Component {
                 )}
                 {category === "multiple" && (
                     <TextField
-                        id="outlined-multiline-static"
                         label={label}
                         multiline
                         rows={row}

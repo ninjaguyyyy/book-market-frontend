@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import * as Yup from "yup";
-import { connect } from "react-redux";
-import { Button, TextField, Grid } from "@material-ui/core";
-import { Formik, Form, FastField } from "formik";
-import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { Button, Grid, Snackbar } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
-
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import { FastField, Form, Formik } from "formik";
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import Alert from "@material-ui/lab/Alert";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import InputField from "../../../../components/custom-field/InputField";
 import SelectField from "../../../../components/custom-field/SelectField";
 import { TYPE_SIGN } from "../../../../constants/options";
@@ -31,6 +31,10 @@ class LoginForm extends Component {
             password: Yup.string().required("Vui lòng không để trống."),
             type: Yup.number().required("Vui lòng không để trống"),
         });
+
+        this.state = {
+            openAlert: false,
+        };
     }
 
     render() {
@@ -41,8 +45,6 @@ class LoginForm extends Component {
                 onSubmit={this.props.handleSubmit}
             >
                 {(formikProps) => {
-                    // do something
-                    const { values, errors, touched } = formikProps;
                     return (
                         <Form className="form login-form">
                             <FastField
@@ -120,6 +122,23 @@ class LoginForm extends Component {
                                     </Grid>
                                 </div>
                             </Grid>
+                            <Snackbar
+                                open={this.state.openAlert}
+                                autoHideDuration={6000}
+                                onClose={() => {
+                                    this.setState({ openAlert: false });
+                                }}
+                            >
+                                <Alert
+                                    onClose={() => {
+                                        this.setState({ openAlert: false });
+                                    }}
+                                    severity="warning"
+                                >
+                                    Đã đăng ký thành công. Chuyển sang Đăng nhập
+                                    sau vài giây.
+                                </Alert>
+                            </Snackbar>
                         </Form>
                     );
                 }}
@@ -129,7 +148,7 @@ class LoginForm extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        ...state.login_register.login,
+        ...state.user.login,
     };
 };
 export default connect(mapStateToProps)(LoginForm);

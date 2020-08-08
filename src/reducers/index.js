@@ -1,9 +1,13 @@
 import { combineReducers } from "redux";
 
-import login_register from "./login_register";
+import user from "./user";
+import books from "./books";
+import cart from "./cart";
 
 const rootReducer = combineReducers({
-    login_register,
+    user,
+    books,
+    cart,
 });
 
 export default rootReducer;

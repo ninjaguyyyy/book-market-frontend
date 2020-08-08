@@ -4,6 +4,7 @@ import { Switch, Route, useRouteMatch } from 'react-router-dom'
 import LoginPage from './pages/Login'
 import RegisterPage from './pages/Register'
 import GuestLayout from '../../components/Layout/guest/GuestLayout.js'
+import './index.scss'
 
 function User(props) {
     const match = useRouteMatch();

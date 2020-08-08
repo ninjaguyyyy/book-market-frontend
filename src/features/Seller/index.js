@@ -1,16 +1,42 @@
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import SettingsIcon from "@material-ui/icons/Settings";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import React from "react";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
-
-import Account from "./pages/Account/Account";
-import Orders from "./pages/Orders/Orders";
-import Books from "./pages/Books/Books";
-import Setting from "./pages/Setting/Setting";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import SellerLayout from "../../components/Layout/seller/SellerLayout";
+import Account from "./pages/Account/Account";
+import Books from "./pages/Books/Books";
+import Orders from "./pages/Orders/Orders";
+import Setting from "./pages/Setting/Setting";
+
+const pages = [
+    {
+        title: "Tài khoản",
+        href: "/seller/account",
+        icon: <AccountBoxIcon />,
+    },
+    {
+        title: "Đơn hàng",
+        href: "/seller/orders",
+        icon: <ShoppingCartIcon />,
+    },
+    {
+        title: "Sách của tôi",
+        href: "/seller/books",
+        icon: <MenuBookIcon />,
+    },
+    {
+        title: "Cài đặt",
+        href: "/seller/setting",
+        icon: <SettingsIcon />,
+    },
+];
 
 function Seller(props) {
     const match = useRouteMatch();
     return (
-        <SellerLayout>
+        <SellerLayout pages={pages}>
             <Switch>
                 <Redirect exact from={match.url} to="/seller/account" />
 

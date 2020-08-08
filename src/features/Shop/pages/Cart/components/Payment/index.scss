@@ -1,0 +1,26 @@
+.payment {
+    padding: 10px 20px;
+    background-color: #fff;
+
+    .cost {
+        display: flex;
+        justify-content: space-between;
+        p {
+            color: #999;
+        }
+    }
+    .total {
+        .number {
+            color: red;
+        }
+        p {
+            color: #000;
+        }
+    }
+    .button {
+        margin-top: 20px;
+        button {
+            text-transform: uppercase;
+        }
+    }
+}

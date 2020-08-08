@@ -22,8 +22,8 @@ const Password = (props) => {
     const classes = useStyles();
 
     const [values, setValues] = useState({
-        password: "",
-        confirm: "",
+        old: "",
+        new: "",
     });
 
     const handleChange = (event) => {
@@ -36,13 +36,13 @@ const Password = (props) => {
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
             <form>
-                <CardHeader subheader="Update password" title="Password" />
+                <CardHeader subheader="Đổi mật khẩu" title="Mật khẩu" />
                 <Divider />
                 <CardContent>
                     <TextField
                         fullWidth
-                        label="Password"
-                        name="password"
+                        label="Mật khẩu cũ"
+                        name="old"
                         onChange={handleChange}
                         type="password"
                         value={values.password}
@@ -50,8 +50,8 @@ const Password = (props) => {
                     />
                     <TextField
                         fullWidth
-                        label="Confirm password"
-                        name="confirm"
+                        label="Mật khẩu mới"
+                        name="new"
                         onChange={handleChange}
                         style={{ marginTop: "1rem" }}
                         type="password"
@@ -60,9 +60,11 @@ const Password = (props) => {
                     />
                 </CardContent>
                 <Divider />
-                <CardActions>
+                <CardActions
+                    style={{ display: "flex", justifyContent: "center" }}
+                >
                     <Button color="primary" variant="outlined">
-                        Update
+                        Xác nhận
                     </Button>
                 </CardActions>
             </form>

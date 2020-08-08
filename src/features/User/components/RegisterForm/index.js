@@ -1,20 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { Formik, Form, FastField } from "formik";
+import { Button, Grid } from "@material-ui/core";
 import ErrorIcon from "@material-ui/icons/Error";
-import {
-    Button,
-    TextField,
-    FormControlLabel,
-    Checkbox,
-    Grid,
-    Box,
-} from "@material-ui/core";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { FastField, Form, Formik } from "formik";
+import PropTypes from "prop-types";
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Col, Container, Row } from "reactstrap";
 import * as Yup from "yup";
-
 import InputField from "../../../../components/custom-field/InputField";
 import SelectField from "../../../../components/custom-field/SelectField";
 import { TYPE_SIGN } from "../../../../constants/options";
@@ -30,7 +23,7 @@ class RegisterForm extends React.Component {
             email: "",
             address: "",
             phone: "",
-            type: 1,
+            role: 1,
         };
         this.validationSchema = Yup.object().shape({
             username: Yup.string().required("Vui lòng không để trống."),
@@ -40,12 +33,11 @@ class RegisterForm extends React.Component {
                 .required("Vui lòng không để trống."),
             address: Yup.string().required("Vui lòng không để trống."),
             phone: Yup.number().required("Vui lòng không để trống."),
-            type: Yup.number().required("Vui lòng không để trống"),
+            role: Yup.number().required("Vui lòng không để trống"),
         });
     }
     render() {
         const { handleSubmit } = this.props;
-        console.log(this.props);
         return (
             <Formik
                 initialValues={this.initialValues}
@@ -54,88 +46,107 @@ class RegisterForm extends React.Component {
             >
                 {(formikProps) => {
                     // do something
-                    const { values, errors, touched } = formikProps;
                     return (
                         <Form className="form register-form">
-                            <Grid container spacing={2}>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={6}
-                                    className="form-control"
-                                >
-                                    <FastField
-                                        category="text_sign"
-                                        name="username"
-                                        component={InputField}
-                                        label="Tên đăng nhập"
-                                        type="text"
-                                    />
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    sm={6}
-                                    className="form-control"
-                                >
-                                    <FastField
-                                        category="text_sign"
-                                        name="password"
-                                        component={InputField}
-                                        label="Mật khẩu"
-                                        type="password"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} className="form-control">
-                                    <FastField
-                                        category="text_sign"
-                                        name="email"
-                                        component={InputField}
-                                        label="Địa chỉ email"
-                                        type="email"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} className="form-control">
-                                    <FastField
-                                        category="text_sign"
-                                        name="address"
-                                        component={InputField}
-                                        label="Địa chỉ"
-                                        type="text"
-                                    />
-                                </Grid>
-                                <Grid item xs={12} className="form-control">
-                                    <FastField
-                                        category="text_sign"
-                                        name="phone"
-                                        component={InputField}
-                                        label="Số điện thoại"
-                                        type="number"
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid container className="wrapper-submit">
-                                <Grid item xs>
-                                    <FastField
-                                        name="type"
-                                        component={SelectField}
-                                        label="Phân hệ"
-                                        category="sign"
-                                        options={TYPE_SIGN}
-                                    />
-                                </Grid>
-                                <Grid item xs>
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        color="primary"
-                                        className="submit"
-                                    >
-                                        Xác nhận
-                                    </Button>
-                                </Grid>
-                            </Grid>
+                            <Container>
+                                <Row>
+                                    <Col xs={6}>
+                                        <FastField
+                                            category="text_sign"
+                                            name="username"
+                                            component={InputField}
+                                            label="Tên đăng nhập"
+                                            type="text"
+                                        />
+                                    </Col>
+                                    <Col xs={6}>
+                                        <FastField
+                                            category="text_sign"
+                                            name="password"
+                                            component={InputField}
+                                            label="Mật khẩu"
+                                            type="password"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <FastField
+                                            category="text_sign"
+                                            name="email"
+                                            component={InputField}
+                                            label="Địa chỉ email"
+                                            type="email"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <FastField
+                                            category="text_sign"
+                                            name="address"
+                                            component={InputField}
+                                            label="Địa chỉ"
+                                            type="text"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <FastField
+                                            category="text_sign"
+                                            name="phone"
+                                            component={InputField}
+                                            label="Số điện thoại"
+                                            type="number"
+                                        />
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={6}>
+                                        <FastField
+                                            name="role"
+                                            component={SelectField}
+                                            label="Phân hệ"
+                                            category="sign"
+                                            options={TYPE_SIGN}
+                                        />
+                                    </Col>
+                                    <Col xs={6}>
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            color="primary"
+                                            className="submit"
+                                        >
+                                            Xác nhận
+                                        </Button>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col xs={6}>
+                                        {this.props.success === false && (
+                                            <Grid item className="err-wrapper">
+                                                <ErrorIcon />{" "}
+                                                <span className="err-msg">
+                                                    {this.props.msg}
+                                                </span>
+                                            </Grid>
+                                        )}
+                                    </Col>
+                                    <Col xs={6} className="forgot">
+                                        <Link
+                                            to="/user/login"
+                                            variant="body2"
+                                            title="Đăng nhập ngay!"
+                                        >
+                                            <LockOpenIcon />
+                                        </Link>
+                                    </Col>
+                                </Row>
+                            </Container>
+
                             <Grid
                                 container
                                 justify={
@@ -144,23 +155,7 @@ class RegisterForm extends React.Component {
                                         : "flex-end"
                                 }
                             >
-                                {this.props.success === false && (
-                                    <Grid item className="err-wrapper">
-                                        <ErrorIcon />{" "}
-                                        <span className="err-msg">
-                                            {this.props.msg}
-                                        </span>
-                                    </Grid>
-                                )}
-                                <Grid item>
-                                    <Link
-                                        to="/user/login"
-                                        variant="body2"
-                                        title="Đăng nhập ngay!"
-                                    >
-                                        <LockOpenIcon />
-                                    </Link>
-                                </Grid>
+                                <Grid item></Grid>
                             </Grid>
                         </Form>
                     );
@@ -175,7 +170,7 @@ RegisterForm.propTypes = {
 };
 const mapStateToProps = (state) => {
     return {
-        ...state.login_register.register,
+        ...state.user.register,
     };
 };
 export default connect(mapStateToProps)(RegisterForm);

@@ -1,26 +1,41 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Avatar, Container, CssBaseline, Typography } from "@material-ui/core";
+import { Avatar, Container, Typography, Snackbar } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-
+import React from "react";
+import Alert from "@material-ui/lab/Alert";
+import { connect } from "react-redux";
+import { loginUser } from "../../../../actions/user";
+import userApi from "../../../../api/userApi";
 import LoginForm from "../../components/LoginForm";
-import { loginUser } from "../../../../actions/login_register";
 import "./styles.scss";
 
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            openAlert: false,
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    async handleSubmit(values) {
-        const action = await loginUser(values);
-        this.props.dispatch(action);
+    handleSubmit(values) {
+        (async () => {
+            try {
+                const response = await userApi.login(values);
+                let action = await loginUser(response);
+                let resDispatch = this.props.dispatch(action);
+                if (resDispatch.payload.success) {
+                    this.setState({ openAlert: true });
+                    setTimeout(() => {
+                        this.props.history.push("/shop/cart");
+                    }, 3000);
+                }
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
     }
     render() {
         return (
             <Container component="main" maxWidth="xs" className="login">
-                <CssBaseline />
                 <div className="paper">
                     <Avatar className="avatar">
                         <LockOutlinedIcon />
@@ -30,6 +45,23 @@ class LoginPage extends React.Component {
                     </Typography>
                     <LoginForm handleSubmit={this.handleSubmit} />
                 </div>
+                <Snackbar
+                    open={this.state.openAlert}
+                    autoHideDuration={6000}
+                    onClose={() => {
+                        this.setState({ openAlert: false });
+                    }}
+                >
+                    <Alert
+                        onClose={() => {
+                            this.setState({ openAlert: false });
+                        }}
+                        severity="success"
+                    >
+                        Đã đăng nhập thành công. Chuyển sang Giỏ hàng sau vài
+                        giây.
+                    </Alert>
+                </Snackbar>
             </Container>
         );
     }

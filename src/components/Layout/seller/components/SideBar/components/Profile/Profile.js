@@ -1,9 +1,12 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import { Avatar, Typography } from "@material-ui/core";
+
+import StoreImg from "../../../../../../../assets/images/store_img.png";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,13 +30,12 @@ const Profile = (props) => {
     const classes = useStyles();
 
     const user = {
-        name: "Shen Zhi",
-        avatar: "/images/avatars/avatar_11.png",
-        bio: "Brain Director",
+        name: props.user.name,
+        avatar: props.user.avatar || StoreImg,
     };
 
     return (
-        <div {...rest} className={clsx(classes.root, className)}>
+        <div className={clsx(classes.root, className)}>
             <Avatar
                 alt="Person"
                 className={classes.avatar}
@@ -53,4 +55,8 @@ Profile.propTypes = {
     className: PropTypes.string,
 };
 
-export default Profile;
+function mapStateToProps(state) {
+    return { ...state.user.login };
+}
+
+export default connect(mapStateToProps)(Profile);
