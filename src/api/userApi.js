@@ -15,7 +15,9 @@ const userApi = {
     },
     upload: (book) => {
         const url = "api/seller/upload";
-        return axiosClient.post(url, book);
+        return axiosClient.post(url, book, {
+            headers: { "content-type": "multipart/form-data" },
+        });
     },
     getById: (params) => {
         const url = "users/user";

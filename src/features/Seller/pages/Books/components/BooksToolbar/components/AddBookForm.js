@@ -50,22 +50,23 @@ class AddBookForm extends Component {
         console.log(values);
         console.log("file img");
         let filesImg = this.state.filesImg;
+        console.log(filesImg);
         console.log("file prev");
         let filesPrev = this.state.filesPrev;
         this.setState({ openAlert: true });
 
+        let formData = new FormData();
+        formData.set("test", "test");
+        formData.append("filesImg", filesImg);
+        console.log(formData);
         (async () => {
             try {
-                const response = await userApi.upload({
-                    ...values,
-                    filesImg,
-                    filesPrev,
-                });
-
+                const response = await userApi.upload(formData);
+                console.log(formData);
                 if (response.success) {
                     this.setState({ openAlert: true });
                     setTimeout(() => {
-                        window.location.reload();
+                        // window.location.reload();
                     }, 2000);
                 }
             } catch (error) {
