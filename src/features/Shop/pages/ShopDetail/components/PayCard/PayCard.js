@@ -87,7 +87,9 @@ export default class PayCard extends Component {
                         <Button
                             outline
                             color="primary"
-                            onClick={this.props.handleAddToCart.bind(quantity)}
+                            onClick={(e) =>
+                                this.props.handleAddToCart(e, quantity)
+                            }
                         >
                             Thêm vào giỏ hàng
                         </Button>

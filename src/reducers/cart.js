@@ -1,4 +1,4 @@
-import {} from "../constants/typeRedux";
+import { ADD_TO_CART } from "../constants/typeRedux";
 
 const initialState = {
     cart: [],

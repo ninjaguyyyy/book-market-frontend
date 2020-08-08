@@ -12,8 +12,10 @@ import Slider from "./components/Slider/Slider";
 import InfoTab from "./components/InfoTab";
 import SimilarProducts from "./components/SimilarProducts";
 import booksApi from "../../../../api/booksApi";
+import cartApi from "../../../../api/cartApi";
 
 import { getBook } from "../../../../actions/books";
+import { addToCart } from "../../../../actions/cart";
 import "./index.scss";
 
 class ShopDetail extends Component {
@@ -23,14 +25,18 @@ class ShopDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            idBook: "",
             booksByAuthor: [],
         };
+
+        this.handleAddToCart = this.handleAddToCart.bind(this);
     }
 
     componentDidMount() {
         (async () => {
             try {
                 let idBook = this.props.match.params.id_book;
+                this.setState({ idBook });
                 const response = await booksApi.getDetail(idBook);
 
                 const paramForByAuthor = {
@@ -53,8 +59,25 @@ class ShopDetail extends Component {
         })();
     }
 
-    handleAddToCart(e, quantity) {
-        console.log(quantity);
+    handleAddToCart(e, amount) {
+        let cartItem = {
+            amount,
+            productID: this.state.idBook,
+        };
+        (async () => {
+            try {
+                const response = await cartApi.add(cartItem);
+                if (response.success) {
+                    let action = await addToCart(
+                        response.data.cart.productList
+                    );
+                    let resDispatch = this.props.dispatch(action);
+                    console.log(resDispatch);
+                }
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
     }
 
     renderBook(book) {
