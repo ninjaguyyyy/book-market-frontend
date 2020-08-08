@@ -36,7 +36,7 @@ export default class Slider extends Component {
 
     render() {
         let { images } = this.props;
-        console.log(this.props);
+
         let imagesRender = images.map((image) => {
             return { original: image, thumbnail: image };
         });

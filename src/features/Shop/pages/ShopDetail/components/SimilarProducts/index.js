@@ -12,7 +12,7 @@ export default class SimilarProducts extends Component {
                 <h3>Sản phẩm tương tự</h3>
                 <Row>
                     {books.map((book) => (
-                        <Col>
+                        <Col key={book._id}>
                             <BookCard book={book} />
                         </Col>
                     ))}

@@ -41,7 +41,7 @@ class ShopDetail extends Component {
                 let action = await getBook(response);
                 let resDispatch = this.props.dispatch(action);
                 const resByAuthor = await booksApi.get(paramForByAuthor);
-                console.log(resByAuthor);
+
                 this.setState({
                     booksByAuthor: [...resByAuthor.docs],
                 });
@@ -51,20 +51,13 @@ class ShopDetail extends Component {
                 console.log(`failed post register as ${error}`);
             }
         })();
-        // (async () => {
-        //     try {
-        //         const response = await categoriesApi.get();
-        //         let action = await getCategories(response);
-        //         let resDispatch = this.props.dispatch(action);
-        //         console.log(resDispatch);
-        //     } catch (error) {
-        //         console.log(`failed post register as ${error}`);
-        //     }
-        // })();
+    }
+
+    handleAddToCart(e, quantity) {
+        console.log(quantity);
     }
 
     renderBook(book) {
-        console.log(this.state);
         return (
             <div>
                 <Row>
@@ -79,7 +72,10 @@ class ShopDetail extends Component {
                         </Row>
                     </Col>
                     <Col xs={4}>
-                        <PayCard book={book} />
+                        <PayCard
+                            handleAddToCart={this.handleAddToCart}
+                            book={book}
+                        />
                     </Col>
                 </Row>
                 <Row>
@@ -97,13 +93,12 @@ class ShopDetail extends Component {
     }
 
     renderProgress() {
-        console.log("vo day");
         return <div>progress</div>;
     }
 
     render() {
         let { bookDetail: book } = this.props;
-        console.log(book);
+
         return (
             <Container className="container-fluid ShopDetail">
                 {_.isEmpty(book)

@@ -6,7 +6,6 @@ const axiosClient = axios.create({
     headers: { "content-type": "application/json" },
     // pass params object (query string {q: x, a: y}) -> auto match with url string (?q=x&a=y)
     paramsSerializer: function (params) {
-        console.log(params);
         return queryString.stringify(params);
     },
 });

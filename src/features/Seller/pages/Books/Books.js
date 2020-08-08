@@ -1,15 +1,13 @@
-import { Grid, IconButton, Typography } from "@material-ui/core";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { Grid } from "@material-ui/core";
+import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/styles";
-import { useDispatch, connect } from "react-redux";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { getBooksSeller } from "../../../../actions/user";
+import booksApi from "../../../../api/booksApi";
 import BookCard from "../../../../components/BookCard/BookCard";
 import BooksToolbar from "./components/BooksToolbar/BooksToolbar";
-import Pagination from "@material-ui/lab/Pagination";
 import mockData from "./data";
-import booksApi from "../../../../api/booksApi";
-import { getBooksSeller } from "../../../../actions/user";
 
 const useStyles = makeStyles((theme) => ({
     root: {

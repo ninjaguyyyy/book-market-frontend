@@ -50,14 +50,15 @@ class AddBookForm extends Component {
         console.log(values);
         console.log("file img");
         let filesImg = this.state.filesImg;
-        console.log(filesImg);
         console.log("file prev");
         let filesPrev = this.state.filesPrev;
         this.setState({ openAlert: true });
 
         let formData = new FormData();
-        formData.set("test", "test");
-        formData.append("filesImg", filesImg);
+        // formData.set("test", "test");
+        formData.append("images", filesImg[0]);
+        formData.append("images", filesImg[1]);
+        console.log(filesImg);
         console.log(formData);
         (async () => {
             try {
