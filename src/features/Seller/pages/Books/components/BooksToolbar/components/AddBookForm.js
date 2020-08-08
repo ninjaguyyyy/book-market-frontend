@@ -48,18 +48,24 @@ class AddBookForm extends Component {
 
     handleSubmit(values) {
         console.log(values);
-        console.log("file img");
         let filesImg = this.state.filesImg;
-        console.log("file prev");
         let filesPrev = this.state.filesPrev;
         this.setState({ openAlert: true });
 
         let formData = new FormData();
-        // formData.set("test", "test");
-        formData.append("images", filesImg[0]);
-        formData.append("images", filesImg[1]);
-        console.log(filesImg);
-        console.log(formData);
+        formData.set("name", values.name);
+        formData.set("author", values.author);
+        formData.set("price", values.price);
+        formData.set("description", values.description);
+        formData.set("category", values.category);
+        formData.set("quantity", values.quantity);
+        for (let fileImg of filesImg) {
+            formData.append("images", fileImg);
+        }
+        for (let filePrev of filesPrev) {
+            formData.append("previewImgs", filePrev);
+        }
+
         (async () => {
             try {
                 const response = await userApi.upload(formData);
