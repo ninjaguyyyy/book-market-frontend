@@ -19,9 +19,6 @@ import { addToCart } from "../../../../actions/cart";
 import "./index.scss";
 
 class ShopDetail extends Component {
-    // static propTypes = {
-    //     prop: PropTypes(),
-    // };
     constructor(props) {
         super(props);
         this.state = {
@@ -60,6 +57,8 @@ class ShopDetail extends Component {
     }
 
     handleAddToCart(e, amount) {
+        console.log("once");
+        console.log(amount);
         let cartItem = {
             amount,
             productID: this.state.idBook,
@@ -67,6 +66,7 @@ class ShopDetail extends Component {
         (async () => {
             try {
                 const response = await cartApi.add(cartItem);
+                console.log(response);
                 if (response.success) {
                     let action = await addToCart(
                         response.data.cart.productList
