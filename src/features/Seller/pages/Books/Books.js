@@ -29,6 +29,7 @@ const ProductList = (props) => {
 
     const [products] = useState(mockData);
     const dispatch = useDispatch();
+    console.log(props)
 
     useEffect(() => {
         // execute after first render

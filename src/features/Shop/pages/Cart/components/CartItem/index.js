@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
-
+import userApi from "../../../../../../api/userApi"
 import BookImg from "../../../../../../assets/images/book.jpg";
 import "./index.scss";
 
-export default function CartItem() {
-    const [quantityTemp, setQuantityTemp] = useState(1);
-
+export default function CartItem(props) {
+    const [quantityTemp, setQuantityTemp] = useState(props.details.amount);
+    const [seller,setSeller]=useState({})
     const handleSub = () => {
         let temp = quantityTemp - 1 < 1 ? 1 : quantityTemp - 1;
         setQuantityTemp(temp);
@@ -17,6 +17,23 @@ export default function CartItem() {
         let temp = quantityTemp + 1 > 10 ? 10 : quantityTemp + 1;
         setQuantityTemp(temp);
     };
+    useEffect(() => {
+        // execute after first render
+        (async () => {
+            try {
+                let params = {
+                    ID: props.details.productID.seller,
+                };
+                const seller = await userApi.getById(params);
+                setSeller(seller)
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
+        return {
+            // execute when unmount
+        };
+    }, []);
     return (
         <div className="cart-item">
             <Row>
@@ -26,18 +43,18 @@ export default function CartItem() {
                 <Col xs={5}>
                     <div className="info">
                         <Link className="title" to="/shop/detail">
-                            Tôi thấy hoa vàng trên cỏ xanh
+                            {props.details.productID.title}
                         </Link>
                         <p>
-                            <u>Tác giả:</u> Nguyễn Nhật Ánh
+                            <u>Tác giả:</u> {props.details.productID.author}
                         </p>
                         <p>
-                            <u>Người bán:</u> Nguyễn Huu Chi
+                            <u>Người bán:</u> {seller.username}
                         </p>
                     </div>
                 </Col>
                 <Col xs={2} className="price">
-                    88 000 <u>đ</u>
+                {props.details.productID.price} <u>đ</u>
                 </Col>
                 <Col xs={2}>
                     <div className="action-quantity">
