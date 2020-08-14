@@ -1,4 +1,8 @@
-import { LOGIN_USER, REGISTER_USER } from "../constants/typeRedux";
+import {
+    LOGIN_USER,
+    REGISTER_USER,
+    SET_COMMENTS,
+} from "../constants/typeRedux";
 
 const initialState = {
     login: {
@@ -9,6 +13,7 @@ const initialState = {
         },
     },
     register: {},
+    comments: [],
 };
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -19,6 +24,8 @@ export default function (state = initialState, action) {
             localStorage.setItem("accessToken", action.payload.accessToken);
             console.log(action.payload.accessToken);
             return { ...state, login: action.payload };
+        case SET_COMMENTS:
+            return { ...state, comments: action.payload };
         default:
             return state;
     }

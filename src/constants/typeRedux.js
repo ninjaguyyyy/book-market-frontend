@@ -8,4 +8,5 @@ export const UPLOAD_BOOK = "upload_book";
 export const GET_BOOKS_SELLER = "get_books_seller";
 export const GET_BOOKS_STORE = "get_books_store";
 export const ADD_TO_CART = "add_to_cart";
-export const GET_CART_DETAILS= "get_cart_details"
+export const GET_CART_DETAILS = "get_cart_details";
+export const SET_COMMENTS = "set_comments";

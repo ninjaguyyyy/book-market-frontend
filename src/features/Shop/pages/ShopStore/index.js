@@ -11,6 +11,7 @@ import ProductStore from "./components/ProductStore";
 import booksApi from "../../../../api/booksApi";
 import userApi from "../../../../api/userApi";
 import { getBooksStore } from "../../../../actions/books";
+import { setComments } from "../../../../actions/user";
 import "./index.scss";
 
 class ShopStore extends Component {
@@ -18,6 +19,7 @@ class ShopStore extends Component {
         super(props);
         this.state = {
             seller: {},
+            idStore: "",
         };
         this.onChangePagination = this.onChangePagination.bind(this);
     }
@@ -25,6 +27,7 @@ class ShopStore extends Component {
         (async () => {
             try {
                 let idStore = this.props.match.params.id_store;
+                this.setState({ idStore });
                 let params = {
                     page: 1,
                     perPage: 4,
@@ -32,13 +35,13 @@ class ShopStore extends Component {
                 };
                 const response = await booksApi.get(params);
                 const resGetUser = await userApi.getById({ ID: idStore });
-                console.log(resGetUser);
                 this.setState({
                     seller: { ...resGetUser },
                 });
                 let action = await getBooksStore(response);
-                let resDispatch = this.props.dispatch(action);
 
+                let resDispatch = this.props.dispatch(action);
+                this.props.dispatch(setComments(resGetUser.comments));
                 // console.log(resDispatch);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -51,6 +54,7 @@ class ShopStore extends Component {
         (async () => {
             try {
                 let idStore = this.props.match.params.id_store;
+
                 let params = {
                     page: page,
                     perPage: 4,
@@ -109,7 +113,7 @@ class ShopStore extends Component {
                             </Row>
                             <Row>
                                 <Col>
-                                    <ReviewStore />
+                                    <ReviewStore idStore={this.state.idStore} />
                                 </Col>
                             </Row>
                         </Col>

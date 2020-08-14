@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Snackbar } from "@material-ui/core";
+import { Grid, Snackbar, Modal } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { useDispatch, useStore } from "react-redux";
 
 import AccountProfile from "./components/AccountProfile/AccountProfile";
 import AccountDetails from "./components/AccountDetails/AccountDetails";
 import userApi from "../../../../api/userApi";
+import DraggableUploader from "../../../../components/imageUploader/DraggableUploader";
 import { updateUser } from "../../../../actions/user";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,9 +20,12 @@ const useStyles = makeStyles((theme) => ({
 const Account = (props) => {
     const dispatch = useDispatch();
     const store = useStore();
-
     const classes = useStyles();
+
     const [openAlert, setOpenAlert] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [files, setFiles] = useState([]);
+
     let user = { ...store.getState().user.login.user };
 
     console.log(user);
@@ -51,6 +55,11 @@ const Account = (props) => {
         })();
     }
 
+    function receiveFile(files) {
+        setFiles(files);
+        console.log(files);
+    }
+
     return (
         <div className={classes.root}>
             <Grid container spacing={4}>
@@ -73,6 +82,18 @@ const Account = (props) => {
                     Đã đăng nhập thành công. Chuyển sang Giỏ hàng sau vài giây.
                 </Alert>
             </Snackbar>
+            <Modal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                className="Modal"
+            >
+                <DraggableUploader
+                    files={receiveFile}
+                    title="Chọn ảnh chụp sách"
+                />
+            </Modal>
         </div>
     );
 };

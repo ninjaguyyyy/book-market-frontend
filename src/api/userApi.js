@@ -23,6 +23,10 @@ const userApi = {
         const url = "users/user";
         return axiosClient.get(url, { params });
     },
+    comment: (body) => {
+        const url = "users/comment";
+        return axiosClient.post(url, body);
+    },
 };
 
 export default userApi;

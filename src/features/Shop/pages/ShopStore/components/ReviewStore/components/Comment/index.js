@@ -1,17 +1,19 @@
 import React from "react";
+import moment from "moment";
 
 import AvatarUser from "../../../../../../../../assets/images/woman.svg";
 import "./index.scss";
 
-export default function Comment() {
+export default function Comment(props) {
     return (
         <div className="comment">
             <img src={AvatarUser} alt="avatar" width={40} />
             <div className="info">
                 <div className="author">
-                    <b>Nguyen Huu Chi</b> <span>8 phút trước</span>
+                    <b>{props.comment.author.username}</b>{" "}
+                    <span>{moment(props.comment.createdAt).fromNow()}</span>
                 </div>
-                <p>Không biết cmt này tới 2020 được bao nhiêu like</p>
+                <p>{props.comment.content}</p>
             </div>
         </div>
     );
