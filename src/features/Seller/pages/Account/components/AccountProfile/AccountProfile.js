@@ -17,6 +17,7 @@ import PropTypes from "prop-types";
 import React, { useState } from "react";
 import StoreImg from "../../../../../../assets/images/store_img.png";
 import DraggableUploader from "../../../../../../components/imageUploader/DraggableUploader";
+import userApi from "../../../../../../api/userApi";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -36,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     uploadButton: {
         marginRight: theme.spacing(2),
     },
+    modal: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+    },
 }));
 
 const AccountProfile = (props) => {
@@ -43,31 +49,37 @@ const AccountProfile = (props) => {
 
     const [openModal, setOpenModal] = useState(false);
     const [openAlertRemove, setOpenAlertRemove] = useState(false);
+    const [avatar, setAvatar] = useState(StoreImg);
+    const [files, setFiles] = useState([]);
 
     const classes = useStyles();
 
     const { name, address } = user;
-    const avatar = user.avatar || StoreImg;
+    // const avatar = user.avatar || StoreImg;
+
+    function receiveFile(files) {
+        setFiles(files);
+        (async function () {
+            let formData = new FormData();
+            formData.append("avatar", files[0]);
+            const response = await userApi.uploadAvatar(formData);
+            if (response.success) {
+                setAvatar(response.avatar);
+                setOpenModal(false);
+            }
+        })();
+    }
 
     function generateBodyModal() {
         const bodyModal = (
             <div style={{}} className="body">
                 <Card className="">
                     <CardContent>
-                        <DraggableUploader title="Chọn ảnh cửa hàng" />
+                        <DraggableUploader
+                            files={receiveFile}
+                            title="Chọn ảnh cửa hàng"
+                        />
                     </CardContent>
-                    <Divider />
-                    <CardActions
-                        style={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Button color="primary" variant="contained">
-                            Lưu lại
-                        </Button>
-                    </CardActions>
                 </Card>
             </div>
         );
@@ -75,8 +87,13 @@ const AccountProfile = (props) => {
     }
 
     function handleRemove() {
-        setOpenAlertRemove(true);
-        actions.handleRemoveAvatar();
+        console.log("remove");
+        (async function () {
+            const response = await userApi.removeAvatar();
+            if (response.success) {
+                setAvatar(StoreImg);
+            }
+        })();
     }
     return (
         <Card {...rest} className={clsx(classes.root, className)}>
@@ -120,7 +137,7 @@ const AccountProfile = (props) => {
                 onClose={() => setOpenModal(false)}
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
-                className="Modal"
+                className={classes.modal}
             >
                 {generateBodyModal()}
             </Modal>

@@ -23,6 +23,20 @@ const userApi = {
         const url = "users/user";
         return axiosClient.get(url, { params });
     },
+    comment: (body) => {
+        const url = "users/comment";
+        return axiosClient.post(url, body);
+    },
+    uploadAvatar: (formData) => {
+        const url = "users/upload-avatar";
+        return axiosClient.post(url, formData, {
+            headers: { "content-type": "multipart/form-data" },
+        });
+    },
+    removeAvatar: () => {
+        const url = "users/remove-avatar";
+        return axiosClient.get(url);
+    },
 };
 
 export default userApi;

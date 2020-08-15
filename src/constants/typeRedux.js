@@ -10,3 +10,4 @@ export const GET_BOOKS_STORE = "get_books_store";
 export const ADD_TO_CART = "add_to_cart";
 export const GET_CART_DETAILS= "get_cart_details"
 export const REMOVE_FROM_CART= "remove_from_cart"
+export const SET_COMMENTS = "set_comments";
