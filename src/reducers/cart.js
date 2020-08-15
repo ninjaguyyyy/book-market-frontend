@@ -1,6 +1,6 @@
 import { ADD_TO_CART } from "../constants/typeRedux";
 import { GET_CART_DETAILS } from "../constants/typeRedux";
-import { REMOVE_FROM_CART } from "../constants/typeRedux";
+import { REMOVE_FROM_CART, SET_CART } from "../constants/typeRedux";
 
 const initialState = {};
 export default function (state = initialState, action) {
@@ -10,6 +10,8 @@ export default function (state = initialState, action) {
         case GET_CART_DETAILS:
             return { ...action.payload };
         case REMOVE_FROM_CART:
+            return { ...action.payload };
+        case SET_CART:
             return { ...action.payload };
         default:
             return state;

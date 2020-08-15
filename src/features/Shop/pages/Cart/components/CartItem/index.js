@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import userApi from "../../../../../../api/userApi";
 import cartApi from "../../../../../../api/cartApi";
 import BookImg from "../../../../../../assets/images/book.jpg";
@@ -11,58 +12,25 @@ import { connect, useDispatch } from "react-redux";
 import Payment from "../Payment/index";
 
 function CartItem(props) {
-    const [quantityTemp, setQuantityTemp] = useState(
-        props.cartItem.productID.quantity
-    );
+    const [quantityTemp, setQuantityTemp] = useState(props.cartItem.amount);
     const [visible, setVisible] = useState(false);
     const [seller, setSeller] = useState({});
     const dispatch = useDispatch();
 
     console.log(props.cartItem.productID._id);
     const handleSub = () => {
+        console.log("sub");
         let temp = quantityTemp - 1 < 1 ? 1 : quantityTemp - 1;
         setQuantityTemp(temp);
     };
     const handleAdd = () => {
-        let temp = quantityTemp + 1 > 10 ? 10 : quantityTemp + 1;
+        console.log("add");
+        let limit = props.cartItem.productID.quantity;
+
+        let temp = quantityTemp + 1 > limit ? limit : quantityTemp + 1;
         setQuantityTemp(temp);
     };
-    const handleDelete = () => {
-        // (async () => {
-        //     try {
-        //         let params = {
-        //             productID: props.details.productID._id,
-        //         };
-        //         const response = await cartApi.remove(params);
-        //         console.log(response);
-        //         let action = removeFromCart(response.data);
-        //         console.log(action);
-        //         let resDispatch = dispatch(action);
-        //         console.log(resDispatch);
-        //         // setVisible(true);
-        //     } catch (error) {
-        //         console.log(`failed post register as ${error}`);
-        //     }
-        // })();
-    };
 
-    // useEffect(() => {
-    //     // execute after first render
-    //     (async () => {
-    //         try {
-    //             let params = {
-    //                 ID: props.details.productID.seller,
-    //             };
-    //             const seller = await userApi.getById(params);
-    //             setSeller(seller);
-    //         } catch (error) {
-    //             console.log(`failed post register as ${error}`);
-    //         }
-    //     })();
-    //     return {
-    //         // execute when unmount
-    //     };
-    // }, []);
     return (
         <div className="cart-item" hidden={visible}>
             <Row>
@@ -73,7 +41,7 @@ function CartItem(props) {
                         alt="img"
                     />
                 </Col>
-                <Col xs={5}>
+                <Col xs={4}>
                     <div className="info">
                         <Link className="title" to="/shop/detail">
                             {props.cartItem.productID.title}
@@ -99,9 +67,23 @@ function CartItem(props) {
                             className="number"
                             value={quantityTemp}
                         />
-                        <div className="inc action" onClick={() => handleAdd}>
+                        <div className="inc action" onClick={handleAdd}>
                             +
                         </div>
+                    </div>
+                </Col>
+
+                <Col xs={1}>
+                    <div className="submit">
+                        <CheckBoxIcon
+                            onClick={(e) =>
+                                props.onChange(
+                                    e,
+                                    props.cartItem.productID._id,
+                                    quantityTemp
+                                )
+                            }
+                        />
                     </div>
                 </Col>
                 <Col xs={1}>
