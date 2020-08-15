@@ -66,11 +66,8 @@ class ShopDetail extends Component {
         (async () => {
             try {
                 const response = await cartApi.add(cartItem);
-                console.log(response);
                 if (response.success) {
-                    let action = await addToCart(
-                        response.data.cart.productList
-                    );
+                    let action = await addToCart(response.data[0]);
                     let resDispatch = this.props.dispatch(action);
                     console.log(resDispatch);
                 }
