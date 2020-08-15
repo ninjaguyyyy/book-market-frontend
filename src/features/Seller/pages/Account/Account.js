@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, Snackbar } from "@material-ui/core";
+import { Grid, Snackbar, Modal } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { useDispatch, useStore } from "react-redux";
 
 import AccountProfile from "./components/AccountProfile/AccountProfile";
 import AccountDetails from "./components/AccountDetails/AccountDetails";
 import userApi from "../../../../api/userApi";
+import DraggableUploader from "../../../../components/imageUploader/DraggableUploader";
 import { updateUser } from "../../../../actions/user";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,19 +20,13 @@ const useStyles = makeStyles((theme) => ({
 const Account = (props) => {
     const dispatch = useDispatch();
     const store = useStore();
-
     const classes = useStyles();
+
     const [openAlert, setOpenAlert] = useState(false);
+
     let user = { ...store.getState().user.login.user };
 
     console.log(user);
-    function handleUploadAvatar() {
-        console.log("api upload avatar");
-    }
-
-    function handleRemoveAvatar() {
-        console.log("api remove avatar");
-    }
 
     function handleSubmit(values) {
         (async () => {
@@ -55,10 +50,7 @@ const Account = (props) => {
         <div className={classes.root}>
             <Grid container spacing={4}>
                 <Grid item lg={4} md={6} xl={4} xs={12}>
-                    <AccountProfile
-                        user={user}
-                        actions={{ handleUploadAvatar, handleRemoveAvatar }}
-                    />
+                    <AccountProfile user={user} />
                 </Grid>
                 <Grid item lg={8} md={6} xl={8} xs={12}>
                     <AccountDetails user={user} handleSubmit={handleSubmit} />

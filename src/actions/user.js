@@ -4,7 +4,8 @@ import {
     UPDATE_USER,
     GET_BOOKS_SELLER,
     UPLOAD_BOOK,
-    GET_CART_DETAILS
+    GET_CART_DETAILS,
+    SET_COMMENTS,
 } from "../constants/typeRedux";
 
 export async function registerUser(userData) {
@@ -46,5 +47,12 @@ export function getCartDetails(cart) {
     return {
         type: GET_CART_DETAILS,
         payload: cart,
+    };
+}
+
+export function setComments(comments) {
+    return {
+        type: SET_COMMENTS,
+        payload: comments,
     };
 }
