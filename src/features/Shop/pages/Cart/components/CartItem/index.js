@@ -3,12 +3,18 @@ import { Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@material-ui/icons/Delete";
 import userApi from "../../../../../../api/userApi"
+import cartApi from "../../../../../../api/cartApi";
 import BookImg from "../../../../../../assets/images/book.jpg";
 import "./index.scss";
+import { removeFromCart } from "../../../../../../actions/cart";
+import {connect, useDispatch } from "react-redux";
+import Payment from "../Payment/index"
 
-export default function CartItem(props) {
+export function CartItem(props) {
     const [quantityTemp, setQuantityTemp] = useState(props.details.amount);
+    const [visible, setVisible] = useState(false);
     const [seller,setSeller]=useState({})
+    const dispatch =useDispatch()
     const handleSub = () => {
         let temp = quantityTemp - 1 < 1 ? 1 : quantityTemp - 1;
         setQuantityTemp(temp);
@@ -17,6 +23,23 @@ export default function CartItem(props) {
         let temp = quantityTemp + 1 > 10 ? 10 : quantityTemp + 1;
         setQuantityTemp(temp);
     };
+    const handleDelete = () => {
+        (async () => {
+            try {
+                let params={
+                    productID:props.details.productID._id
+                }
+                const response = await cartApi.remove(params);
+                console.log(response);
+                let action = await removeFromCart(response.data)
+                let resDispatch = dispatch(action);
+                setVisible(true)
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
+    };
+
     useEffect(() => {
         // execute after first render
         (async () => {
@@ -33,12 +56,12 @@ export default function CartItem(props) {
         return {
             // execute when unmount
         };
-    }, []);
+    },[] );
     return (
-        <div className="cart-item">
+        <div className="cart-item" hidden={visible}>
             <Row>
                 <Col xs={2}>
-                    <img className="image" src={BookImg} alt="img" />
+                    <img className="image" src={props.details.productID.images} alt="img" />
                 </Col>
                 <Col xs={5}>
                     <div className="info">
@@ -73,10 +96,13 @@ export default function CartItem(props) {
                 </Col>
                 <Col xs={1}>
                     <div className="del">
-                        <DeleteIcon />
+                        <DeleteIcon onClick={handleDelete}/>
                     </div>
                 </Col>
             </Row>
         </div>
     );
 }
+const mapStateToProps = (state) => ({ cart: state.cart.cart });
+export default connect(mapStateToProps, null)(CartItem);
+

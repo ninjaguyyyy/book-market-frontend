@@ -1,11 +1,15 @@
 import React,{ useEffect, useState } from "react";
+import {connect} from 'react-redux'
 import { Button } from "reactstrap";
 import cartApi from "../../../../../../api/cartApi";
 
 import "./index.scss";
-
-export default function Payment(props) {
-    const [total, setTotal] = useState(0);
+// dung redux -> k dung state
+// chay lai check console.log thu
+// co r ak co cai gi :v
+function Payment(props) {
+    const [total, setTotal] = useState(props.cart.totalPrice);
+    console.log(props.cart)
     useEffect(() => {
         // execute after first render
         (async () => {
@@ -41,7 +45,7 @@ export default function Payment(props) {
             <div className="cost total">
                 <p>Tổng cộng</p>
                 <div className="number">
-                    0 <u>đ</u>
+                    {total} <u>đ</u>
                 </div>
             </div>
             <div className="button">
@@ -52,3 +56,9 @@ export default function Payment(props) {
         </div>
     );
 }
+
+const mapStateToProps = (state) => ({
+    cart: state.cart.cart
+});
+
+export default connect(mapStateToProps, null)(Payment)

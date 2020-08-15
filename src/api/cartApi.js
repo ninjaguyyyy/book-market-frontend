@@ -8,6 +8,10 @@ const cartApi = {
     get: (userID)=>{
         const url="users/cart"
         return axiosClient.get(url,userID)
+    },
+    remove:(productID)=>{
+        const url="users/remove-from-cart"
+        return axiosClient.post(url,productID)
     }
 };
 

@@ -18,6 +18,12 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export class Cart extends Component {
+    constructor(props){
+        super(props) 
+        this.setState({
+            cart:[]
+        })
+    }
     async componentDidMount() {
         let params = {
             userID: "123"
@@ -26,7 +32,7 @@ export class Cart extends Component {
         store.dispatch(getCartDetails(response))
     }
     render() {
-        const { cart } = this.props
+        const { cart } = this.props         
         let cartItemArray
         if (cart[0]) {
             const productList = cart[0][0].productList
