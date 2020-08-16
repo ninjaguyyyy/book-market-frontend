@@ -20,10 +20,7 @@ export default function (state = initialState, action) {
         case REGISTER_USER:
             return { ...state, register: action.payload };
         case LOGIN_USER:
-            console.log(action);
-            localStorage.setItem("accessToken", action.payload.accessToken);
-            console.log(action.payload.accessToken);
-            return { ...state, login: action.payload };
+            return { ...state, login: action.payload.data };
         case SET_COMMENTS:
             return { ...state, comments: action.payload };
         default:

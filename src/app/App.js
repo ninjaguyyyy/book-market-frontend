@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@material-ui/styles";
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import PrivateRoute from "../components/Common/PrivateRoute"
 import theme from "../theme";
 import "./App.scss";
 
@@ -18,10 +19,10 @@ function App() {
             <Suspense fallback={<div>Loading</div>}>
                 <BrowserRouter>
                     <Switch>
-                        <Route component={Seller} path="/seller" />
-                        <Route component={Buyer} path="/buyer" />
+                        <PrivateRoute component={Seller} path="/seller" />
+                        <PrivateRoute component={Buyer} path="/buyer" />
                         <Route component={Shop} path="/shop" />
-                        <Route component={Admin} path="/admin" />
+                        <PrivateRoute component={Admin} path="/admin" />
                         <Route component={User} path="/user" />
                         <Route component={Home} path="/" exact />
                         <Route component={NotFound} path="*" exact />

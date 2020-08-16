@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = (props) => {
     const { className, ...rest } = props;
-
+    console.log(props)
     const classes = useStyles();
-
     const user = {
-        name: props.user.name,
-        avatar: props.user.avatar || StoreImg,
+        name: props.payload.user.username,
+        avatar: props.payload.user.avatar || StoreImg,
     };
 
     return (
