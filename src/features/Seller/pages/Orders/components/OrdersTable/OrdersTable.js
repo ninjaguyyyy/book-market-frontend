@@ -1,33 +1,8 @@
-import { makeStyles } from "@material-ui/styles";
 import MaterialTable from "material-table";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 
-const useStyles = makeStyles((theme) => ({
-    root: {},
-    content: {
-        padding: 0,
-    },
-    inner: {
-        minWidth: 1050,
-    },
-    nameContainer: {
-        display: "flex",
-        alignItems: "center",
-    },
-    avatar: {
-        marginRight: theme.spacing(2),
-    },
-    actions: {
-        justifyContent: "flex-end",
-    },
-}));
-
 const UsersTable = (props) => {
-    const { className, users } = props;
-
-    const classes = useStyles();
-
     const [selectedUsers, setSelectedUsers] = useState([]);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [page, setPage] = useState(0);

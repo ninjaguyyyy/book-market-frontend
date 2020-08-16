@@ -50,15 +50,12 @@ const AccountProfile = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [openAlertRemove, setOpenAlertRemove] = useState(false);
     const [avatar, setAvatar] = useState(StoreImg);
-    const [files, setFiles] = useState([]);
 
     const classes = useStyles();
 
     const { name, address } = user;
-    // const avatar = user.avatar || StoreImg;
 
     function receiveFile(files) {
-        setFiles(files);
         (async function () {
             let formData = new FormData();
             formData.append("avatar", files[0]);
@@ -87,7 +84,6 @@ const AccountProfile = (props) => {
     }
 
     function handleRemove() {
-        console.log("remove");
         (async function () {
             const response = await userApi.removeAvatar();
             if (response.success) {

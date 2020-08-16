@@ -65,8 +65,6 @@ class DraggableUploader extends Component {
             });
             let files = [...prevState.files];
 
-            let newFiles = files.splice(idx, 1);
-
             return { loadedFiles: newLoadedFiles, files };
         });
     }
@@ -77,10 +75,6 @@ class DraggableUploader extends Component {
             _.find(loadedFiles, (file, idx) => {
                 if (file === oldFile) loadedFiles[idx] = newFile;
             });
-            // const files = [...prevState.files];
-            // _.find(files, (file, idx) => {
-            //     if (file === oldFile) files[idx] = newFile;
-            // });
 
             return { loadedFiles };
         });
@@ -89,27 +83,7 @@ class DraggableUploader extends Component {
     }
 
     onUpload() {
-        console.log(this.state.files);
-        const { loadedFiles, files } = this.state;
-
-        // loadedFiles.forEach((file, idx) => {
-        //     //Update file (Change it's state to uploading)
-        //     let newFile = this.updateLoadedFile(file, {
-        //         ...file,
-        //         isUploading: true,
-        //     });
-
-        //     //Simulate a REAL WEB SERVER DOING IMAGE UPLOADING
-        //     setTimeout(() => {
-        //         //Get it back to it's original State
-        //         this.updateLoadedFile(newFile, {
-        //             ...newFile,
-        //             isUploading: false,
-        //         });
-        //     }, 3000);
-        // });
-        console.log(files);
-        console.log(loadedFiles);
+        const { files } = this.state;
         this.props.files(files);
     }
 

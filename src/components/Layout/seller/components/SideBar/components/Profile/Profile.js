@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = (props) => {
-    const { className, ...rest } = props;
-    console.log(props)
+    const { className } = props;
+    console.log(props);
     const classes = useStyles();
     const user = {
         name: props.payload.user.username,

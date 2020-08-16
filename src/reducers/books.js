@@ -1,10 +1,9 @@
 import {
-    GET_BOOKS,
-    GET_CATEGORIES,
     GET_BOOK,
+    GET_BOOKS,
     GET_BOOKS_SELLER,
-    UPLOAD_BOOK,
     GET_BOOKS_STORE,
+    GET_CATEGORIES,
 } from "../constants/typeRedux";
 
 const initialState = {

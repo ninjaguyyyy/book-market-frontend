@@ -7,13 +7,10 @@ import Payment from "./components/Payment";
 import CartItem from "./components/CartItem";
 import _ from "lodash";
 import "./index.scss";
-import { removeFromCart, setCart } from "../../../../actions/cart";
+import { setCart } from "../../../../actions/cart";
 import store from "../../../../app/store";
 
 class Cart extends Component {
-    constructor(props) {
-        super(props);
-    }
     async componentDidMount() {
         let params = {
             userID: "123",

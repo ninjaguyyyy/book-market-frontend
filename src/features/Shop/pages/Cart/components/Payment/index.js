@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
-import cartApi from "../../../../../../api/cartApi";
 
 import "./index.scss";
 
 function Payment(props) {
     let { totalPrice: total } = props.cart;
-    console.log(total);
-    console.log(props.cart);
 
     return (
         <div className="payment">

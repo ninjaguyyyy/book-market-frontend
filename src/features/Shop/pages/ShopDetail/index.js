@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "reactstrap";
-import queryString from "query-string";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import _ from "lodash";
@@ -42,7 +41,7 @@ class ShopDetail extends Component {
                     author: response.author,
                 };
                 let action = await getBook(response);
-                let resDispatch = this.props.dispatch(action);
+                this.props.dispatch(action);
                 const resByAuthor = await booksApi.get(paramForByAuthor);
 
                 this.setState({

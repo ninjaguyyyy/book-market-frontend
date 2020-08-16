@@ -53,6 +53,7 @@ export default class CardFilterCategory extends Component {
                             />
                             {categories.map((category) => (
                                 <FormControlLabel
+                                    key={category._id}
                                     value={category._id}
                                     control={<Radio />}
                                     label={category.name}

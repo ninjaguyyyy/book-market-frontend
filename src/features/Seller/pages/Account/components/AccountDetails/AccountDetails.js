@@ -1,7 +1,5 @@
 import {
-    Button,
     Card,
-    CardActions,
     CardContent,
     CardHeader,
     Divider,
@@ -19,15 +17,11 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AccountDetails = (props) => {
-    const { className, user, actions } = props;
+    const { className, user } = props;
 
     const [openAlertUpdated, setOpenAlertUpdated] = useState(false);
 
     const classes = useStyles();
-
-    // function handleSubmit(values) {
-
-    // }
 
     return (
         <Card className={clsx(classes.root, className)}>

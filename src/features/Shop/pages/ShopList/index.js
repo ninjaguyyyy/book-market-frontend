@@ -1,9 +1,8 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "reactstrap";
 import { connect, useDispatch } from "react-redux";
 import BookCard from "../../../../components/BookCard/BookCard";
 import CardFilterCategory from "./components/CardFilterCategory/CardFilterCategory";
-import CardFilterPrice from "./components/CardFilterPrice/CardFilterPrice";
 import Pagination from "@material-ui/lab/Pagination";
 
 import booksApi from "../../../../api/booksApi";
@@ -26,10 +25,8 @@ const ShopList = (props) => {
                 };
 
                 const response = await booksApi.get(params);
-                console.log(response);
                 let action = await getBooks(response);
-                let resDispatch = dispatch(action);
-                console.log(resDispatch);
+                dispatch(action);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }
@@ -44,8 +41,7 @@ const ShopList = (props) => {
             try {
                 const response = await categoriesApi.get();
                 let action = await getCategories(response);
-                let resDispatch = dispatch(action);
-                console.log(resDispatch);
+                dispatch(action);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }
@@ -90,7 +86,6 @@ const ShopList = (props) => {
                         categories={props.categories}
                         onChangeCategory={onChangeCategory}
                     />
-                    <CardFilterPrice />
                 </Col>
             </Row>
         </Container>

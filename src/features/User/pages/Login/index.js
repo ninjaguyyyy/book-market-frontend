@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../../../actions/user";
 import userApi from "../../../../api/userApi";
 import LoginForm from "../../components/LoginForm";
-import {setSession} from "../../../../utils/auth"
+import { setSession } from "../../../../utils/auth";
 import "./styles.scss";
 
 class LoginPage extends React.Component {
@@ -23,7 +23,7 @@ class LoginPage extends React.Component {
                 const response = await userApi.login(values);
                 let action = await loginUser(response);
                 let resDispatch = this.props.dispatch(action);
-                console.log(response)
+                console.log(response);
                 if (resDispatch.payload.success) {
                     this.setState({ openAlert: true });
                     setTimeout(() => {
@@ -34,16 +34,15 @@ class LoginPage extends React.Component {
                             response.data.payload.user.email
                         );
 
-                        if (response.data.payload.user.role ==1) {
-                            this.props.history.push("/shop/cart")
+                        if (response.data.payload.user.role === 1) {
+                            this.props.history.push("/shop/cart");
                         }
-                        if (response.data.payload.user.role == 2) {
-                            this.props.history.push("/seller/account")
+                        if (response.data.payload.user.role === 2) {
+                            this.props.history.push("/seller/account");
                         }
-                        if (response.data.payload.user.role == 3) {
-                            this.props.history.push("/admin")
+                        if (response.data.payload.user.role === 3) {
+                            this.props.history.push("/admin");
                         }
-
                     }, 3000);
                 }
             } catch (error) {
