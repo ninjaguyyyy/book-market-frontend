@@ -1,14 +1,24 @@
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../constants/typeRedux";
+import {
+    ADD_TO_CART,
+    REMOVE_FROM_CART,
+    SET_CART,
+} from "../constants/typeRedux";
 
-export async function addToCart(cartItem) {
+export function addToCart(cartItem) {
     return {
         type: ADD_TO_CART,
         payload: cartItem,
     };
 }
-export async function removeFromCart(cartItem) {
+export function removeFromCart(cartItem) {
     return {
-        type: REMOVE_FROM_CART ,
+        type: REMOVE_FROM_CART,
         payload: cartItem,
+    };
+}
+export function setCart(cart) {
+    return {
+        type: SET_CART,
+        payload: cart,
     };
 }
