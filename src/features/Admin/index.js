@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 
 import Customers from "./pages/Customers/Customers";
+import Sellers from "./pages/Sellers";
 import Orders from "./pages/Orders/Orders";
 import AdminLayout from "../../components/Layout/admin/AdminLayout";
 
@@ -20,12 +21,12 @@ export default function Admin(props) {
                 <Route
                     exact
                     path={`${match.url}/sellers`}
-                    component={Customers}
+                    component={Sellers}
                 />
                 <Route exact path={`${match.url}/orders`} component={Orders} />
                 <Route
                     exact
-                    path={`${match.url}/books`}
+                    path={`${match.url}/orders`}
                     component={Customers}
                 />
             </Switch>

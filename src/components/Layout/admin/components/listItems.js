@@ -13,7 +13,7 @@ export const mainListItems = (
     <div>
         <NavLink
             className="item-sidebar"
-            to="/admin/buyers"
+            to="/admin/customers"
             activeClassName="active-menu"
         >
             <ListItem button>
@@ -25,7 +25,7 @@ export const mainListItems = (
         </NavLink>
 
         <NavLink
-            to="/admin/orders"
+            to="/admin/sellers"
             className="item-sidebar"
             activeClassName="active-menu"
         >
@@ -38,7 +38,7 @@ export const mainListItems = (
         </NavLink>
 
         <NavLink
-            to="/admin/customers"
+            to="/admin/orders"
             className="item-sidebar"
             activeClassName="active-menu"
         >

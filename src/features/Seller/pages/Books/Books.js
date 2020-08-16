@@ -29,7 +29,7 @@ const ProductList = (props) => {
 
     const [products] = useState(mockData);
     const dispatch = useDispatch();
-    console.log(props)
+    console.log(props);
 
     useEffect(() => {
         // execute after first render
@@ -48,7 +48,7 @@ const ProductList = (props) => {
                 console.log(`failed post register as ${error}`);
             }
         })();
-        return {
+        return () => {
             // execute when unmount
         };
     }, []);
