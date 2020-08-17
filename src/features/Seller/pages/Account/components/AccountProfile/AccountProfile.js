@@ -34,8 +34,9 @@ const useStyles = makeStyles((theme) => ({
     progress: {
         marginTop: theme.spacing(2),
     },
-    uploadButton: {
+    handleAvatarButton: {
         marginRight: theme.spacing(2),
+        letterSpacing: "2px!important",
     },
     modal: {
         display: "flex",
@@ -53,7 +54,7 @@ const AccountProfile = (props) => {
 
     const classes = useStyles();
 
-    const { name, address } = user;
+    const { username, address, name } = user;
 
     function receiveFile(files) {
         (async function () {
@@ -97,7 +98,7 @@ const AccountProfile = (props) => {
                 <div className={classes.details}>
                     <div>
                         <Typography gutterBottom variant="h2">
-                            {name}
+                            {name ? name : username}
                         </Typography>
                         <Typography
                             className={classes.locationText}
@@ -117,7 +118,7 @@ const AccountProfile = (props) => {
             <Divider />
             <CardActions>
                 <Button
-                    className={classes.uploadButton}
+                    className={classes.handleAvatarButton}
                     color="primary"
                     variant="text"
                     onClick={() => setOpenModal(true)}

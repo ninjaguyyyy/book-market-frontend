@@ -10,7 +10,7 @@ import "./BookCard.scss";
 
 export default class BookCard extends Component {
     render() {
-        const { size, book } = this.props;
+        const { size, book, type } = this.props;
         return (
             <Card className="BookCard">
                 <div className="hover">
@@ -39,7 +39,10 @@ export default class BookCard extends Component {
                         <span>{book.author}</span>
                     </div>
                     <div className="title">
-                        <Link to={"/shop/detail/" + book._id}>
+                        <Link
+                            target={type === "newTab" ? "_blank" : ""}
+                            to={"/shop/detail/" + book._id}
+                        >
                             {book.title}
                         </Link>
                     </div>

@@ -42,7 +42,6 @@ class AddBookForm extends Component {
     componentDidMount() {}
 
     handleSubmit(values) {
-        console.log(values);
         let filesImg = this.state.filesImg;
         let filesPrev = this.state.filesPrev;
         this.setState({ openAlert: true });
@@ -64,7 +63,6 @@ class AddBookForm extends Component {
         (async () => {
             try {
                 const response = await userApi.upload(formData);
-                console.log(formData);
                 if (response.success) {
                     this.setState({ openAlert: true });
                     setTimeout(() => {

@@ -27,7 +27,6 @@ const ProductList = (props) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-    console.log(props);
 
     useEffect(() => {
         // execute after first render
@@ -40,10 +39,9 @@ const ProductList = (props) => {
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
-                let resDispatch = dispatch(action);
-                console.log(resDispatch);
+                dispatch(action);
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed get books as ${error}`);
             }
         })();
         return () => {
@@ -62,10 +60,9 @@ const ProductList = (props) => {
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
-                let resDispatch = dispatch(action);
-                console.log(resDispatch);
+                dispatch(action);
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed get books as ${error}`);
             }
         })();
     };

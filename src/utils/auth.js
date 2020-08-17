@@ -33,7 +33,7 @@ export const getEmail = () => {
 };
 
 export const isLogin = () => {
-    if (!getAccessToken()) {
+    if (getAccessToken() === "undefined" || !getAccessToken()) {
         return false;
     }
     return true;

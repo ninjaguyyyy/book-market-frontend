@@ -7,7 +7,7 @@ import {
 const initialState = {
     login: {
         user: {
-            name: "Nguyen Huu Chi",
+            username: "Nguyen Huu Chi",
             avatar: "",
             address: "Sa Huynh, Quang Ngai",
         },

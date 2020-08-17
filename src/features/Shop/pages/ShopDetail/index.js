@@ -6,8 +6,10 @@ import _ from "lodash";
 import { withRouter } from "react-router-dom";
 
 import MainInfo from "./components/MainInfo/MainInfo";
+import Alert from "@material-ui/lab/Alert";
 import PayCard from "./components/PayCard/PayCard";
 import Slider from "./components/Slider/Slider";
+import { Snackbar } from "@material-ui/core";
 import InfoTab from "./components/InfoTab";
 import SimilarProducts from "./components/SimilarProducts";
 import booksApi from "../../../../api/booksApi";
@@ -15,6 +17,7 @@ import cartApi from "../../../../api/cartApi";
 
 import { getBook } from "../../../../actions/books";
 import { addToCart } from "../../../../actions/cart";
+import { isLogin } from "../../../../utils/auth";
 import "./index.scss";
 
 class ShopDetail extends Component {
@@ -23,6 +26,7 @@ class ShopDetail extends Component {
         this.state = {
             idBook: "",
             booksByAuthor: [],
+            openAlert: false,
         };
 
         this.handleAddToCart = this.handleAddToCart.bind(this);
@@ -56,8 +60,10 @@ class ShopDetail extends Component {
     }
 
     handleAddToCart(e, amount) {
-        console.log("once");
-        console.log(amount);
+        if (!isLogin()) {
+            this.props.history.push("/user/login");
+            return;
+        }
         let cartItem = {
             amount,
             productID: this.state.idBook,
@@ -67,8 +73,8 @@ class ShopDetail extends Component {
                 const response = await cartApi.add(cartItem);
                 if (response.success) {
                     let action = await addToCart(response.data[0]);
-                    let resDispatch = this.props.dispatch(action);
-                    console.log(resDispatch);
+                    this.props.dispatch(action);
+                    this.setState({ openAlert: true });
                 }
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -119,11 +125,26 @@ class ShopDetail extends Component {
         let { bookDetail: book } = this.props;
 
         return (
-            <Container className="container-fluid ShopDetail">
-                {_.isEmpty(book)
-                    ? this.renderProgress()
-                    : this.renderBook(book)}
-            </Container>
+            <div>
+                <Container className="container-fluid ShopDetail">
+                    {_.isEmpty(book)
+                        ? this.renderProgress()
+                        : this.renderBook(book)}
+                </Container>
+                <Snackbar
+                    open={this.state.openAlert}
+                    autoHideDuration={6000}
+                    onClose={() => this.setState({ openAlert: false })}
+                >
+                    <Alert
+                        onClose={() => this.setState({ openAlert: false })}
+                        severity="success"
+                    >
+                        Đã thêm thành công. Chuyển sang Giỏ hàng để xem chi
+                        tiết.
+                    </Alert>
+                </Snackbar>
+            </div>
         );
     }
 }

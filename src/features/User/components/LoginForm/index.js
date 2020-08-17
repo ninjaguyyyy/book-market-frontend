@@ -24,12 +24,12 @@ class LoginForm extends Component {
         this.initialValues = {
             username: "",
             password: "",
-            type: 1,
+            role: 1,
         };
         this.validationSchema = Yup.object().shape({
             username: Yup.string().required("Vui lòng không để trống."),
             password: Yup.string().required("Vui lòng không để trống."),
-            type: Yup.number().required("Vui lòng không để trống"),
+            role: Yup.number().required("Vui lòng không để trống"),
         });
 
         this.state = {
@@ -64,7 +64,7 @@ class LoginForm extends Component {
                             <Grid container>
                                 <Grid item xs>
                                     <FastField
-                                        name="type"
+                                        name="role"
                                         component={SelectField}
                                         label="Phân hệ"
                                         category="sign"

@@ -12,7 +12,6 @@ function ReviewStore(props) {
     const dispatch = useDispatch();
 
     const handleComment = (e, content) => {
-        console.log(content);
         let body = {
             content,
             author: "demo",
@@ -22,18 +21,15 @@ function ReviewStore(props) {
         (async () => {
             try {
                 const response = await userApi.comment(body);
-                console.log(response);
                 if (response.success) {
                     let action = await setComments(response.comments);
-                    let resDispatch = dispatch(action);
-                    console.log(resDispatch);
+                    dispatch(action);
                 }
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed post comments as ${error}`);
             }
         })();
     };
-    console.log(props.comments);
     return (
         <div className="review-store">
             <h5 className="mb-4">Nhận xét từ khách hàng:</h5>

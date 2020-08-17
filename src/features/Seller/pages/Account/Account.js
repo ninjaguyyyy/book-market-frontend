@@ -23,8 +23,6 @@ const Account = (props) => {
 
     let user = { ...store.getState().user.login.user };
 
-    console.log(user);
-
     function handleSubmit(values) {
         (async () => {
             try {
@@ -38,7 +36,7 @@ const Account = (props) => {
                     }, 3000);
                 }
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed post update account as ${error}`);
             }
         })();
     }

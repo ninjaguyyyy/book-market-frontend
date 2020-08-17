@@ -32,8 +32,6 @@ class DraggableUploader extends Component {
         let fileReader = new FileReader();
         //Register event listeners
         fileReader.onload = () => {
-            // console.log("IMAGE LOADED: ", fileReader.result);
-            console.log(file);
             const fileData = {
                 data: fileReader.result,
                 isUploading: false,

@@ -13,7 +13,7 @@ export default class SimilarProducts extends Component {
                 <Row>
                     {books.map((book) => (
                         <Col key={book._id}>
-                            <BookCard book={book} />
+                            <BookCard type="newTab" book={book} />
                         </Col>
                     ))}
                 </Row>

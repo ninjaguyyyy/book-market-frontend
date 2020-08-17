@@ -14,6 +14,8 @@ class LoginPage extends React.Component {
         super(props);
         this.state = {
             openAlert: false,
+            contentAlert: "",
+            typeAlert: "",
         };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -25,25 +27,28 @@ class LoginPage extends React.Component {
                 let resDispatch = this.props.dispatch(action);
                 console.log(response);
                 if (resDispatch.payload.success) {
-                    this.setState({ openAlert: true });
-                    setTimeout(() => {
-                        setSession(
-                            response.data.payload.user.username,
-                            response.data.accessToken,
-                            response.data.payload.user.role,
-                            response.data.payload.user.email
-                        );
+                    setSession(
+                        response.data.user.username,
+                        response.data.accessToken,
+                        response.data.user.role,
+                        response.data.user.email
+                    );
 
-                        if (response.data.payload.user.role === 1) {
-                            this.props.history.push("/shop/cart");
-                        }
-                        if (response.data.payload.user.role === 2) {
-                            this.props.history.push("/seller/account");
-                        }
-                        if (response.data.payload.user.role === 3) {
-                            this.props.history.push("/admin");
-                        }
-                    }, 3000);
+                    if (response.data.user.role === 1) {
+                        this.props.history.push("/shop");
+                    }
+                    if (response.data.user.role === 2) {
+                        this.props.history.push("/seller/account");
+                    }
+                    if (response.data.user.role === 3) {
+                        this.props.history.push("/admin");
+                    }
+                } else {
+                    this.setState({
+                        contentAlert: response.msg,
+                        openAlert: true,
+                        typeAlert: "error",
+                    });
                 }
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -73,10 +78,9 @@ class LoginPage extends React.Component {
                         onClose={() => {
                             this.setState({ openAlert: false });
                         }}
-                        severity="success"
+                        severity={this.state.typeAlert}
                     >
-                        Đã đăng nhập thành công. Chuyển sang Giỏ hàng sau vài
-                        giây.
+                        {this.state.contentAlert}
                     </Alert>
                 </Snackbar>
             </Container>

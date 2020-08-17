@@ -11,14 +11,11 @@ function CartItem(props) {
     const [visible] = useState(false);
     const [seller] = useState({});
 
-    console.log(props.cartItem.productID._id);
     const handleSub = () => {
-        console.log("sub");
         let temp = quantityTemp - 1 < 1 ? 1 : quantityTemp - 1;
         setQuantityTemp(temp);
     };
     const handleAdd = () => {
-        console.log("add");
         let limit = props.cartItem.productID.quantity;
 
         let temp = quantityTemp + 1 > limit ? limit : quantityTemp + 1;
@@ -37,7 +34,10 @@ function CartItem(props) {
                 </Col>
                 <Col xs={4}>
                     <div className="info">
-                        <Link className="title" to="/shop/detail">
+                        <Link
+                            className="title"
+                            to={`/shop/detail/${props.cartItem.productID._id}`}
+                        >
                             {props.cartItem.productID.title}
                         </Link>
                         <p>

@@ -27,7 +27,7 @@ const AccountDetails = (props) => {
         <Card className={clsx(classes.root, className)}>
             <CardHeader
                 subheader="Người dùng có thể cập nhật thông tin của mình"
-                title="Thông tin cửa hàng"
+                title="Thông tin khách hàng"
             />
             <Divider />
             <CardContent>
@@ -37,15 +37,6 @@ const AccountDetails = (props) => {
                 />
             </CardContent>
             <Divider />
-            {/* <CardActions style={{ display: "flex", justifyContent: "center" }}>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    onClick={() => setOpenAlertUpdated(true)}
-                >
-                    Cập nhật
-                </Button>
-            </CardActions> */}
             <Snackbar
                 open={openAlertUpdated}
                 autoHideDuration={6000}
