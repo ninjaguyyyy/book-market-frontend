@@ -1,6 +1,5 @@
 import { Grid } from "@material-ui/core";
 import { FastField, Form, Formik } from "formik";
-import PropTypes from "prop-types";
 import { Snackbar, Button } from "@material-ui/core";
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -11,12 +10,8 @@ import SelectField from "../../../../../../../components/custom-field/SelectFiel
 import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
 
 import userApi from "../../../../../../../api/userApi";
-import { uploadBook } from "../../../../../../../actions/user";
 
 class AddBookForm extends Component {
-    // static propTypes = {
-    //     prop: PropTypes,
-    // };
     constructor(props) {
         super(props);
         this.state = {
@@ -47,7 +42,6 @@ class AddBookForm extends Component {
     componentDidMount() {}
 
     handleSubmit(values) {
-        console.log(values);
         let filesImg = this.state.filesImg;
         let filesPrev = this.state.filesPrev;
         this.setState({ openAlert: true });
@@ -69,7 +63,6 @@ class AddBookForm extends Component {
         (async () => {
             try {
                 const response = await userApi.upload(formData);
-                console.log(formData);
                 if (response.success) {
                     this.setState({ openAlert: true });
                     setTimeout(() => {

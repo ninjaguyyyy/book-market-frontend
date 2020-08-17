@@ -1,15 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import StoreIcon from "@material-ui/icons/Store";
 
 import "./MainInfo.scss";
 
 export default class MainInfo extends Component {
-    static propTypes = {
-        prop: PropTypes,
-    };
-
     render() {
         const { book } = this.props;
         return (

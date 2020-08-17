@@ -7,14 +7,18 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import ContactMailIcon from "@material-ui/icons/ContactMail";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
+import _ from "lodash";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import LogoImg from "../../../../../assets/images/bookstor_compact.webp";
+import { isLogin, removeSession } from "../../../../../utils/auth";
 import "./Header.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -81,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -106,6 +110,10 @@ export default function PrimarySearchAppBar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const handleLogout = () => {
+        console.log("logout");
+        removeSession();
+    };
     const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
@@ -117,16 +125,39 @@ export default function PrimarySearchAppBar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem>
-                <Link onClick={handleMenuClose} to="/user/login">
-                    Đăng nhập
-                </Link>
-            </MenuItem>
-            <MenuItem>
-                <Link onClick={handleMenuClose} to="/user/register">
-                    Đăng ký
-                </Link>
-            </MenuItem>
+            {!isLogin() ? (
+                <div>
+                    <MenuItem>
+                        <Link onClick={handleMenuClose} to="/user/login">
+                            Đăng nhập
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link onClick={handleMenuClose} to="/user/register">
+                            Đăng ký
+                        </Link>
+                    </MenuItem>
+                </div>
+            ) : (
+                <div>
+                    <MenuItem>
+                        <Link onClick={handleMenuClose} to="/buyer/">
+                            Quản lý tài khoản
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link
+                            onClick={() => {
+                                handleMenuClose();
+                                handleLogout();
+                            }}
+                            to="/shop"
+                        >
+                            Đăng xuất
+                        </Link>
+                    </MenuItem>
+                </div>
+            )}
         </Menu>
     );
 
@@ -215,21 +246,32 @@ export default function PrimarySearchAppBar() {
                                     aria-label="show 4 new mails"
                                     color="inherit"
                                 >
-                                    <Badge badgeContent={4} color="secondary">
+                                    <Badge
+                                        badgeContent={
+                                            _.isEmpty(props.cart)
+                                                ? 0
+                                                : props.cart.productList.length
+                                        }
+                                        color="secondary"
+                                    >
                                         <ShoppingCartIcon />
                                     </Badge>
                                 </IconButton>
                             </Link>
 
                             <IconButton
-                                edge="end"
+                                edge={"end"}
                                 aria-label="account of current user"
                                 aria-controls={menuId}
                                 aria-haspopup="true"
                                 onClick={handleProfileMenuOpen}
                                 color="inherit"
                             >
-                                <AccountCircle />
+                                {isLogin() ? (
+                                    <ContactMailIcon />
+                                ) : (
+                                    <AccountCircle />
+                                )}
                             </IconButton>
                         </div>
                         <div className={classes.sectionMobile}>
@@ -251,3 +293,9 @@ export default function PrimarySearchAppBar() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => ({
+    cart: state.cart,
+});
+
+export default connect(mapStateToProps, null)(PrimarySearchAppBar);

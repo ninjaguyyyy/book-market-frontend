@@ -7,47 +7,34 @@ import Payment from "./components/Payment";
 import CartItem from "./components/CartItem";
 import _ from "lodash";
 import "./index.scss";
-import { removeFromCart, setCart } from "../../../../actions/cart";
+import { setCart } from "../../../../actions/cart";
 import store from "../../../../app/store";
 
 class Cart extends Component {
-    constructor(props) {
-        super(props);
-    }
     async componentDidMount() {
         let params = {
             userID: "123",
         };
         const response = await cartApi.get(params);
-        console.log(response);
         store.dispatch(getCartDetails(response));
     }
 
     onDel(e, productID) {
-        console.log("delete");
-        console.log(productID);
         (async () => {
             try {
                 let params = {
                     productID,
                 };
                 const response = await cartApi.remove(params);
-                console.log(response);
                 let action = setCart(response.data);
-                console.log(action);
                 let resDispatch = store.dispatch(action);
-                console.log(resDispatch);
-                // setVisible(true);
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed remove cart api as ${error}`);
             }
         })();
     }
 
     onChange(e, productID, amount) {
-        console.log("delete");
-        console.log(productID);
-        console.log(amount);
         (async () => {
             try {
                 let params = {
@@ -55,24 +42,18 @@ class Cart extends Component {
                     amount,
                 };
                 const response = await cartApi.update(params);
-                console.log(response);
                 let action = setCart(response.data);
-                console.log(action);
                 let resDispatch = store.dispatch(action);
-                console.log(resDispatch);
-                // // setVisible(true);
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed update cart as ${error}`);
             }
         })();
     }
 
     render() {
         const { cart } = this.props;
-        console.log(cart);
         let cartItemArray;
-        console.log(_.isEmpty(cart));
-        if (!_.isEmpty(cart)) {
+        if (!_.isEmpty(cart) && cart.totalPrice !== 0) {
             const productList = cart.productList;
             cartItemArray = productList.map((item) => {
                 return (
@@ -87,6 +68,12 @@ class Cart extends Component {
                     </Row>
                 );
             });
+        } else {
+            cartItemArray = (
+                <h3 className="notification">
+                    Chưa có sản phẩm trong giỏ hàng.
+                </h3>
+            );
         }
         return (
             <div className="cart">

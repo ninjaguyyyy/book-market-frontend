@@ -17,7 +17,6 @@ import "./BooksToolbar.scss";
 import AddBookForm from "./components/AddBookForm";
 import categoriesApi from "../../../../../../api/categoriesApi";
 import { getCategories } from "../../../../../../actions/books";
-// import { SearchInput } from "components";
 
 const useStyles = (theme) => ({
     root: {},
@@ -58,7 +57,7 @@ class ProductsToolbar extends React.Component {
             try {
                 const response = await categoriesApi.get();
                 let action = await getCategories(response);
-                let resDispatch = this.props.dispatch(action);
+                this.props.dispatch(action);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }

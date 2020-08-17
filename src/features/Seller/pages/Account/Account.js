@@ -1,15 +1,12 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/styles";
-import { Grid, Snackbar, Modal } from "@material-ui/core";
+import { Grid, Snackbar } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
 import { useDispatch, useStore } from "react-redux";
-
-import AccountProfile from "./components/AccountProfile/AccountProfile";
-import AccountDetails from "./components/AccountDetails/AccountDetails";
-import userApi from "../../../../api/userApi";
-import DraggableUploader from "../../../../components/imageUploader/DraggableUploader";
 import { updateUser } from "../../../../actions/user";
+import userApi from "../../../../api/userApi";
+import AccountDetails from "./components/AccountDetails/AccountDetails";
+import AccountProfile from "./components/AccountProfile/AccountProfile";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,8 +23,6 @@ const Account = (props) => {
 
     let user = { ...store.getState().user.login.user };
 
-    console.log(user);
-
     function handleSubmit(values) {
         (async () => {
             try {
@@ -41,7 +36,7 @@ const Account = (props) => {
                     }, 3000);
                 }
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed post update account as ${error}`);
             }
         })();
     }

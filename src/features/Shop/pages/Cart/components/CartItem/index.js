@@ -1,30 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col } from "reactstrap";
-import { Link } from "react-router-dom";
-import DeleteIcon from "@material-ui/icons/Delete";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import userApi from "../../../../../../api/userApi";
-import cartApi from "../../../../../../api/cartApi";
-import BookImg from "../../../../../../assets/images/book.jpg";
+import DeleteIcon from "@material-ui/icons/Delete";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { Col, Row } from "reactstrap";
 import "./index.scss";
-
-import { connect, useDispatch } from "react-redux";
-import Payment from "../Payment/index";
 
 function CartItem(props) {
     const [quantityTemp, setQuantityTemp] = useState(props.cartItem.amount);
-    const [visible, setVisible] = useState(false);
-    const [seller, setSeller] = useState({});
-    const dispatch = useDispatch();
+    const [visible] = useState(false);
+    const [seller] = useState({});
 
-    console.log(props.cartItem.productID._id);
     const handleSub = () => {
-        console.log("sub");
         let temp = quantityTemp - 1 < 1 ? 1 : quantityTemp - 1;
         setQuantityTemp(temp);
     };
     const handleAdd = () => {
-        console.log("add");
         let limit = props.cartItem.productID.quantity;
 
         let temp = quantityTemp + 1 > limit ? limit : quantityTemp + 1;
@@ -43,7 +34,10 @@ function CartItem(props) {
                 </Col>
                 <Col xs={4}>
                     <div className="info">
-                        <Link className="title" to="/shop/detail">
+                        <Link
+                            className="title"
+                            to={`/shop/detail/${props.cartItem.productID._id}`}
+                        >
                             {props.cartItem.productID.title}
                         </Link>
                         <p>

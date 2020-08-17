@@ -40,7 +40,7 @@ class ShopStore extends Component {
                 });
                 let action = await getBooksStore(response);
 
-                let resDispatch = this.props.dispatch(action);
+                this.props.dispatch(action);
                 this.props.dispatch(setComments(resGetUser.comments));
                 // console.log(resDispatch);
             } catch (error) {
@@ -63,7 +63,7 @@ class ShopStore extends Component {
                 const response = await booksApi.get(params);
 
                 let action = await getBooksStore(response);
-                let resDispatch = this.props.dispatch(action);
+                this.props.dispatch(action);
 
                 // console.log(resDispatch);
             } catch (error) {

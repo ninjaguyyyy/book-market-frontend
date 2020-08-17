@@ -6,6 +6,7 @@ import ShopDetail from "./pages/ShopDetail";
 import ShopList from "./pages/ShopList";
 import ShopStore from "./pages/ShopStore";
 import Cart from "./pages/Cart";
+import PrivateRoute from "../../components/Common/PrivateRoute";
 
 function Shop(props) {
     const match = useRouteMatch();
@@ -22,7 +23,7 @@ function Shop(props) {
                     path={`${match.url}/store/:id_store`}
                     component={ShopStore}
                 />
-                <Route exact path={`${match.url}/cart`} component={Cart} />
+                <PrivateRoute path={`${match.url}/cart`} component={Cart} />
             </Switch>
         </GuestLayout>
     );

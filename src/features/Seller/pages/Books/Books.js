@@ -1,13 +1,12 @@
 import { Grid } from "@material-ui/core";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/styles";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { getBooksSeller } from "../../../../actions/user";
 import booksApi from "../../../../api/booksApi";
 import BookCard from "../../../../components/BookCard/BookCard";
 import BooksToolbar from "./components/BooksToolbar/BooksToolbar";
-import mockData from "./data";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,9 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const ProductList = (props) => {
     const classes = useStyles();
 
-    const [products] = useState(mockData);
     const dispatch = useDispatch();
-    console.log(props)
 
     useEffect(() => {
         // execute after first render
@@ -42,14 +39,14 @@ const ProductList = (props) => {
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
-                let resDispatch = dispatch(action);
-                console.log(resDispatch);
+                dispatch(action);
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed get books as ${error}`);
             }
         })();
-        return {
+        return () => {
             // execute when unmount
+            console.log("unmount");
         };
     }, []);
 
@@ -63,10 +60,9 @@ const ProductList = (props) => {
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
-                let resDispatch = dispatch(action);
-                console.log(resDispatch);
+                dispatch(action);
             } catch (error) {
-                console.log(`failed post register as ${error}`);
+                console.log(`failed get books as ${error}`);
             }
         })();
     };

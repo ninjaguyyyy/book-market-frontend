@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@material-ui/styles";
 import React, { Suspense } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import PrivateRoute from "../components/Common/PrivateRoute"
+import PrivateRoute from "../components/Common/PrivateRoute";
 import theme from "../theme";
 import "./App.scss";
 

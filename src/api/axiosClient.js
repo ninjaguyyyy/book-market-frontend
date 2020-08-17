@@ -1,5 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
+import { getAccessToken } from "../utils/auth";
 
 const axiosClient = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -12,6 +13,10 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(function (config) {
     // Do something before request is sent
+    let token = getAccessToken();
+    if (token || token !== "undefined") {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
 });
 

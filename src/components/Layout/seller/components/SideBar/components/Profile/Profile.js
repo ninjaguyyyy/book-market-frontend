@@ -25,12 +25,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Profile = (props) => {
-    const { className, ...rest } = props;
-    console.log(props)
+    const { className } = props;
     const classes = useStyles();
     const user = {
-        name: props.payload.user.username,
-        avatar: props.payload.user.avatar || StoreImg,
+        name: props.user.username,
+        avatar: props.user.avatar || StoreImg,
     };
 
     return (
@@ -55,7 +54,7 @@ Profile.propTypes = {
 };
 
 function mapStateToProps(state) {
-    return { ...state.user.login };
+    return { user: state.user.login.user };
 }
 
 export default connect(mapStateToProps)(Profile);
