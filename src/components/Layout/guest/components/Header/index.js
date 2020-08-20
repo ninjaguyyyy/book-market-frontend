@@ -18,7 +18,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import LogoImg from "../../../../../assets/images/bookstor_compact.webp";
-import { isLogin, removeSession } from "../../../../../utils/auth";
+import { isLogin, removeSession, getRole } from "../../../../../utils/auth";
 import "./Header.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -141,7 +141,16 @@ function PrimarySearchAppBar(props) {
             ) : (
                 <div>
                     <MenuItem>
-                        <Link onClick={handleMenuClose} to="/buyer/">
+                        <Link
+                            onClick={handleMenuClose}
+                            to={
+                                getRole() === "1"
+                                    ? "/buyer/"
+                                    : getRole() === "2"
+                                    ? "/seller/"
+                                    : "/admin"
+                            }
+                        >
                             Quản lý tài khoản
                         </Link>
                     </MenuItem>

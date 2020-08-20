@@ -47,7 +47,7 @@ class AddBookForm extends Component {
         this.setState({ openAlert: true });
 
         let formData = new FormData();
-        formData.set("name", values.name);
+        formData.set("title", values.name);
         formData.set("author", values.author);
         formData.set("price", values.price);
         formData.set("description", values.description);
@@ -63,11 +63,12 @@ class AddBookForm extends Component {
         (async () => {
             try {
                 const response = await userApi.upload(formData);
+                console.log(response);
                 if (response.success) {
                     this.setState({ openAlert: true });
-                    setTimeout(() => {
-                        // window.location.reload();
-                    }, 2000);
+                    // setTimeout(() => {
+                    //     // window.location.reload();
+                    // }, 2000);
                 }
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -219,10 +220,10 @@ class AddBookForm extends Component {
                                         onClose={() => {
                                             this.setState({ openAlert: false });
                                         }}
-                                        severity="warning"
+                                        severity="success"
                                     >
-                                        Đã đăng ký thành công. Chuyển sang Đăng
-                                        nhập sau vài giây.
+                                        Đã upload thành công. Click vùng ngoài
+                                        để xem kết quả.
                                     </Alert>
                                 </Snackbar>
                             </Grid>

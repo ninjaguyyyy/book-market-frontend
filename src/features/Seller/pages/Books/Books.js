@@ -7,6 +7,7 @@ import { getBooksSeller } from "../../../../actions/user";
 import booksApi from "../../../../api/booksApi";
 import BookCard from "../../../../components/BookCard/BookCard";
 import BooksToolbar from "./components/BooksToolbar/BooksToolbar";
+import { getUserId } from "../../../../utils/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,9 +36,10 @@ const ProductList = (props) => {
                 let params = {
                     page: 1,
                     perPage: 2,
-                    sellerId: "5f28184759ee352004b990b3",
+                    sellerId: getUserId(),
                 };
                 const response = await booksApi.get(params);
+                console.log(response);
                 let action = await getBooksSeller(response);
                 dispatch(action);
             } catch (error) {
@@ -56,7 +58,7 @@ const ProductList = (props) => {
                 let params = {
                     page: page,
                     perPage: 2,
-                    sellerId: "5f28184759ee352004b990b3",
+                    sellerId: getUserId(),
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
@@ -67,17 +69,30 @@ const ProductList = (props) => {
         })();
     };
 
+    const renderBooks = (booksSeller) => {
+        let renderResult;
+        if (booksSeller.total) {
+            renderResult = booksSeller.docs.map((book) => (
+                <Grid item key={book._id} lg={4} md={3} xs={12}>
+                    <BookCard book={book} />
+                </Grid>
+            ));
+        } else {
+            renderResult = (
+                <h3 className="notification">
+                    Chưa có sản phẩm trong giỏ hàng.
+                </h3>
+            );
+        }
+        return renderResult;
+    };
+
     return (
         <div className={classes.root}>
             <BooksToolbar />
             <div className={classes.content}>
                 <Grid container spacing={3}>
-                    {props.booksSeller.total &&
-                        props.booksSeller.docs.map((book) => (
-                            <Grid item key={book._id} lg={4} md={3} xs={12}>
-                                <BookCard book={book} />
-                            </Grid>
-                        ))}
+                    {renderBooks(props.booksSeller)}
                 </Grid>
             </div>
             <div className={classes.pagination}>

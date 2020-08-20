@@ -88,6 +88,7 @@ const AccountProfile = (props) => {
         (async function () {
             const response = await userApi.removeAvatar();
             if (response.success) {
+                setOpenAlertRemove(true);
                 setAvatar(StoreImg);
             }
         })();

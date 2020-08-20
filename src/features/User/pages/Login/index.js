@@ -25,13 +25,13 @@ class LoginPage extends React.Component {
                 const response = await userApi.login(values);
                 let action = await loginUser(response);
                 let resDispatch = this.props.dispatch(action);
-                console.log(response);
                 if (resDispatch.payload.success) {
                     setSession(
                         response.data.user.username,
                         response.data.accessToken,
                         response.data.user.role,
-                        response.data.user.email
+                        response.data.user.email,
+                        response.data.user._id
                     );
 
                     if (response.data.user.role === 1) {

@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import clsx from "clsx";
+
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/styles";
 import { AppBar, Toolbar, Badge, Hidden, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import InputIcon from "@material-ui/icons/Input";
+import { removeSession } from "../../../../../utils/auth";
 
 import Logo from "../../../../../assets/images/bookstor_compact.webp";
 
@@ -24,10 +26,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Topbar = (props) => {
     const { className, onSidebarOpen, ...rest } = props;
-
+    const history = useHistory();
     const classes = useStyles();
 
     const [notifications] = useState([]);
+
+    const handleClickSignOut = () => {
+        console.log("sign out");
+        removeSession();
+        history.push({
+            pathname: "/user/login",
+        });
+    };
 
     return (
         <AppBar {...rest} className={clsx(classes.root, className)}>
@@ -49,6 +59,7 @@ const Topbar = (props) => {
                     <IconButton
                         className={classes.signOutButton}
                         color="inherit"
+                        onClick={handleClickSignOut}
                     >
                         <InputIcon />
                     </IconButton>
