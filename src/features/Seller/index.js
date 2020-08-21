@@ -17,11 +17,6 @@ const pages = [
         icon: <AccountBoxIcon />,
     },
     {
-        title: "Đơn hàng",
-        href: "/seller/orders",
-        icon: <ShoppingCartIcon />,
-    },
-    {
         title: "Sách của tôi",
         href: "/seller/books",
         icon: <MenuBookIcon />,

@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MaterialTable from "material-table";
+import { connect } from "react-redux";
 
-export default function Orders() {
+import adminApi from "../../../../api/adminApi";
+
+function Orders() {
     const [state, setState] = React.useState({
         columns: [
-            { title: "Name", field: "name" },
-            { title: "Surname", field: "surname" },
+            { title: "Khách hàng", field: "customer" },
+            {
+                title: "Giỏ hàng",
+                field: "surname",
+                render: (rowData) => {
+                    console.log(rowData.surname);
+                    return rowData.surname.map((item) => <div>{item}</div>);
+                },
+            },
             { title: "Birth Year", field: "birthYear", type: "numeric" },
             {
                 title: "Birth Place",
@@ -15,19 +25,31 @@ export default function Orders() {
         ],
         data: [
             {
-                name: "Mehmet",
-                surname: "Baran",
+                customer: "Mehmet",
+                surname: ["Baran", "test"],
                 birthYear: 1987,
                 birthCity: 63,
             },
             {
                 name: "Zerya Betül",
-                surname: "Baran",
+                surname: ["Baran", "test"],
                 birthYear: 2017,
                 birthCity: 34,
             },
         ],
     });
+
+    useEffect(() => {
+        (async function () {
+            let response = await adminApi.getOrders();
+            if (response.success) {
+                console.log(response);
+            }
+        })();
+        return () => {
+            // do something
+        };
+    }, []);
 
     return (
         <MaterialTable
@@ -74,3 +96,4 @@ export default function Orders() {
         />
     );
 }
+export default connect(null, null)(Orders);
