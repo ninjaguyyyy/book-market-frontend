@@ -3,7 +3,7 @@ import MaterialTable from "material-table";
 
 import userApi from "../../../../api/userApi";
 
-export default function Customer() {
+export default function Sellers() {
     const [state, setState] = React.useState({
         columns: [
             { title: "Tên", field: "name" },
@@ -55,49 +55,47 @@ export default function Customer() {
     }, []);
 
     return (
-        <div>
-            <MaterialTable
-                title="Quản lý tài khoản người bán"
-                columns={state.columns}
-                data={state.data}
-                editable={{
-                    onRowAdd: (newData) =>
-                        new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve();
+        <MaterialTable
+            title="Quản lý tài khoản người mua"
+            columns={state.columns}
+            data={state.data}
+            editable={{
+                onRowAdd: (newData) =>
+                    new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve();
+                            setState((prevState) => {
+                                const data = [...prevState.data];
+                                data.push(newData);
+                                return { ...prevState, data };
+                            });
+                        }, 600);
+                    }),
+                onRowUpdate: (newData, oldData) =>
+                    new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve();
+                            if (oldData) {
                                 setState((prevState) => {
                                     const data = [...prevState.data];
-                                    data.push(newData);
+                                    data[data.indexOf(oldData)] = newData;
                                     return { ...prevState, data };
                                 });
-                            }, 600);
-                        }),
-                    onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve();
-                                if (oldData) {
-                                    setState((prevState) => {
-                                        const data = [...prevState.data];
-                                        data[data.indexOf(oldData)] = newData;
-                                        return { ...prevState, data };
-                                    });
-                                }
-                            }, 600);
-                        }),
-                    onRowDelete: (oldData) =>
-                        new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve();
-                                setState((prevState) => {
-                                    const data = [...prevState.data];
-                                    data.splice(data.indexOf(oldData), 1);
-                                    return { ...prevState, data };
-                                });
-                            }, 600);
-                        }),
-                }}
-            />
-        </div>
+                            }
+                        }, 600);
+                    }),
+                onRowDelete: (oldData) =>
+                    new Promise((resolve) => {
+                        setTimeout(() => {
+                            resolve();
+                            setState((prevState) => {
+                                const data = [...prevState.data];
+                                data.splice(data.indexOf(oldData), 1);
+                                return { ...prevState, data };
+                            });
+                        }, 600);
+                    }),
+            }}
+        />
     );
 }
