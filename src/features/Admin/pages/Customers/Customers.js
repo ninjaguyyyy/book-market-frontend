@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
 
-import userApi from "../../../../api/userApi";
+import adminApi from "../../../../api/adminApi";
+import { repeat } from "lodash";
+import user from "../../../../reducers/user";
 
 export default function Customer() {
     const [state, setState] = React.useState({
         columns: [
             { title: "Tên", field: "name" },
-            { title: "Email", field: "surname" },
-            { title: "Sđt", field: "surname" },
-            { title: "Địa chỉ", field: "birthYear" },
+            { title: "Email", field: "email" },
+            { title: "Sđt", field: "phone" },
+            { title: "Địa chỉ", field: "address" },
             {
                 title: "Avatar",
                 field: "birthCity",
@@ -19,15 +21,15 @@ export default function Customer() {
         data: [
             {
                 name: "Mehmet",
-                surname: "Baran",
-                birthYear: 1987,
-                birthCity: 63,
+                email: "Baran",
+                phone: 1987,
+                address: 63,
             },
             {
-                name: "Zerya Betül",
-                surname: "Baran",
-                birthYear: 2017,
-                birthCity: 34,
+                name: "Mehmet",
+                email: "Baran",
+                phone: 1987,
+                address: 63,
             },
         ],
     });
@@ -39,12 +41,37 @@ export default function Customer() {
                 let params = {
                     // page: 1,
                     // perPage: 2,
-                    role: 1,
+                    role: 2,
                 };
-                const response = await userApi.get(params);
+                const response = await adminApi.get(params);
                 // let action = await getBooksSeller(response);
                 // let resDispatch = dispatch(action);
-                console.log(response);
+                var users=[]
+                for(let i=0;i<response.data.length;i++){
+                    console.log(response.data[i])
+                    const result={
+                        name:response.data[i].username,
+                        email:response.data[i].email,
+                        phone:response.data[i].phone,
+                        address:response.data[i].address
+                    }
+                    console.log(result)
+                    users.push(result)
+                }
+                setState({
+                    columns: [
+                        { title: "Tên", field: "name" },
+                        { title: "Email", field: "email" },
+                        { title: "Sđt", field: "phone" },
+                        { title: "Địa chỉ", field: "address" },
+                        {
+                            title: "Avatar",
+                            field: "birthCity",
+                            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+                        },
+                    ],
+                    data:users
+                })
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }

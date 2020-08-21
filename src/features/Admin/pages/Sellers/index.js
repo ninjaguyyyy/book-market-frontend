@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import MaterialTable from "material-table";
 
-import userApi from "../../../../api/userApi";
+import adminApi from "../../../../api/adminApi";
 
 export default function Sellers() {
     const [state, setState] = React.useState({
@@ -17,18 +17,6 @@ export default function Sellers() {
             },
         ],
         data: [
-            {
-                name: "Mehmet",
-                surname: "Baran",
-                birthYear: 1987,
-                birthCity: 63,
-            },
-            {
-                name: "Zerya Betül",
-                surname: "Baran",
-                birthYear: 2017,
-                birthCity: 34,
-            },
         ],
     });
 
@@ -41,10 +29,35 @@ export default function Sellers() {
                     // perPage: 2,
                     role: 1,
                 };
-                const response = await userApi.get(params);
+                const response = await adminApi.get(params);
                 // let action = await getBooksSeller(response);
                 // let resDispatch = dispatch(action);
-                console.log(response);
+                var users=[]
+                for(let i=0;i<response.data.length;i++){
+                    console.log(response.data[i])
+                    const result={
+                        name:response.data[i].username,
+                        email:response.data[i].email,
+                        phone:response.data[i].phone,
+                        address:response.data[i].address
+                    }
+                    console.log(result)
+                    users.push(result)
+                }
+                setState({
+                    columns: [
+                        { title: "Tên", field: "name" },
+                        { title: "Email", field: "email" },
+                        { title: "Sđt", field: "phone" },
+                        { title: "Địa chỉ", field: "address" },
+                        {
+                            title: "Avatar",
+                            field: "birthCity",
+                            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+                        },
+                    ],
+                    data:users
+                })
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }
