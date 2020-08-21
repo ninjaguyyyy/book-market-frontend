@@ -10,12 +10,15 @@ import SelectField from "../../../../../../../components/custom-field/SelectFiel
 import DraggableUploader from "../../../../../../../components/imageUploader/DraggableUploader";
 
 import userApi from "../../../../../../../api/userApi";
+import { getBooksSeller } from "../../../../../../../actions/user";
 
 class AddBookForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             openAlert: false,
+            content: "",
+            type: "",
             filesImg: [],
             filesPrev: [],
         };
@@ -64,10 +67,16 @@ class AddBookForm extends Component {
             try {
                 const response = await userApi.upload(formData);
                 if (response.success) {
-                    this.setState({ openAlert: true });
-                    setTimeout(() => {
-                        // window.location.reload();
-                    }, 2000);
+                    this.setState({
+                        openAlert: true,
+                        content:
+                            "Upload thành công. Click bên ngoài khung để xem kết quả.",
+                        type: "success",
+                    });
+                    let res = this.props.dispatch(
+                        getBooksSeller(response.books)
+                    );
+                    console.log(res);
                 }
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -219,10 +228,9 @@ class AddBookForm extends Component {
                                         onClose={() => {
                                             this.setState({ openAlert: false });
                                         }}
-                                        severity="warning"
+                                        severity={this.state.type}
                                     >
-                                        Đã đăng ký thành công. Chuyển sang Đăng
-                                        nhập sau vài giây.
+                                        {this.state.content}
                                     </Alert>
                                 </Snackbar>
                             </Grid>

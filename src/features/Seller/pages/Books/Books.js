@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { getBooksSeller } from "../../../../actions/user";
+import { getUserId } from "../../../../utils/auth";
 import booksApi from "../../../../api/booksApi";
 import BookCard from "../../../../components/BookCard/BookCard";
 import BooksToolbar from "./components/BooksToolbar/BooksToolbar";
@@ -35,7 +36,7 @@ const ProductList = (props) => {
                 let params = {
                     page: 1,
                     perPage: 2,
-                    sellerId: "5f28184759ee352004b990b3",
+                    sellerId: getUserId(),
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
@@ -56,7 +57,7 @@ const ProductList = (props) => {
                 let params = {
                     page: page,
                     perPage: 2,
-                    sellerId: "5f28184759ee352004b990b3",
+                    sellerId: getUserId(),
                 };
                 const response = await booksApi.get(params);
                 let action = await getBooksSeller(response);
@@ -67,17 +68,34 @@ const ProductList = (props) => {
         })();
     };
 
+    const renderBooks = () => {
+        if (props.booksSeller.total) {
+            return props.booksSeller.docs.map((book) => (
+                <Grid item key={book._id} lg={4} md={3} xs={12}>
+                    <BookCard book={book} />
+                </Grid>
+            ));
+        } else {
+            return (
+                <h3 className="notification">
+                    Chưa có sản phẩm trong danh sách.
+                </h3>
+            );
+        }
+    };
+
     return (
         <div className={classes.root}>
             <BooksToolbar />
             <div className={classes.content}>
                 <Grid container spacing={3}>
-                    {props.booksSeller.total &&
+                    {/* {props.booksSeller.total &&
                         props.booksSeller.docs.map((book) => (
                             <Grid item key={book._id} lg={4} md={3} xs={12}>
                                 <BookCard book={book} />
                             </Grid>
-                        ))}
+                        ))} */}
+                    {renderBooks()}
                 </Grid>
             </div>
             <div className={classes.pagination}>
