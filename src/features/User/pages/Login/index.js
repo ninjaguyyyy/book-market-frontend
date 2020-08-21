@@ -31,7 +31,8 @@ class LoginPage extends React.Component {
                         response.data.user.username,
                         response.data.accessToken,
                         response.data.user.role,
-                        response.data.user.email
+                        response.data.user.email,
+                        response.data.user._id
                     );
 
                     if (response.data.user.role === 1) {

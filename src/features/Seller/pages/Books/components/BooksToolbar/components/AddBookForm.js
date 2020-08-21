@@ -47,7 +47,7 @@ class AddBookForm extends Component {
         this.setState({ openAlert: true });
 
         let formData = new FormData();
-        formData.set("name", values.name);
+        formData.set("title", values.name);
         formData.set("author", values.author);
         formData.set("price", values.price);
         formData.set("description", values.description);

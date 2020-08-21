@@ -41,6 +41,10 @@ const userApi = {
         const url = "users/";
         return axiosClient.get(url, { params });
     },
+    order: (data) => {
+        const url = "users/orders/add_order";
+        return axiosClient.get(url);
+    },
 };
 
 export default userApi;

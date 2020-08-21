@@ -21,10 +21,6 @@ export default class PayCard extends Component {
         };
         this.handleAdd = this.handleAdd.bind(this);
         this.handleSub = this.handleSub.bind(this);
-        // this.handleAddToCart = this.handleAddToCart.bind(
-        //     this,
-        //     this.state.quantity
-        // );
     }
 
     handleSub() {
@@ -40,9 +36,6 @@ export default class PayCard extends Component {
                     : state.quantity + 1,
         }));
     }
-    // handleAddToCart() {
-    //     console.log(this.state.quantity);
-    // }
 
     render() {
         const { quantity } = this.state;

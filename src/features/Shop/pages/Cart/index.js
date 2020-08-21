@@ -13,7 +13,7 @@ import store from "../../../../app/store";
 class Cart extends Component {
     async componentDidMount() {
         let params = {
-            userID: "123",
+            // userID: "123",
         };
         const response = await cartApi.get(params);
         store.dispatch(getCartDetails(response));
