@@ -45,6 +45,14 @@ const userApi = {
         const url = "users/orders/add_order";
         return axiosClient.get(url);
     },
+    getOrders: () => {
+        const url = "users/orders";
+        return axiosClient.get(url);
+    },
+    cancelOrder: (idOrder, status = 3) => {
+        const url = `users/orders/${idOrder}/status`;
+        return axiosClient.put(url, { status });
+    },
 };
 
 export default userApi;
