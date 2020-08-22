@@ -45,7 +45,7 @@ export default function InfoTab(props) {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
-                <SliderTab />
+                <SliderTab imgs={props.previews} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 {props.des}

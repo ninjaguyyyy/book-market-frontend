@@ -14,6 +14,7 @@ export default class SliderTab extends Component {
         });
     }
     render() {
+        console.log(this.props.imgs);
         return (
             <div>
                 <Coverflow
@@ -24,49 +25,13 @@ export default class SliderTab extends Component {
                     enableHeading={false}
                     active={this.state.active}
                 >
-                    <div
-                        onClick={() => console.log("click")}
-                        onKeyDown={() => console.log("click")}
-                        role="menuitem"
-                        tabIndex="9"
-                    >
+                    {this.props.imgs.map((img) => (
                         <img
                             style={{ display: "block", width: "100%" }}
-                            src="http://res.cloudinary.com/dwuma83gt/image/upload/v1583501371/anyi9w3ar5ytnt003lsu.jpg"
+                            src={img}
                             alt="Album one"
                         />
-                    </div>
-                    <img
-                        style={{ display: "block", width: "100%" }}
-                        src="http://res.cloudinary.com/dwuma83gt/image/upload/v1583501368/j5xxmasgwwluxujbkpcj.jpg"
-                        alt="Album two"
-                    />
-                    <img
-                        style={{ display: "block", width: "100%" }}
-                        src="https://picsum.photos/id/1019/1000/600/"
-                        alt="Album three"
-                        data-action="https://doce.cc/"
-                    />
-                    <img
-                        style={{ display: "block", width: "100%" }}
-                        src="https://res.cloudinary.com/dwuma83gt/image/upload/v1577631966/Auction/Tools-for-Product-Marketing_ebngnp.jpg"
-                        alt="Album four"
-                    />
-                    <img
-                        style={{ display: "block", width: "100%" }}
-                        src="https://static2.yan.vn/YanNews/2167221/201910/cong-ty-momoland-bi-to-uu-ai-nancy-ep-thanh-vien-roi-nhom-ebb29fdf.jpg"
-                        alt="Album four"
-                    />
-                    <img
-                        style={{ display: "block", width: "100%" }}
-                        src="https://static2.yan.vn/YanNews/2167221/201910/cong-ty-momoland-bi-to-uu-ai-nancy-ep-thanh-vien-roi-nhom-ebb29fdf.jpg"
-                        alt="Album four"
-                    />
-                    <img
-                        style={{ display: "block", width: "100%" }}
-                        src="https://static2.yan.vn/YanNews/2167221/201910/cong-ty-momoland-bi-to-uu-ai-nancy-ep-thanh-vien-roi-nhom-ebb29fdf.jpg"
-                        alt="Album four"
-                    />
+                    ))}
                 </Coverflow>
             </div>
         );
