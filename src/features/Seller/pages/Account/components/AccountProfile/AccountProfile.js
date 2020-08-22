@@ -47,10 +47,11 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountProfile = (props) => {
     const { className, user, actions, ...rest } = props;
+    console.log(user);
 
     const [openModal, setOpenModal] = useState(false);
     const [openAlertRemove, setOpenAlertRemove] = useState(false);
-    const [avatar, setAvatar] = useState(StoreImg);
+    const [avatar, setAvatar] = useState(user.avatar || StoreImg);
 
     const classes = useStyles();
 
@@ -109,10 +110,6 @@ const AccountProfile = (props) => {
                         </Typography>
                     </div>
                     <Avatar className={classes.avatar} src={avatar} />
-                </div>
-                <div className={classes.progress}>
-                    <Typography variant="body1">Độ hài lòng: 70%</Typography>
-                    <LinearProgress value={70} variant="determinate" />
                 </div>
             </CardContent>
             <Divider />

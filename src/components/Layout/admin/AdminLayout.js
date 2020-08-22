@@ -9,7 +9,9 @@ import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import Typography from "@material-ui/core/Typography";
+import { useHistory } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import MenuIcon from "@material-ui/icons/Menu";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -17,6 +19,7 @@ import clsx from "clsx";
 import React from "react";
 import Copyright from "../../Layout/guest/components/Footer/components/Copyright";
 import { mainListItems } from "./components/listItems";
+import { removeSession } from "../../../utils/auth";
 
 const drawerWidth = 240;
 
@@ -100,6 +103,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard(props) {
+    const history = useHistory();
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -139,8 +143,20 @@ export default function Dashboard(props) {
                         Admin
                     </Typography>
                     <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
+                        <Badge badgeContent={0} color="secondary">
                             <NotificationsIcon />
+                        </Badge>
+                    </IconButton>
+                    <IconButton color="inherit">
+                        <Badge
+                            badgeContent={0}
+                            color="secondary"
+                            onClick={() => {
+                                removeSession();
+                                history.push("/user/login");
+                            }}
+                        >
+                            <ExitToAppIcon />
                         </Badge>
                     </IconButton>
                 </Toolbar>

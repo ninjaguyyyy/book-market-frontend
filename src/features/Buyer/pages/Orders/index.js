@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CancelIcon from "@material-ui/icons/Cancel";
-import CallIcon from "@material-ui/icons/Call";
-import { connect } from "react-redux";
 
-import adminApi from "../../../../api/adminApi";
-import "./Orders.scss";
+import userApi from "../../../../api/userApi";
+
+import "./index.scss";
 
 function renderStatus(id) {
     let msg;
@@ -22,9 +20,8 @@ function renderStatus(id) {
     return msg;
 }
 
-function Orders() {
+export default function Orders() {
     const [columns, setColumns] = useState([
-        { title: "Khách hàng", field: "customer" },
         {
             title: "Giỏ hàng",
             field: "cart",
@@ -46,16 +43,6 @@ function Orders() {
             render: (rowData) => {
                 return (
                     <div className="action">
-                        <CallIcon
-                            className="icon"
-                            color="primary"
-                            onClick={() => handleChangeStatus(rowData, 1)}
-                        />
-                        <CheckBoxIcon
-                            className="icon"
-                            color="secondary"
-                            onClick={() => handleChangeStatus(rowData, 2)}
-                        />
                         <CancelIcon
                             className="icon"
                             color="error"
@@ -68,7 +55,6 @@ function Orders() {
     ]);
     const [data, setData] = useState([
         {
-            customer: "chi",
             cart: ["default1", "default2"],
             totalPrice: 0,
             status: "default",
@@ -76,12 +62,32 @@ function Orders() {
         },
     ]);
 
+    useEffect(() => {
+        (async function () {
+            let response = await userApi.getOrders();
+            if (response.success) {
+                setData(
+                    response.orders.map((order) => {
+                        return {
+                            cart: order.cart.productList.map((product) => {
+                                return `${product.productID.title} - ${product.amount}`;
+                            }),
+                            totalPrice: order.cart.totalPrice,
+                            status: renderStatus(order.status),
+                            action: order._id,
+                        };
+                    })
+                );
+            }
+        })();
+        return () => {
+            // do something
+        };
+    }, []);
+
     const handleChangeStatus = (rowData, status) => {
         (async function () {
-            let response = await adminApi.changeStatusOrder(
-                rowData.action,
-                status
-            );
+            let response = await userApi.cancelOrder(rowData.action, status);
             if (response.success) {
                 setData(
                     response.orders.map((order) => {
@@ -101,68 +107,44 @@ function Orders() {
         })();
     };
 
-    useEffect(() => {
-        (async function () {
-            let response = await adminApi.getOrders();
-            if (response.success) {
-                setData(
-                    response.orders.map((order) => {
-                        return {
-                            customer:
-                                order.customer.name || order.customer.username,
-                            cart: order.cart.productList.map((product) => {
-                                return `${product.productID.title} - ${product.amount}`;
-                            }),
-                            totalPrice: order.cart.totalPrice,
-                            status: renderStatus(order.status),
-                            action: order._id,
-                        };
-                    })
-                );
-            }
-        })();
-        return () => {
-            // do something
-        };
-    }, []);
-
     return (
-        <MaterialTable
-            title="Editable Example"
-            columns={columns}
-            data={data}
-            editable={{
-                onRowAdd: (newData) =>
-                    new Promise((resolve) => {
-                        setTimeout(() => {
-                            resolve();
-                            setData([...data, newData]);
-                        }, 600);
-                    }),
-                onRowUpdate: (newData, oldData) =>
-                    new Promise((resolve) => {
-                        setTimeout(() => {
-                            resolve();
-                            if (oldData) {
-                                const dataUpdate = [...data];
+        <div className="orders-buyer">
+            <MaterialTable
+                title="Đơn hàng của tôi"
+                columns={columns}
+                data={data}
+                editable={{
+                    onRowAdd: (newData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                setData([...data, newData]);
+                            }, 600);
+                        }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                if (oldData) {
+                                    const dataUpdate = [...data];
+                                    const index = oldData.tableData.id;
+                                    dataUpdate[index] = newData;
+                                    setData([...dataUpdate]);
+                                }
+                            }, 600);
+                        }),
+                    onRowDelete: (oldData) =>
+                        new Promise((resolve) => {
+                            setTimeout(() => {
+                                resolve();
+                                const dataDelete = [...data];
                                 const index = oldData.tableData.id;
-                                dataUpdate[index] = newData;
-                                setData([...dataUpdate]);
-                            }
-                        }, 600);
-                    }),
-                onRowDelete: (oldData) =>
-                    new Promise((resolve) => {
-                        setTimeout(() => {
-                            resolve();
-                            const dataDelete = [...data];
-                            const index = oldData.tableData.id;
-                            dataDelete.splice(index, 1);
-                            setData([...dataDelete]);
-                        }, 600);
-                    }),
-            }}
-        />
+                                dataDelete.splice(index, 1);
+                                setData([...dataDelete]);
+                            }, 600);
+                        }),
+                }}
+            />
+        </div>
     );
 }
-export default connect(null, null)(Orders);
