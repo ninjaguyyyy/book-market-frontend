@@ -8,6 +8,8 @@ import userApi from "../../../../api/userApi";
 import LoginForm from "../../components/LoginForm";
 import { setSession } from "../../../../utils/auth";
 import "./styles.scss";
+import {Modal,Button} from "react-bootstrap"
+import { makeStyles } from '@material-ui/core/styles';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -16,8 +18,15 @@ class LoginPage extends React.Component {
             openAlert: false,
             contentAlert: "",
             typeAlert: "",
+            isloginFail:false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClose=this.handleClose.bind(this)
+    }
+    handleClose(){
+        this.setState({
+            isloginFail:false   
+        })
     }
     handleSubmit(values) {
         (async () => {
@@ -26,6 +35,12 @@ class LoginPage extends React.Component {
                 let action = await loginUser(response);
                 let resDispatch = this.props.dispatch(action);
                 console.log(response);
+                if(response.data.user.status==0) {
+                    this.setState({
+                        isloginFail:true
+                    })
+                    return
+                }
                 if (resDispatch.payload.success) {
                     setSession(
                         response.data.user.username,
@@ -57,6 +72,7 @@ class LoginPage extends React.Component {
         })();
     }
     render() {
+        const {isloginFail}=this.state
         return (
             <Container component="main" maxWidth="xs" className="login">
                 <div className="paper">
@@ -84,6 +100,17 @@ class LoginPage extends React.Component {
                         {this.state.contentAlert}
                     </Alert>
                 </Snackbar>
+                <Modal show={isloginFail}>
+                    <Modal.Header >
+                        <Modal.Title>Đăng nhập thất bại!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Tài khoản của bạn đã bị cấm vì quản trị viên phát hiện vi phạm. Vui lòng liên hệ quản trị viên để được phục hồi tài khoản</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Đóng
+                     </Button>
+                    </Modal.Footer>
+                </Modal>
             </Container>
         );
     }
