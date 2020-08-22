@@ -105,7 +105,10 @@ class ShopDetail extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <InfoTab des={book.description} />
+                        <InfoTab
+                            des={book.description}
+                            previews={book.previewImgs}
+                        />
                     </Col>
                 </Row>
                 {this.state.booksByAuthor.length && (
