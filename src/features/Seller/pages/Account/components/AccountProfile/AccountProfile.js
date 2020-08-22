@@ -14,10 +14,12 @@ import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/styles";
 import clsx from "clsx";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import StoreImg from "../../../../../../assets/images/store_img.png";
 import DraggableUploader from "../../../../../../components/imageUploader/DraggableUploader";
 import userApi from "../../../../../../api/userApi";
+import { updateAvatar } from "../../../../../../actions/user";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -46,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AccountProfile = (props) => {
+    const dispatch = useDispatch();
     const { className, user, actions, ...rest } = props;
-    console.log(user);
 
     const [openModal, setOpenModal] = useState(false);
     const [openAlertRemove, setOpenAlertRemove] = useState(false);
@@ -63,6 +65,7 @@ const AccountProfile = (props) => {
             formData.append("avatar", files[0]);
             const response = await userApi.uploadAvatar(formData);
             if (response.success) {
+                dispatch(updateAvatar(response.avatar));
                 setAvatar(response.avatar);
                 setOpenModal(false);
             }

@@ -6,6 +6,7 @@ import {
     UPLOAD_BOOK,
     GET_CART_DETAILS,
     SET_COMMENTS,
+    UPDATE_AVATAR,
 } from "../constants/typeRedux";
 
 export async function registerUser(userData) {
@@ -54,5 +55,12 @@ export function setComments(comments) {
     return {
         type: SET_COMMENTS,
         payload: comments,
+    };
+}
+
+export function updateAvatar(url) {
+    return {
+        type: UPDATE_AVATAR,
+        payload: url,
     };
 }
