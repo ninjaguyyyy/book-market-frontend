@@ -78,7 +78,10 @@ function Orders() {
 
     const handleChangeStatus = (rowData, status) => {
         (async function () {
-            let response = await adminApi.changeStatus(rowData.action, status);
+            let response = await adminApi.changeStatusOrder(
+                rowData.action,
+                status
+            );
             if (response.success) {
                 setData(
                     response.orders.map((order) => {

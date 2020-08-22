@@ -1,9 +1,26 @@
 import React, { useEffect, useState } from "react";
 import MaterialTable from "material-table";
-
 import adminApi from "../../../../api/adminApi";
 import { repeat } from "lodash";
 import user from "../../../../reducers/user";
+import { Modal } from "antd"
+import Button from "@material-ui/core/Button";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper'
+
+async function handleClick (row){
+    const {email,status}=row
+    const params={
+        email,
+        status
+    }
+    await adminApi.changeStatus(params)
+}
 
 export default function Customer() {
     const [state, setState] = React.useState({
@@ -13,26 +30,15 @@ export default function Customer() {
             { title: "Sđt", field: "phone" },
             { title: "Địa chỉ", field: "address" },
             {
-                title: "Avatar",
-                field: "birthCity",
+                title: "Status",
+                field: "status",
                 lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
             },
         ],
         data: [
-            {
-                name: "Mehmet",
-                email: "Baran",
-                phone: 1987,
-                address: 63,
-            },
-            {
-                name: "Mehmet",
-                email: "Baran",
-                phone: 1987,
-                address: 63,
-            },
         ],
     });
+
 
     useEffect(() => {
         // execute after first render
@@ -46,16 +52,18 @@ export default function Customer() {
                 const response = await adminApi.get(params);
                 // let action = await getBooksSeller(response);
                 // let resDispatch = dispatch(action);
-                var users=[]
-                for(let i=0;i<response.data.length;i++){
-                    console.log(response.data[i])
-                    const result={
-                        name:response.data[i].username,
-                        email:response.data[i].email,
-                        phone:response.data[i].phone,
-                        address:response.data[i].address
+                var users = []
+                for (let i = 0; i < response.data.length; i++) {
+                    if (response.data[i].status == 0) var status = "Đã bị ban"
+                    else status = "Đang hoạt động"
+                    const result = {
+                        name: response.data[i].username,
+                        email: response.data[i].email,
+                        phone: response.data[i].phone,
+                        address: response.data[i].address,
+                        status: status
                     }
-                    console.log(result)
+
                     users.push(result)
                 }
                 setState({
@@ -65,12 +73,11 @@ export default function Customer() {
                         { title: "Sđt", field: "phone" },
                         { title: "Địa chỉ", field: "address" },
                         {
-                            title: "Avatar",
-                            field: "birthCity",
-                            lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+                            title: "Status",
+                            field: "status",
                         },
                     ],
-                    data:users
+                    data: users
                 })
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -81,50 +88,38 @@ export default function Customer() {
         };
     }, []);
 
+    
+
     return (
         <div>
-            <MaterialTable
-                title="Quản lý tài khoản người bán"
-                columns={state.columns}
-                data={state.data}
-                editable={{
-                    onRowAdd: (newData) =>
-                        new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve();
-                                setState((prevState) => {
-                                    const data = [...prevState.data];
-                                    data.push(newData);
-                                    return { ...prevState, data };
-                                });
-                            }, 600);
-                        }),
-                    onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve();
-                                if (oldData) {
-                                    setState((prevState) => {
-                                        const data = [...prevState.data];
-                                        data[data.indexOf(oldData)] = newData;
-                                        return { ...prevState, data };
-                                    });
-                                }
-                            }, 600);
-                        }),
-                    onRowDelete: (oldData) =>
-                        new Promise((resolve) => {
-                            setTimeout(() => {
-                                resolve();
-                                setState((prevState) => {
-                                    const data = [...prevState.data];
-                                    data.splice(data.indexOf(oldData), 1);
-                                    return { ...prevState, data };
-                                });
-                            }, 600);
-                        }),
-                }}
-            />
+            <TableContainer>
+                <Table  aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Hành động</TableCell>
+                            <TableCell>Tên</TableCell>
+                            <TableCell align="right">Email</TableCell>
+                            <TableCell align="right">Số điện thoại</TableCell>
+                            <TableCell align="right">Địa chỉ</TableCell>
+                            <TableCell align="right">Trạng thái</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {state.data.map((row) => (
+                            <TableRow key={row.name}>
+                               <TableCell> <Button variant="contained" size="small" color="secondary" onClick={() => handleClick(row)}>Cập nhật trạng thái</Button></TableCell> 
+                                <TableCell component="th" scope="row">
+                                    {row.name}
+                                </TableCell>
+                                <TableCell align="right">{row.email}</TableCell>
+                                <TableCell align="right">{row.phone}</TableCell>
+                                <TableCell align="right">{row.address}</TableCell>
+                                <TableCell align="right">{row.status}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </div>
     );
 }
