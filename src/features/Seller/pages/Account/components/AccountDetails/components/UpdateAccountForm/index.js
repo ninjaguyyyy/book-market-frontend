@@ -16,10 +16,10 @@ class UpdateAccountForm extends Component {
     constructor(props) {
         super(props);
         this.initialValues = {
-            name: props.user.name,
-            email: props.user.name,
+            name: props.user.name || props.user.username,
+            email: props.user.email,
             address: props.user.address,
-            phone: props.user.name,
+            phone: props.user.phone,
         };
         this.validationSchema = Yup.object().shape({
             name: Yup.string().required("Vui lòng không để trống."),

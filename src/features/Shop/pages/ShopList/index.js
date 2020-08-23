@@ -20,7 +20,7 @@ const ShopList = (props) => {
             try {
                 let params = {
                     page: page,
-                    perPage: 2,
+                    perPage: 5,
                     categoryId: category,
                 };
 
@@ -62,7 +62,11 @@ const ShopList = (props) => {
                     <Row>
                         {props.booksShop.total &&
                             props.booksShop.docs.map((book) => (
-                                <Col xs={3} key={book._id}>
+                                <Col
+                                    xs={3}
+                                    key={book._id}
+                                    style={{ marginBottom: "25px" }}
+                                >
                                     <BookCard book={book} />
                                 </Col>
                             ))}

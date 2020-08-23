@@ -227,17 +227,7 @@ function PrimarySearchAppBar(props) {
                                 <img src={LogoImg} width={100} alt="logo" />
                             </Link>
                         </Typography>
-                        <div className="nav-list">
-                            <Link to="/" className="item">
-                                home
-                            </Link>
-                            <Link to="/" className="item">
-                                home
-                            </Link>
-                            <Link to="/" className="item">
-                                home
-                            </Link>
-                        </div>
+                        <div className="nav-list"></div>
 
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>

@@ -42,7 +42,6 @@ class ShopStore extends Component {
 
                 this.props.dispatch(action);
                 this.props.dispatch(setComments(resGetUser.comments));
-                // console.log(resDispatch);
             } catch (error) {
                 console.log(`failed post register as ${error}`);
             }
@@ -50,7 +49,6 @@ class ShopStore extends Component {
     }
 
     onChangePagination(e, page) {
-        console.log(page);
         (async () => {
             try {
                 let idStore = this.props.match.params.id_store;
