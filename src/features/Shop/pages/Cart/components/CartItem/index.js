@@ -49,7 +49,7 @@ function CartItem(props) {
                     </div>
                 </Col>
                 <Col xs={2} className="price">
-                    {props.cartItem.productID.price} <u>đ</u>
+                    {props.cartItem.productID.price} .000<u>đ</u>
                 </Col>
                 <Col xs={2}>
                     <div className="action-quantity">

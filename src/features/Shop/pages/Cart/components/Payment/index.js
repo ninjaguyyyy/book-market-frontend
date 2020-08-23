@@ -47,7 +47,7 @@ function Payment(props) {
             <div className="cost">
                 <p>Tạm tính </p>
                 <div className="number">
-                    {total} <u>đ</u>
+                    {total}.000<u>đ</u>
                 </div>
             </div>
             <div className="cost">
@@ -59,7 +59,7 @@ function Payment(props) {
             <div className="cost total">
                 <p>Tổng cộng</p>
                 <div className="number">
-                    {total} <u>đ</u>
+                    {total}.000<u>đ</u>
                 </div>
             </div>
             <div className="button">
