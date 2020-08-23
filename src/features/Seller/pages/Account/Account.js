@@ -28,12 +28,10 @@ const Account = (props) => {
             try {
                 const response = await userApi.update(values);
                 let action = await updateUser(response);
+                console.log(action);
                 let resDispatch = dispatch(action);
                 if (resDispatch.payload.success) {
                     setOpenAlert(true);
-                    setTimeout(() => {
-                        user = { ...user };
-                    }, 3000);
                 }
             } catch (error) {
                 console.log(`failed post update account as ${error}`);
@@ -57,7 +55,7 @@ const Account = (props) => {
                 onClose={() => setOpenAlert(false)}
             >
                 <Alert onClose={() => setOpenAlert(false)} severity="success">
-                    Đã đăng nhập thành công. Chuyển sang Giỏ hàng sau vài giây.
+                    Đã cập nhật thông tin thành công.
                 </Alert>
             </Snackbar>
         </div>

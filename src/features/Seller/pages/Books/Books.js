@@ -35,7 +35,7 @@ const ProductList = (props) => {
             try {
                 let params = {
                     page: 1,
-                    perPage: 2,
+                    perPage: 3,
                     sellerId: getUserId(),
                 };
                 const response = await booksApi.get(params);
@@ -56,7 +56,7 @@ const ProductList = (props) => {
             try {
                 let params = {
                     page: page,
-                    perPage: 2,
+                    perPage: 3,
                     sellerId: getUserId(),
                 };
                 const response = await booksApi.get(params);

@@ -17,8 +17,8 @@ class AddBookForm extends Component {
         super(props);
         this.state = {
             openAlert: false,
-            content: "",
-            type: "",
+            content: "Loading ...",
+            type: "info",
             filesImg: [],
             filesPrev: [],
         };

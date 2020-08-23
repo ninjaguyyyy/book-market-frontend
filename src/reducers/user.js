@@ -3,6 +3,7 @@ import {
     REGISTER_USER,
     SET_COMMENTS,
     UPDATE_AVATAR,
+    UPDATE_USER,
 } from "../constants/typeRedux";
 
 const initialState = {
@@ -30,6 +31,14 @@ export default function (state = initialState, action) {
                 login: {
                     ...state.login,
                     user: { ...state.login.user, avatar: action.payload },
+                },
+            };
+        case UPDATE_USER:
+            return {
+                ...state,
+                login: {
+                    ...state.login,
+                    user: action.payload.data.user,
                 },
             };
         default:
