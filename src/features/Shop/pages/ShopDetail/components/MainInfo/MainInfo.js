@@ -7,6 +7,7 @@ import "./MainInfo.scss";
 export default class MainInfo extends Component {
     render() {
         const { book } = this.props;
+        console.log(book);
         return (
             <div className="MainInfo">
                 <div className="main">
@@ -21,10 +22,10 @@ export default class MainInfo extends Component {
                     <div className="seller">
                         <StoreIcon />
                         <Link
-                            to={`/shop/store/${book.seller}`}
+                            to={`/shop/store/${book.seller._id}`}
                             className="store"
                         >
-                            <p>nguyen huu chi</p>
+                            <p>{book.seller.name || book.seller.username}</p>
                         </Link>
                     </div>
                 </div>
