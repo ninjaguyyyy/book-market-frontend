@@ -52,6 +52,7 @@ const ShopList = (props) => {
     }, []);
 
     const onChangeCategory = (category) => {
+        setPage(1);
         setCategory(category);
     };
 
