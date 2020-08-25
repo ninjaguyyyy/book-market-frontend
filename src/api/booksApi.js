@@ -3,6 +3,7 @@ import axiosClient from "./axiosClient";
 const booksApi = {
     get: (params) => {
         const url = "api/books";
+        if(params.categoryId) params.page=1
         return axiosClient.get(url, { params });
     },
     getByCondition: (params) => {

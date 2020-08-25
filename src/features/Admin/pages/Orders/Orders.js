@@ -91,7 +91,7 @@ function Orders() {
                             cart: order.cart.productList.map((product) => {
                                 return `${product.productID.title} - ${product.amount}`;
                             }),
-                            totalPrice: order.cart.totalPrice,
+                            totalPrice: order.cart.totalPrice+'.000',
                             status: renderStatus(order.status),
                             action: order._id,
                         };
@@ -113,7 +113,7 @@ function Orders() {
                             cart: order.cart.productList.map((product) => {
                                 return `${product.productID.title} - ${product.amount}`;
                             }),
-                            totalPrice: order.cart.totalPrice,
+                            totalPrice: order.cart.totalPrice+'.000',
                             status: renderStatus(order.status),
                             action: order._id,
                         };
