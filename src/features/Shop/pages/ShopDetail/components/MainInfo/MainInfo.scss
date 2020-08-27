@@ -3,6 +3,17 @@
     .main {
         padding-bottom: 17px;
         border-bottom: 1px solid #e6e6e6;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .favorite {
+            color: pink;
+            cursor: pointer;
+        }
+        .favorite:hover {
+            color: #ea516c;
+        }
     }
     .extra {
         display: flex;

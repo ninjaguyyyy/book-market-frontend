@@ -14,6 +14,7 @@ import InfoTab from "./components/InfoTab";
 import SimilarProducts from "./components/SimilarProducts";
 import booksApi from "../../../../api/booksApi";
 import cartApi from "../../../../api/cartApi";
+import userApi from "../../../../api/userApi";
 
 import { getBook } from "../../../../actions/books";
 import { addToCart } from "../../../../actions/cart";
@@ -27,9 +28,12 @@ class ShopDetail extends Component {
             idBook: "",
             booksByAuthor: [],
             openAlert: false,
+            contentAlert: "Loading",
+            typeAlert: "info",
         };
 
         this.handleAddToCart = this.handleAddToCart.bind(this);
+        this.addToFavorite = this.addToFavorite.bind(this);
     }
 
     componentDidMount() {
@@ -68,13 +72,49 @@ class ShopDetail extends Component {
             amount,
             productID: this.state.idBook,
         };
+
         (async () => {
             try {
                 const response = await cartApi.add(cartItem);
                 if (response.success) {
                     let action = await addToCart(response.data[0]);
                     this.props.dispatch(action);
-                    this.setState({ openAlert: true });
+                    this.setState({
+                        openAlert: true,
+                        contentAlert:
+                            "Đã thêm thành công. Chuyển sang Giỏ hàng để xem chi tiết.",
+                        typeAlert: "success",
+                    });
+                }
+            } catch (error) {
+                console.log(`failed post register as ${error}`);
+            }
+        })();
+    }
+
+    addToFavorite() {
+        if (!isLogin()) {
+            this.props.history.push("/user/login");
+            return;
+        }
+        (async () => {
+            try {
+                const response = await userApi.addToFavorite({
+                    idBook: this.state.idBook,
+                });
+                if (response.success) {
+                    this.setState({
+                        openAlert: true,
+                        contentAlert:
+                            "Đã thêm thành công. Chuyển sang Quản lý tài khoản để xem chi tiết.",
+                        typeAlert: "success",
+                    });
+                } else {
+                    this.setState({
+                        openAlert: true,
+                        contentAlert: response.msg,
+                        typeAlert: "error",
+                    });
                 }
             } catch (error) {
                 console.log(`failed post register as ${error}`);
@@ -92,7 +132,10 @@ class ShopDetail extends Component {
                                 <Slider images={book.images} />
                             </Col>
                             <Col xs={7}>
-                                <MainInfo book={book} />
+                                <MainInfo
+                                    book={book}
+                                    addToFavorite={this.addToFavorite}
+                                />
                             </Col>
                         </Row>
                     </Col>
@@ -141,10 +184,9 @@ class ShopDetail extends Component {
                 >
                     <Alert
                         onClose={() => this.setState({ openAlert: false })}
-                        severity="success"
+                        severity={this.state.typeAlert}
                     >
-                        Đã thêm thành công. Chuyển sang Giỏ hàng để xem chi
-                        tiết.
+                        {this.state.contentAlert}
                     </Alert>
                 </Snackbar>
             </div>

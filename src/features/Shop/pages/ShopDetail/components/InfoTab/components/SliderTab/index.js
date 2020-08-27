@@ -14,7 +14,6 @@ export default class SliderTab extends Component {
         });
     }
     render() {
-        console.log(this.props.imgs);
         return (
             <div>
                 <Coverflow
