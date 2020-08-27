@@ -53,6 +53,14 @@ const userApi = {
         const url = `users/orders/${idOrder}/status`;
         return axiosClient.put(url, { status });
     },
+    addToFavorite: (data) => {
+        const url = "users/add_to_favorite";
+        return axiosClient.post(url, data);
+    },
+    getFavorites: () => {
+        const url = "users/favorites";
+        return axiosClient.get(url);
+    },
 };
 
 export default userApi;

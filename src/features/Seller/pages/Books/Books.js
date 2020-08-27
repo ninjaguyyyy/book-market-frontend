@@ -89,12 +89,6 @@ const ProductList = (props) => {
             <BooksToolbar />
             <div className={classes.content}>
                 <Grid container spacing={3}>
-                    {/* {props.booksSeller.total &&
-                        props.booksSeller.docs.map((book) => (
-                            <Grid item key={book._id} lg={4} md={3} xs={12}>
-                                <BookCard book={book} />
-                            </Grid>
-                        ))} */}
                     {renderBooks()}
                 </Grid>
             </div>

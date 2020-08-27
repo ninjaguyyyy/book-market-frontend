@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 import StoreIcon from "@material-ui/icons/Store";
 
 import "./MainInfo.scss";
@@ -7,12 +8,19 @@ import "./MainInfo.scss";
 export default class MainInfo extends Component {
     render() {
         const { book } = this.props;
-        console.log(book);
         return (
             <div className="MainInfo">
                 <div className="main">
-                    <h4>{book.title}</h4>
-                    <div className="author">Tác giả: {book.author}</div>
+                    <div>
+                        <h4>{book.title}</h4>
+                        <div className="author">Tác giả: {book.author}</div>
+                    </div>
+                    <div className="favorite">
+                        <FavoriteIcon
+                            fontSize="large"
+                            onClick={this.props.addToFavorite}
+                        />
+                    </div>
                 </div>
                 <div className="extra">
                     <div className="des">
