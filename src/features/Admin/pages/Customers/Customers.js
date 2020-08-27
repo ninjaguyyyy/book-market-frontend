@@ -4,6 +4,7 @@ import adminApi from "../../../../api/adminApi";
 import { repeat } from "lodash";
 import user from "../../../../reducers/user";
 import { Modal } from "antd"
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,7 +39,6 @@ export default function Customer() {
         data: [
         ],
     });
-
 
     useEffect(() => {
         // execute after first render
@@ -95,23 +95,23 @@ export default function Customer() {
             <TableContainer>
                 <Table  aria-label="simple table">
                     <TableHead>
-                        <TableRow>
-                            <TableCell>Hành động</TableCell>
-                            <TableCell>Tên</TableCell>
-                            <TableCell align="right">Email</TableCell>
-                            <TableCell align="right">Số điện thoại</TableCell>
-                            <TableCell align="right">Địa chỉ</TableCell>
-                            <TableCell align="right">Trạng thái</TableCell>
+                        <TableRow style={{backgroundColor:"#01579b"}}>
+                            <TableCell style={{color: '#FFF'}}>Hành động</TableCell>
+                            <TableCell style={{color: '#FFF'}}>Tên</TableCell>
+                            <TableCell style={{color: '#FFF'}} align="right">Email</TableCell>
+                            <TableCell style={{color: '#FFF'}} align="right">Số điện thoại</TableCell>
+                            <TableCell style={{color: '#FFF'}} align="right">Địa chỉ</TableCell>
+                            <TableCell style={{color: '#FFF'}} align="right">Trạng thái</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody >
                         {state.data.map((row) => (
-                            <TableRow key={row.name}>
+                            <TableRow key={row.name}  >
                                <TableCell> <Button variant="contained" size="small" color="secondary" onClick={() => handleClick(row)}>Cập nhật trạng thái</Button></TableCell> 
                                 <TableCell component="th" scope="row">
                                     {row.name}
                                 </TableCell>
-                                <TableCell align="right">{row.email}</TableCell>
+                                <TableCell  align="right">{row.email}</TableCell>
                                 <TableCell align="right">{row.phone}</TableCell>
                                 <TableCell align="right">{row.address}</TableCell>
                                 <TableCell align="right">{row.status}</TableCell>

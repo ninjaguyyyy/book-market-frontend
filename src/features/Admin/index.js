@@ -5,6 +5,7 @@ import Customers from "./pages/Customers/Customers";
 import Sellers from "./pages/Sellers";
 import Orders from "./pages/Orders/Orders";
 import AdminLayout from "../../components/Layout/admin/AdminLayout";
+import Books from "../Admin/pages/Books/Books"
 
 export default function Admin(props) {
     const match = useRouteMatch();
@@ -28,6 +29,11 @@ export default function Admin(props) {
                     exact
                     path={`${match.url}/orders`}
                     component={Customers}
+                />
+                <Route
+                    exact
+                    path={`${match.url}/books`}
+                    component={Books}
                 />
             </Switch>
         </AdminLayout>

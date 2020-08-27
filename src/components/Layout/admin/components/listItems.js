@@ -8,6 +8,7 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./listItems.scss";
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 export const mainListItems = (
     <div>
@@ -50,15 +51,15 @@ export const mainListItems = (
             </ListItem>
         </NavLink>
         <NavLink
-            to="/admin/aa"
+            to="/admin/books"
             className="item-sidebar"
             activeClassName="active-menu"
         >
             <ListItem button>
                 <ListItemIcon>
-                    <BarChartIcon />
+                    <MenuBookIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Khác" />
+                <ListItemText primary="Sách" />
             </ListItem>
         </NavLink>
     </div>

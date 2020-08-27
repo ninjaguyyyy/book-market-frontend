@@ -3,8 +3,15 @@ import axiosClient from "./axiosClient";
 const booksApi = {
     get: (params) => {
         const url = "api/books";
-        if(params.categoryId) params.page=1
         return axiosClient.get(url, { params });
+    },
+    getAll:()=>{
+        const url="api/books/all";
+        return axiosClient.get(url)
+    },
+    delete:(params)=>{
+        const url="api/books/delete";
+        return axiosClient.post(url,params)
     },
     getByCondition: (params) => {
         const url = "users/book-list";

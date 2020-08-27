@@ -70,6 +70,15 @@ export default function Sellers() {
     return (
         <MaterialTable
             title="Quản lý tài khoản người mua"
+            options={{
+                headerStyle: {
+                    backgroundColor: '#01579b',
+                    color: '#FFF'
+                },
+                rowStyle: {
+                    backgroundColor: '#EEE'
+                }
+            }}
             columns={state.columns}
             data={state.data}
             editable={{

@@ -129,6 +129,17 @@ function Orders() {
     return (
         <MaterialTable
             title="Editable Example"
+            options={{
+                headerStyle: {
+                    backgroundColor: '#01579b',
+                    color: '#FFF',
+                    paddingLeft:"50px"
+                },
+                rowStyle: {
+                    backgroundColor: '#EEE',
+                    marginLeft:"50px"
+                }
+            }}
             columns={columns}
             data={data}
             editable={{
