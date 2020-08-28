@@ -5,6 +5,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Alert from "@material-ui/lab/Alert";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FindInPageIcon from "@material-ui/icons/FindInPage";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
@@ -24,17 +25,28 @@ export default class BookCard extends Component {
     }
 
     render() {
-        const { size, book, type } = this.props;
+        const { size, book, type, handleDeleteFromFavorites } = this.props;
+        const isInFavorite = handleDeleteFromFavorites !== undefined;
         return (
             <Card className="BookCard">
                 <div className="hover">
                     <div className="layout">
                         <Link className="icon" to="#">
-                            <FavoriteIcon
-                                fontSize="large"
-                                onClick={this.handleNotSupport}
-                            />
+                            {isInFavorite ? (
+                                <DeleteForeverIcon
+                                    fontSize="large"
+                                    onClick={() =>
+                                        handleDeleteFromFavorites(book._id)
+                                    }
+                                />
+                            ) : (
+                                <FavoriteIcon
+                                    fontSize="large"
+                                    onClick={this.handleNotSupport}
+                                />
+                            )}
                         </Link>
+
                         <Link className="icon" to="#">
                             <ShoppingBasketIcon
                                 fontSize="large"

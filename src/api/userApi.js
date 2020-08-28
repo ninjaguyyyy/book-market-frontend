@@ -61,6 +61,10 @@ const userApi = {
         const url = "users/favorites";
         return axiosClient.get(url);
     },
+    deleteFromFavorite: (data) => {
+        const url = "users/favorites";
+        return axiosClient.delete(url, { data });
+    },
 };
 
 export default userApi;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
 
 import BookCard from "../../../../components/BookCard/BookCard";
 import userApi from "../../../../api/userApi";
@@ -12,7 +11,6 @@ export default function Favorites() {
     useEffect(() => {
         (async function () {
             let response = await userApi.getFavorites();
-            console.log(response);
             setFavorites(response.favorites);
         })();
         return () => {
@@ -20,11 +18,24 @@ export default function Favorites() {
         };
     }, []);
 
+    const handleDeleteFromFavorites = (idBook) => {
+        (async function () {
+            let response = await userApi.deleteFromFavorite({ idBook });
+            console.log(response);
+            if (response.success) {
+                setFavorites(response.favorites);
+            }
+        })();
+    };
+
     const renderBooks = () => {
         if (favorites.length) {
             return favorites.map((book) => (
                 <Grid item key={book._id} lg={3} md={3} xs={12}>
-                    <BookCard book={book.book} />
+                    <BookCard
+                        book={book.book}
+                        handleDeleteFromFavorites={handleDeleteFromFavorites}
+                    />
                 </Grid>
             ));
         } else {
