@@ -1,25 +1,31 @@
 import AppBar from "@material-ui/core/AppBar";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from '@material-ui/icons/Search';
+import SearchBar from "material-ui-search-bar";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { fade, makeStyles } from "@material-ui/core/styles";
+import TextField from '@material-ui/core/TextField';
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import ContactMailIcon from "@material-ui/icons/ContactMail";
 import MailIcon from "@material-ui/icons/Mail";
 import MenuIcon from "@material-ui/icons/Menu";
-import _ from "lodash";
+import _, { size } from "lodash";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import React from "react";
-import { connect } from "react-redux";
+import { connect,useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import LogoImg from "../../../../../assets/images/bookstor_compact.webp";
 import { isLogin, removeSession } from "../../../../../utils/auth";
 import "./Header.scss";
+import { TextareaAutosize } from "@material-ui/core";
+import booksApi from "../../../../../api/booksApi";
+import { getBooks } from "../../../../../actions/books"
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -83,12 +89,16 @@ const useStyles = makeStyles((theme) => ({
             display: "none",
         },
     },
+    multilineColor: {
+        color: 'white'
+    }
 }));
 
 function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const dispatch = useDispatch();
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -96,6 +106,35 @@ function PrimarySearchAppBar(props) {
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+    const handleSearchChange=async (event)=>{
+        const keyword={
+            keyword:event.target.value
+        }
+        const response = await booksApi.search(keyword);
+        const result ={
+            docs:response,
+            total:response.length,
+            limit:response.length,
+            page:1,
+            pages:1
+        }
+        let action = await getBooks(result);
+        dispatch(action)
+        console.log(keyword.keyword.length)
+        if(keyword.keyword.length==0)
+        {
+            let params = {
+                page: 1,
+                perPage: 8,
+            };
+
+            const response = await booksApi.get(params);
+            let action = await getBooks(response);
+            console.log(action)
+            dispatch(action);
+        }
+    }
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
@@ -139,25 +178,25 @@ function PrimarySearchAppBar(props) {
                     </MenuItem>
                 </div>
             ) : (
-                <div>
-                    <MenuItem>
-                        <Link onClick={handleMenuClose} to="/buyer/">
-                            Quản lý tài khoản
+                    <div>
+                        <MenuItem>
+                            <Link onClick={handleMenuClose} to="/buyer/">
+                                Quản lý tài khoản
                         </Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link
-                            onClick={() => {
-                                handleMenuClose();
-                                handleLogout();
-                            }}
-                            to="/shop"
-                        >
-                            Đăng xuất
+                        </MenuItem>
+                        <MenuItem>
+                            <Link
+                                onClick={() => {
+                                    handleMenuClose();
+                                    handleLogout();
+                                }}
+                                to="/shop"
+                            >
+                                Đăng xuất
                         </Link>
-                    </MenuItem>
-                </div>
-            )}
+                        </MenuItem>
+                    </div>
+                )}
         </Menu>
     );
 
@@ -231,6 +270,20 @@ function PrimarySearchAppBar(props) {
 
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
+                            <IconButton
+                                aria-label="show 4 new mails"
+                                color="inherit"
+                                borderRadius="0px"
+                                style={{border:"none"}}
+                            >
+                                <Badge
+                                >
+                                    <SearchIcon />
+                                    <TextField InputProps={{className: classes.multilineColor}} 
+                                    onChange={handleSearchChange}
+                                    />
+                                </Badge>
+                            </IconButton>
                             <Link to="/shop/cart" style={{ color: "#fff" }}>
                                 <IconButton
                                     aria-label="show 4 new mails"
@@ -260,8 +313,8 @@ function PrimarySearchAppBar(props) {
                                 {isLogin() ? (
                                     <ContactMailIcon />
                                 ) : (
-                                    <AccountCircle />
-                                )}
+                                        <AccountCircle />
+                                    )}
                             </IconButton>
                         </div>
                         <div className={classes.sectionMobile}>

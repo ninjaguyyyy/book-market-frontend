@@ -21,6 +21,10 @@ const booksApi = {
         const url = `api/books/${idBook}`;
         return axiosClient.get(url);
     },
+    search:(keyword)=>{
+        const url="api/books/search"
+        return axiosClient.post(url,keyword)
+    }
 };
 
 export default booksApi;

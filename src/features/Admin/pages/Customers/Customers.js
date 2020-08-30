@@ -14,14 +14,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper'
 
-async function handleClick (row){
-    const {email,status}=row
-    const params={
-        email,
-        status
-    }
-    await adminApi.changeStatus(params)
-}
+
 
 export default function Customer() {
     const [state, setState] = React.useState({
@@ -39,7 +32,42 @@ export default function Customer() {
         data: [
         ],
     });
-
+    async function handleClick(row) {
+        const { email, status } = row
+        const params = {
+            email,
+            status
+        }
+        await adminApi.changeStatus(params)
+        const response = await adminApi.get({role:2})
+        console.log(response)
+        var users = []
+        for (let i = 0; i < response.data.length; i++) {
+            if (response.data[i].status == 0) var Status = "Đã bị ban"
+            else Status = "Đang hoạt động"
+            const result = {
+                name: response.data[i].username,
+                email: response.data[i].email,
+                phone: response.data[i].phone,
+                address: response.data[i].address,
+                status: Status
+            }
+            users.push(result)
+        }
+        setState({
+            columns: [
+                { title: "Tên", field: "name" },
+                { title: "Email", field: "email" },
+                { title: "Sđt", field: "phone" },
+                { title: "Địa chỉ", field: "address" },
+                {
+                    title: "Status",
+                    field: "status",
+                },
+            ],
+            data: users
+        })
+    }
     useEffect(() => {
         // execute after first render
         (async () => {
@@ -88,33 +116,33 @@ export default function Customer() {
         };
     }, []);
 
-    
+
 
     return (
         <div>
             <TableContainer>
-                <Table  aria-label="simple table">
+                <Table aria-label="simple table">
                     <TableHead>
-                        <TableRow style={{backgroundColor:"#01579b"}}>
-                            <TableCell style={{color: '#FFF'}}>Hành động</TableCell>
-                            <TableCell style={{color: '#FFF'}}>Tên</TableCell>
-                            <TableCell style={{color: '#FFF'}} align="right">Email</TableCell>
-                            <TableCell style={{color: '#FFF'}} align="right">Số điện thoại</TableCell>
-                            <TableCell style={{color: '#FFF'}} align="right">Địa chỉ</TableCell>
-                            <TableCell style={{color: '#FFF'}} align="right">Trạng thái</TableCell>
+                        <TableRow style={{ backgroundColor: "#01579b" }}>
+                            <TableCell style={{ color: '#FFF' }}>Hành động</TableCell>
+                            <TableCell style={{ color: '#FFF' }}>Tên</TableCell>
+                            <TableCell style={{ color: '#FFF' }} align="right">Email</TableCell>
+                            <TableCell style={{ color: '#FFF' }} align="right">Số điện thoại</TableCell>
+                            <TableCell style={{ color: '#FFF' }} align="right">Địa chỉ</TableCell>
+                            <TableCell style={{ color: '#FFF' }} align="right">Trạng thái</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody >
                         {state.data.map((row) => (
                             <TableRow key={row.name}  >
-                               <TableCell> <Button variant="contained" size="small" color="secondary" onClick={() => handleClick(row)}>Cập nhật trạng thái</Button></TableCell> 
-                                <TableCell component="th" scope="row">
+                                <TableCell style={{ backgroundColor: '#FFF' }}> <Button variant="contained" size="small" color="secondary" onClick={() => handleClick(row)}>Cập nhật trạng thái</Button></TableCell>
+                                <TableCell component="th" scope="row" style={{ backgroundColor: '#FFF' }}>
                                     {row.name}
                                 </TableCell>
-                                <TableCell  align="right">{row.email}</TableCell>
-                                <TableCell align="right">{row.phone}</TableCell>
-                                <TableCell align="right">{row.address}</TableCell>
-                                <TableCell align="right">{row.status}</TableCell>
+                                <TableCell style={{ backgroundColor: '#FFF' }} align="right">{row.email}</TableCell>
+                                <TableCell style={{ backgroundColor: '#FFF' }} align="right">{row.phone}</TableCell>
+                                <TableCell style={{ backgroundColor: '#FFF' }} align="right">{row.address}</TableCell>
+                                <TableCell style={{ backgroundColor: '#FFF' }} align="right">{row.status}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

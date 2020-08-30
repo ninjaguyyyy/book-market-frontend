@@ -17,6 +17,7 @@
         "formik": "^2.1.4",
         "lodash": "^4.17.15",
         "material-table": "^1.66.0",
+        "material-ui-search-bar": "^1.0.0",
         "moment": "^2.27.0",
         "query-string": "^6.13.1",
         "react": "^16.13.1",

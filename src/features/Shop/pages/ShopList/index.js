@@ -20,7 +20,7 @@ const ShopList = (props) => {
             try {
                 let params = {
                     page: page,
-                    perPage: 5,
+                    perPage: 8,
                     categoryId: category,
                 };
 
