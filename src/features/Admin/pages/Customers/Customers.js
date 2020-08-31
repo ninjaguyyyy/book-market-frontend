@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from "react";
-import MaterialTable from "material-table";
+import React, { useEffect } from "react";
 import adminApi from "../../../../api/adminApi";
-import { repeat } from "lodash";
-import user from "../../../../reducers/user";
-import { Modal } from "antd"
-import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Button from "@material-ui/core/Button";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper'
 
 
 
@@ -43,7 +37,7 @@ export default function Customer() {
         console.log(response)
         var users = []
         for (let i = 0; i < response.data.length; i++) {
-            if (response.data[i].status == 0) var Status = "Đã bị ban"
+            if (response.data[i].status === 0) var Status = "Đã bị ban"
             else Status = "Đang hoạt động"
             const result = {
                 name: response.data[i].username,
@@ -82,7 +76,7 @@ export default function Customer() {
                 // let resDispatch = dispatch(action);
                 var users = []
                 for (let i = 0; i < response.data.length; i++) {
-                    if (response.data[i].status == 0) var status = "Đã bị ban"
+                    if (response.data[i].status === 0) var status = "Đã bị ban"
                     else status = "Đang hoạt động"
                     const result = {
                         name: response.data[i].username,

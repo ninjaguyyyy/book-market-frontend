@@ -23,7 +23,7 @@ function renderStatus(id) {
 }
 
 function Orders() {
-    const [columns, setColumns] = useState([
+    const [columns] = useState([
         { title: "Khách hàng", field: "customer" },
         {
             title: "Giỏ hàng",

@@ -27,7 +27,7 @@ class Cart extends Component {
                 };
                 const response = await cartApi.remove(params);
                 let action = setCart(response.data);
-                let resDispatch = store.dispatch(action);
+                 store.dispatch(action);
             } catch (error) {
                 console.log(`failed remove cart api as ${error}`);
             }
@@ -43,7 +43,7 @@ class Cart extends Component {
                 };
                 const response = await cartApi.update(params);
                 let action = setCart(response.data);
-                let resDispatch = store.dispatch(action);
+                store.dispatch(action);
             } catch (error) {
                 console.log(`failed update cart as ${error}`);
             }

@@ -21,7 +21,7 @@ function renderStatus(id) {
 }
 
 export default function Orders() {
-    const [columns, setColumns] = useState([
+    const [columns] = useState([
         {
             title: "Giỏ hàng",
             field: "cart",

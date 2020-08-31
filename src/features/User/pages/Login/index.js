@@ -8,8 +8,6 @@ import userApi from "../../../../api/userApi";
 import LoginForm from "../../components/LoginForm";
 import { setSession } from "../../../../utils/auth";
 import "./styles.scss";
-import { Modal, Button } from "react-bootstrap";
-import { makeStyles } from "@material-ui/core/styles";
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -59,7 +57,6 @@ class LoginPage extends React.Component {
         })();
     }
     render() {
-        const { isloginFail } = this.state;
         return (
             <Container component="main" maxWidth="xs" className="login">
                 <div className="paper">
