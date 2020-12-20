@@ -18,6 +18,7 @@ Deploy: https://bookstore-online.netlify.app/
 `Seller`
 - Manage books (get, delete, add)
 - Manage orders (get, update)
+
 `Admin`
 - Manage buyers (get)
 - Manage sellers (get, prohibit seller role) 
