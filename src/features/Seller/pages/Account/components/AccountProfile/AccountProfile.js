@@ -8,25 +8,25 @@ import {
   Modal,
   Snackbar,
   Typography,
-} from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import { makeStyles } from "@material-ui/styles";
-import clsx from "clsx";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { updateAvatar } from "../../../../../../actions/user";
-import userApi from "../../../../../../api/userApi";
-import StoreImg from "../../../../../../assets/images/store_img.png";
-import DraggableUploader from "../../../../../../components/imageUploader/DraggableUploader";
+} from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
+import { makeStyles } from '@material-ui/styles';
+import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateAvatar } from '../../../../../../redux/actions/user';
+import userApi from '../../../../../../api/userApi';
+import StoreImg from '../../../../../../assets/images/store_img.png';
+import DraggableUploader from '../../../../../../components/imageUploader/DraggableUploader';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
   details: {
-    display: "flex",
+    display: 'flex',
   },
   avatar: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
     height: 110,
     width: 100,
     flexShrink: 0,
@@ -37,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
   handleAvatarButton: {
     marginRight: theme.spacing(2),
-    letterSpacing: "2px!important",
+    letterSpacing: '2px!important',
   },
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));
 
@@ -61,7 +61,7 @@ const AccountProfile = (props) => {
   function receiveFile(files) {
     (async function () {
       let formData = new FormData();
-      formData.append("avatar", files[0]);
+      formData.append('avatar', files[0]);
       const response = await userApi.uploadAvatar(formData);
       if (response.success) {
         dispatch(updateAvatar(response.avatar));

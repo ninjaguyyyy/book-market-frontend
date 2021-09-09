@@ -1,129 +1,114 @@
-import React, { Component } from "react";
-import { Col, Container, Row } from "reactstrap";
-import { connect } from "react-redux";
-import _ from "lodash";
-
-import AvatarStore from "./components/AvatarStore";
-import InfoStore from "./components/InfoStore";
-
-import ReviewStore from "./components/ReviewStore";
-import ProductStore from "./components/ProductStore";
-import booksApi from "../../../../api/booksApi";
-import userApi from "../../../../api/userApi";
-import { getBooksStore } from "../../../../actions/books";
-import { setComments } from "../../../../actions/user";
-import "./index.scss";
+import _ from 'lodash';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Col, Container, Row } from 'reactstrap';
+import { booksApi } from '../../../../api';
+import userApi from '../../../../api/userApi';
+import { setComments } from '../../../../redux/actions/user';
+import AvatarStore from './components/AvatarStore';
+import InfoStore from './components/InfoStore';
+import ProductStore from './components/ProductStore';
+import ReviewStore from './components/ReviewStore';
+import './index.scss';
 
 class ShopStore extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            seller: {},
-            idStore: "",
-        };
-        this.onChangePagination = this.onChangePagination.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      seller: {},
+      idStore: props.match.params.id_store,
+      books: {},
+      page: 1,
+    };
+    this.onChangePagination = this.onChangePagination.bind(this);
+  }
+
+  componentDidMount() {
+    this.getSellerInfo();
+    this.fetchBooks();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    prevState.page !== this.state.page && this.fetchBooks();
+  }
+
+  async fetchBooks() {
+    try {
+      let params = {
+        page: this.state.page,
+        perPage: 4,
+        sellerId: this.state.idStore,
+      };
+      const response = await booksApi.get(params);
+      this.setState({ books: response });
+    } catch (error) {
+      console.log(`Failed call api because ${error}`);
     }
-    componentDidMount() {
-        (async () => {
-            try {
-                let idStore = this.props.match.params.id_store;
-                this.setState({ idStore });
-                let params = {
-                    page: 1,
-                    perPage: 4,
-                    sellerId: idStore,
-                };
-                const response = await booksApi.get(params);
-                const resGetUser = await userApi.getById({ ID: idStore });
-                this.setState({
-                    seller: { ...resGetUser },
-                });
-                let action = await getBooksStore(response);
+  }
 
-                this.props.dispatch(action);
-                this.props.dispatch(setComments(resGetUser.comments));
-            } catch (error) {
-                console.log(`failed post register as ${error}`);
-            }
-        })();
-    }
+  async getSellerInfo() {
+    const resGetUser = await userApi.getById({ ID: this.state.idStore });
+    this.setState({
+      seller: { ...resGetUser },
+    });
 
-    onChangePagination(e, page) {
-        (async () => {
-            try {
-                let idStore = this.props.match.params.id_store;
+    this.props.dispatch(setComments(resGetUser.comments));
+  }
 
-                let params = {
-                    page: page,
-                    perPage: 4,
-                    sellerId: idStore,
-                };
-                const response = await booksApi.get(params);
+  onChangePagination(e, page) {
+    this.setState({ page });
+  }
 
-                let action = await getBooksStore(response);
-                this.props.dispatch(action);
-
-                // console.log(resDispatch);
-            } catch (error) {
-                console.log(`failed post register as ${error}`);
-            }
-        })();
-    }
-
-    render() {
-        let { booksStore } = this.props;
-        let { seller } = this.state;
-        console.log(seller);
-        return (
-            <div className="shop-store">
-                <Container className="shop-store">
-                    <Row>
-                        <Col xs={3}>
-                            {_.isEmpty(seller) ? (
-                                <h1>k co</h1>
-                            ) : (
-                                <div>
-                                    <AvatarStore seller={seller} />
-                                </div>
-                            )}
-                        </Col>
-                        <Col xs={9}>
-                            <Row>
-                                <Col>
-                                    <InfoStore />
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    {_.isEmpty(booksStore) ? (
-                                        <h1>k co</h1>
-                                    ) : (
-                                        <div>
-                                            <ProductStore
-                                                onChangePagination={
-                                                    this.onChangePagination
-                                                }
-                                                booksStore={booksStore}
-                                            />
-                                        </div>
-                                    )}
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <ReviewStore idStore={this.state.idStore} />
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
-        );
-    }
+  render() {
+    let { books, seller } = this.state;
+    return (
+      <div className="shop-store">
+        <Container className="shop-store">
+          <Row>
+            <Col xs={3}>
+              {_.isEmpty(seller) ? (
+                <h1>k co</h1>
+              ) : (
+                <div>
+                  <AvatarStore seller={seller} />
+                </div>
+              )}
+            </Col>
+            <Col xs={9}>
+              <Row>
+                <Col>
+                  <InfoStore />
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  {_.isEmpty(books) ? (
+                    <h1>k co</h1>
+                  ) : (
+                    <div>
+                      <ProductStore
+                        onChangePagination={this.onChangePagination}
+                        booksStore={books}
+                      />
+                    </div>
+                  )}
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <ReviewStore idStore={this.state.idStore} />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state) => ({
-    booksStore: state.books.booksStore,
+  booksStore: state.books.booksStore,
 });
 
 export default connect(mapStateToProps, null)(ShopStore);

@@ -1,17 +1,17 @@
-import Pagination from "@material-ui/lab/Pagination";
-import React, { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { Col, Container, Row } from "reactstrap";
-import { getBooks, getCategories } from "../../../../actions/books";
-import booksApi from "../../../../api/booksApi";
-import categoriesApi from "../../../../api/categoriesApi";
-import BookCard from "../../../../components/BookCard/BookCard";
-import CardFilterCategory from "./components/CardFilterCategory/CardFilterCategory";
-import "./index.scss";
+import Pagination from '@material-ui/lab/Pagination';
+import React, { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { Col, Container, Row } from 'reactstrap';
+import { getBooks, getCategories } from '../../../../redux/actions/books';
+import { booksApi } from '../../../../api';
+import categoriesApi from '../../../../api/categoriesApi';
+import BookCard from '../../../../components/BookCard/BookCard';
+import CardFilterCategory from './components/CardFilterCategory/CardFilterCategory';
+import './index.scss';
 
 const ShopList = (props) => {
   const [page, setPage] = useState(1);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -62,7 +62,7 @@ const ShopList = (props) => {
           <Row>
             {props.booksShop.total &&
               props.booksShop.docs.map((book) => (
-                <Col xs={3} key={book._id} style={{ marginBottom: "25px" }}>
+                <Col xs={3} key={book._id} style={{ marginBottom: '25px' }}>
                   <BookCard book={book} />
                 </Col>
               ))}

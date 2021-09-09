@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import { Col, Container, Row } from "reactstrap";
-import { connect } from "react-redux";
-import cartApi from "../../../../api/cartApi";
-import { getCartDetails } from "../../../../actions/user";
-import Payment from "./components/Payment";
-import CartItem from "./components/CartItem";
-import _ from "lodash";
-import "./index.scss";
-import { setCart } from "../../../../actions/cart";
-import store from "../../../../app/store";
+import React, { Component } from 'react';
+import { Col, Container, Row } from 'reactstrap';
+import { connect } from 'react-redux';
+import cartApi from '../../../../api/cartApi';
+import { getCartDetails } from '../../../../redux/actions/user';
+import Payment from './components/Payment';
+import CartItem from './components/CartItem';
+import _ from 'lodash';
+import './index.scss';
+import { setCart } from '../../../../redux/actions/cart';
+import store from '../../../../redux/store';
 
 class Cart extends Component {
   async componentDidMount() {
